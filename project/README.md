@@ -1,0 +1,3 @@
+# ai-fight-unity
+
+This is the source code for our Unity video game project. This project has some of it's larger binary files stored separately, you can download them from [here](https://hameenamk-my.sharepoint.com/:u:/g/personal/aki22003_student_hamk_fi/EQsVfWrNOQdMuJi0m2Z3tcQB144llEBuoF6dQK016yP-8g?e=voVXuB) if you need access to them. You need to just extract the .tar archive into the project folder you pull from git.
