@@ -167,7 +167,7 @@ MonoBehaviour:
   mixerGroup: {fileID: 24300002, guid: 08ef7112a01a2634f8d64f025ab4ef08, type: 2}
   log: 0
   sounds:
-  - name: bgm_owl_dev
+  - name: bgm_wld_dev
     multipleClips: 0
     clip: {fileID: 8300000, guid: be90510e896e9784aa2e22370e16c06c, type: 3}
     clips:
@@ -196,7 +196,7 @@ MonoBehaviour:
     hasMultipleSources: 0
   - name: bgm_btl_dev
     multipleClips: 0
-    clip: {fileID: 8300000, guid: 79f0d9694dc0bdf4b9931d24ae4248d9, type: 3}
+    clip: {fileID: 8300000, guid: 8263935ea5b0f634486a57faffc5ea92, type: 3}
     clips:
       array: []
     mixerGroup: {fileID: -217289627808040508, guid: 08ef7112a01a2634f8d64f025ab4ef08, type: 2}
@@ -209,7 +209,7 @@ MonoBehaviour:
     specificScenesOnly: []
     loop: 1
     priority: 128
-    volume: 0.2
+    volume: 0.25
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0
@@ -291,6 +291,141 @@ MonoBehaviour:
     loop: 0
     priority: 128
     volume: 0.25
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    stereoPan: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    positions:
+    - {x: 0, y: 0, z: 0}
+    source: {fileID: 0}
+    sources: []
+    hasMultipleSources: 0
+  - name: sfx_ui_open_battle
+    multipleClips: 0
+    clip: {fileID: 8300000, guid: 5cb75a32ca8f1d4479c710898b8da696, type: 3}
+    clips:
+      array: []
+    mixerGroup: {fileID: 24300002, guid: 08ef7112a01a2634f8d64f025ab4ef08, type: 2}
+    maxInstances: 4
+    mute: 0
+    bypassEffects: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    playOnAwake: 0
+    specificScenesOnly: []
+    loop: 0
+    priority: 128
+    volume: 0.25
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    stereoPan: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    positions:
+    - {x: 0, y: 0, z: 0}
+    source: {fileID: 0}
+    sources: []
+    hasMultipleSources: 0
+  - name: sfx_ui_system_dialogue
+    multipleClips: 0
+    clip: {fileID: 8300000, guid: 29abbd0d201e8204186d415802728f58, type: 3}
+    clips:
+      array: []
+    mixerGroup: {fileID: 24300002, guid: 08ef7112a01a2634f8d64f025ab4ef08, type: 2}
+    maxInstances: 16
+    mute: 0
+    bypassEffects: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    playOnAwake: 0
+    specificScenesOnly: []
+    loop: 0
+    priority: 128
+    volume: 0.25
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    stereoPan: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    positions:
+    - {x: 0, y: 0, z: 0}
+    source: {fileID: 0}
+    sources: []
+    hasMultipleSources: 0
+  - name: sfx_ui_cat_dialogue
+    multipleClips: 0
+    clip: {fileID: 8300000, guid: c33c811c0cb3b5f4ba10e0ab0b881564, type: 3}
+    clips:
+      array: []
+    mixerGroup: {fileID: 24300002, guid: 08ef7112a01a2634f8d64f025ab4ef08, type: 2}
+    maxInstances: 16
+    mute: 0
+    bypassEffects: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    playOnAwake: 0
+    specificScenesOnly: []
+    loop: 0
+    priority: 128
+    volume: 0.25
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    stereoPan: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    positions:
+    - {x: 0, y: 0, z: 0}
+    source: {fileID: 0}
+    sources: []
+    hasMultipleSources: 0
+  - name: sfx_ch_hit_player
+    multipleClips: 0
+    clip: {fileID: 8300000, guid: df80713cfaa138e47ae1431937159c7c, type: 3}
+    clips:
+      array: []
+    mixerGroup: {fileID: 24300002, guid: 08ef7112a01a2634f8d64f025ab4ef08, type: 2}
+    maxInstances: 4
+    mute: 0
+    bypassEffects: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    playOnAwake: 0
+    specificScenesOnly: []
+    loop: 0
+    priority: 128
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    stereoPan: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    positions:
+    - {x: 0, y: 0, z: 0}
+    source: {fileID: 0}
+    sources: []
+    hasMultipleSources: 0
+  - name: sfx_ch_hit_boss
+    multipleClips: 0
+    clip: {fileID: 8300000, guid: 5cb75a32ca8f1d4479c710898b8da696, type: 3}
+    clips:
+      array: []
+    mixerGroup: {fileID: 24300002, guid: 08ef7112a01a2634f8d64f025ab4ef08, type: 2}
+    maxInstances: 4
+    mute: 0
+    bypassEffects: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    playOnAwake: 0
+    specificScenesOnly: []
+    loop: 0
+    priority: 128
+    volume: 1
     volumeVariance: 0
     pitch: 1
     pitchVariance: 0

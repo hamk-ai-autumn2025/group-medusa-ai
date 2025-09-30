@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -249,7 +248,7 @@ namespace dev.susybaka.Shared.Audio
 
             source.Play();
             Destroy(tempSource, source.clip.length + 0.5f);
-            Utilities.FunctionTimer.Create(this, () => DecrementSoundInstance(s), source.clip.length, $"AudioManager_Decrement_SoundInstance_{activeSoundInstances[s]}_Clip_{s.name}_Length_{source.clip.length}", false, false);
+            TurnBasedGame.Utilities.FunctionTimer.Create(this, () => DecrementSoundInstance(s), source.clip.length, $"AudioManager_Decrement_SoundInstance_{activeSoundInstances[s]}_Clip_{s.name}_Length_{source.clip.length}", false, false);
         }
 
         private void DecrementSoundInstance(Sound s)

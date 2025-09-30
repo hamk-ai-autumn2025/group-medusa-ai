@@ -10,6 +10,7 @@ project/ai-fight-unity/[Aa]ssets/[Aa]ssetStore/
 project/ai-fight-unity/[Aa]ssets/[Aa]sset Store/
 project/ai-fight-unity/[Aa]ssets/[Ss]ample/
 project/ai-fight-unity/[Aa]ssets/[Ss]amples/
+project/ai-fight-unity/[Aa]ssets/[Ss]prites/
 project/ai-fight-unity/[Aa]ssets/[Rr]esources/[Rr]untime/
 project/ai-fight-unity/[Aa]ssets/[Rr]esources/[Rr]untime/
 project/ai-fight-unity/[Aa]ssets/[Ss]hared/[Mm]odels/
@@ -109,6 +110,8 @@ sysinfo.txt
 *.zip.meta
 *.7z
 *.7z.meta
+*.tar
+*.tar.meta
 *.tar.gz
 *.tar.gz.meta
 *.gz
@@ -157,6 +160,10 @@ access_lfs_server.bat
 # gdrive components
 .gdrive/gdrive_config.txt
 console.cloud.google.txt
+
+# api keys
+project/ai-fight-unity/Assets/StreamingAssets/openai_key.txt
+project/ai-fight-unity/Assets/StreamingAssets/openai_key.txt.meta
 
 # --------------------------------------------------------------------------------------------------------------------------
 # --------------------------------------------------------------------------------------------------------------------------

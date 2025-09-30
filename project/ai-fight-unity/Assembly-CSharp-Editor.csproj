@@ -64,17 +64,13 @@
     <Compile Include="Assets\Scripts\Editor\FlagDrawer.cs" />
     <Compile Include="Assets\Scripts\Editor\TimeConversionToolWindow.cs" />
     <Compile Include="Assets\Scripts\Editor\EditorGUICustom.cs" />
-    <Compile Include="Assets\Scripts\Editor\BHeaderDrawer.cs" />
     <Compile Include="Assets\Scripts\Editor\LogBrokenEvents.cs" />
     <Compile Include="Assets\Scripts\Editor\SceneLoader.cs" />
-    <Compile Include="Assets\Scripts\Editor\SerializedPropertyExtensions.cs" />
     <Compile Include="Assets\Scripts\Editor\TextEntryDialog.cs" />
-    <Compile Include="Assets\Scripts\Editor\ShowIfDrawer.cs" />
     <Compile Include="Assets\Scripts\Editor\AssetBundleBuilderWindow.cs" />
     <Compile Include="Assets\Scripts\Editor\CleanUpMaterials.cs" />
-    <Compile Include="Assets\Scripts\Editor\ReorderableList.cs" />
+    <Compile Include="Assets\Scripts\Editor\ItemDataEditor.cs" />
     <Compile Include="Assets\Scripts\Editor\CursorNameDrawer.cs" />
-    <Compile Include="Assets\Scripts\Editor\ReorderableDrawer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

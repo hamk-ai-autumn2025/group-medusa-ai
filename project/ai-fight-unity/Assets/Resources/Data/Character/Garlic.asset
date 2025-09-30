@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 213e846a714e60847a58760362e5eab1, type: 3}
+  m_Name: Garlic
+  m_EditorClassIdentifier: 
+  characterName: Garlic
+  characterPortraits:
+  - {fileID: -2136750780, guid: 8e1c7851c1e0d1a4db173d86e9551b61, type: 3}
+  - {fileID: -1331244519, guid: 8e1c7851c1e0d1a4db173d86e9551b61, type: 3}
+  - {fileID: -1233557987, guid: 8e1c7851c1e0d1a4db173d86e9551b61, type: 3}
+  - {fileID: -1472289393, guid: 8e1c7851c1e0d1a4db173d86e9551b61, type: 3}
+  - {fileID: -1472289393, guid: 8e1c7851c1e0d1a4db173d86e9551b61, type: 3}
+  - {fileID: -2136750780, guid: 8e1c7851c1e0d1a4db173d86e9551b61, type: 3}
+  characterDialogueSound: sfx_ui_cat_dialogue
+  rootCommands: {fileID: 11400000, guid: df2a604e9810f8f428e8773fdc5916db, type: 2}
+  inventory: {fileID: 11400000, guid: a67daa26fe6078a4c88fcd934b60f224, type: 2}

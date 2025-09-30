@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e100a2eca9f16144b89bbd4c2d941a96, type: 3}
+  m_Name: RogueComputerTestYap
+  m_EditorClassIdentifier: 
+  dialogueName: Brok Test Yap
+  dialogue:
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0
+    text: Who might you be?
+  - speaker: {fileID: 11400000, guid: 02ebafa8ff5d34b4fa8244397aeb372e, type: 2}
+    portrait: 1
+    speed: 20
+    lineBreakPause: 0.75
+    text: '%p1Brok.
+
+      %p1Super advanced AI powered computer.'
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 4
+    speed: 20
+    lineBreakPause: 0
+    text: Who?
+  - speaker: {fileID: 11400000, guid: 9f589b09030d3c843b41c13e7c976fee, type: 2}
+    portrait: 4
+    speed: 20
+    lineBreakPause: 0
+    text: Meow.
+  - speaker: {fileID: 11400000, guid: 02ebafa8ff5d34b4fa8244397aeb372e, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.75
+    text: '%p3You don''t know me?
+
+      %p2Do you live under a rock?
+
+      %p2That''s
+      it, you had this coming!'
+  onComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 5fcb784033aeba743bb12731699dd8de, type: 2}
+        m_TargetAssemblyTypeName: TriggerBattleEvent, Assembly-CSharp
+        m_MethodName: TriggerEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

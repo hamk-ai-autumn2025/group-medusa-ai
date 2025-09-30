@@ -1,6 +1,6 @@
 using UnityEditor;
 using UnityEngine;
-using static dev.susybaka.TurnBasedGame.Core.GlobalData;
+using dev.susybaka.TurnBasedGame.Globals;
 
 [CustomPropertyDrawer(typeof(Flag))]
 public class FlagDrawer : PropertyDrawer
@@ -67,7 +67,7 @@ public class FlagDrawer : PropertyDrawer
         yOffset += lineHeight;
 
         // Draw Threshold Percentage (only if Threshold logic is selected)
-        if ((Flag.AggregateLogic)logicProp.enumValueIndex == Flag.AggregateLogic.Threshold)
+        if ((FlagAggregateLogic)logicProp.enumValueIndex == FlagAggregateLogic.Threshold)
         {
             SerializedProperty thresholdProp = property.FindPropertyRelative("thresholdPercentage");
             EditorGUI.PropertyField(new Rect(position.x, yOffset, position.width, lineHeight), thresholdProp, new GUIContent("Threshold %"));
@@ -125,7 +125,7 @@ public class FlagDrawer : PropertyDrawer
         // Add heights for all visible fields
         height += lineHeight * 2; // Name and Logic fields
         SerializedProperty logicProp = property.FindPropertyRelative("logic");
-        if ((Flag.AggregateLogic)logicProp.enumValueIndex == Flag.AggregateLogic.Threshold)
+        if ((FlagAggregateLogic)logicProp.enumValueIndex == FlagAggregateLogic.Threshold)
         {
             height += lineHeight; // Add for Threshold field if logic is Threshold
         }
