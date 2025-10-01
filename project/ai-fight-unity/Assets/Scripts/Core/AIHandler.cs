@@ -11,7 +11,6 @@ namespace dev.susybaka.TurnBasedGame.AI
 {
     public class AIHandler : MonoBehaviour
     {
-        // ====== Data you pass in ======
         [Serializable] public class PartyMember { public string id; public int hp; public bool alive = true; }
         [Serializable] public class Ability { public string id; public string description; } // e.g., ["aoe","fire"]
         //[Serializable] public class RecentBehavior { public string element_spam; public int guard_streak; }
@@ -27,7 +26,6 @@ namespace dev.susybaka.TurnBasedGame.AI
             public List<string> valid_targets = new();
         }
 
-        // ====== Chat request/response DTOs ======
         [Serializable] class ChatMessage { public string role; public string content; }
         [Serializable] class RespFmt { public string type = "json_object"; }
         [Serializable]
@@ -45,7 +43,6 @@ namespace dev.susybaka.TurnBasedGame.AI
 
         const string Endpoint = "https://api.openai.com/v1/chat/completions";
 
-        // Public entrypoint: call inside your enemy AI coroutine and yield on it.
         public IEnumerator DecideCoroutine(Snapshot snapshot, Action<Decision> onComplete)
         {
             // Build the user payload once
@@ -74,7 +71,6 @@ namespace dev.susybaka.TurnBasedGame.AI
             yield return StartCoroutine(PostWithRetries(Endpoint, apiKey, reqJson, www => {
                 if (www.result == UnityWebRequest.Result.Success)
                 {
-                    // parse as before
                     Decision decision = null;
                     try
                     {
@@ -93,29 +89,10 @@ namespace dev.susybaka.TurnBasedGame.AI
                 }
                 else
                 {
-                    // log body to see if it's quota: Debug.Log(www.downloadHandler.text);
-                    //decision = RandomFallback(snapshot);
                     Debug.LogWarning($"UnityWebRequest failed!\nText: '{www.downloadHandler.text}'\nError: '{www.error}'");
                     onComplete?.Invoke(RandomFallback(snapshot));
                 }
-            }));
-
-            /*using var www = new UnityWebRequest(Endpoint, "POST");
-            byte[] body = Encoding.UTF8.GetBytes(reqJson);
-            www.uploadHandler = new UploadHandlerRaw(body);
-            www.downloadHandler = new DownloadHandlerBuffer();
-            www.SetRequestHeader("Content-Type", "application/json");
-            www.SetRequestHeader("Authorization", "Bearer " + apiKey);
-            yield return www.SendWebRequest();
-
-            if (www.result != UnityWebRequest.Result.Success)
-            {
-                Debug.LogWarning($"UnityWebRequest Error: {www.error}");
-                onComplete?.Invoke(RandomFallback(snapshot));
-                yield break;
-            }*/
-
-            
+            }));          
         }
 
         static float nextOkTime;
@@ -162,7 +139,7 @@ namespace dev.susybaka.TurnBasedGame.AI
                 yield break;
             }
         }
-        // ====== Helpers ======
+
         static string LoadApiKey()
         {
             try
@@ -211,7 +188,7 @@ namespace dev.susybaka.TurnBasedGame.AI
             return new Decision { ability_id = ability, target_id = target, rationale = "fallback-random" };
         }
 
-        // Example: build the Snapshot JSON from your current state
+        // Build the Snapshot JSON from your current state
         public static Snapshot BuildSnapshot(
             int turn, int bossHp,
             IEnumerable<(string id, int hp, bool alive)> party,
