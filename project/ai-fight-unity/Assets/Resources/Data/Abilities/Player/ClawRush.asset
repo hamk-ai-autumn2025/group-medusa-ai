@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-2946655828985438385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36dc94234817cd7439e7853b5dbc9da2, type: 3}
+  m_Name: DealDamageClawRush
+  m_EditorClassIdentifier: 
+  amount: -20
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e92850a4241af48ab64af3c4fcabbc, type: 3}
+  m_Name: ClawRush
+  m_EditorClassIdentifier: 
+  displayName: Claw Rush
+  description: Attack an opponent with your claws dealing 20 piercing damage.
+  tags: []
+  requiresTarget: 1
+  targetGroup: 3
+  consumesMana: 0
+  consumedMana: 0
+  restoresMana: 0
+  restoredMana: 0
+  consumesActionPoints: 0
+  consumedActionPoints: 0
+  restoresActionPoints: 0
+  restoredActionPoints: 0
+  dealsDamage: 1
+  amountDamage: -20
+  conditions: []
+  effects:
+  - {fileID: -2946655828985438385}
+  minigame: {fileID: 0}

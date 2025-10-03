@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Magic
   m_EditorClassIdentifier: 
   displayName: Magic
-  description: 
+  description: Choose a spell to use.
   type: 1
   ability: {fileID: 0}
   children: []

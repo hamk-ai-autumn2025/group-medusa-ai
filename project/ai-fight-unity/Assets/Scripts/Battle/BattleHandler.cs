@@ -82,6 +82,8 @@ namespace dev.susybaka.TurnBasedGame.Battle
                 turnSystem = gameObject.AddComponent<TurnSystem>();
 
             turnSystem.Initialize(manager, battleWindow.PartyMembers);
+            allies.Initialize(manager);
+            enemies.Initialize(manager);
 
             EndBattle();
         }
@@ -99,7 +101,7 @@ namespace dev.susybaka.TurnBasedGame.Battle
 
             battleWindow.OpenPartyWindow(allies);
 
-            battleWindow.UltimateBar.OpenWindow();
+            battleWindow.ActionPointBar.OpenWindow();
             gameManager.HudNavigationHandler?.OpenRoot(battleWindow.PartyMembers);
             //battleWindow.PartyMembers.OpenWindow(); No need, opened in OpenRoot()
 
@@ -197,7 +199,7 @@ namespace dev.susybaka.TurnBasedGame.Battle
 
             gameManager.HudNavigationHandler?.CloseRoot();
 
-            battleWindow.UltimateBar.CloseWindow();
+            battleWindow.ActionPointBar.CloseWindow();
             //battleWindow.PartyMembers.CloseWindow(); No need, closed in CloseRoot()
             battleWindow.ActionWindow.CloseWindow();
             battleWindow.TargetWindow.CloseWindow();
@@ -207,6 +209,18 @@ namespace dev.susybaka.TurnBasedGame.Battle
 
             active = false;
             Debug.Log("Battle Ended!");
+        }
+
+        public void UpdateTurnState(int turn)
+        {
+            for (int i = 0; i < allies.members.Count; i++)
+            {
+                allies.members[i].UpdateTurnState(turn);
+            }
+            for (int i = 0; i < enemies.members.Count; i++)
+            {
+                enemies.members[i].UpdateTurnState(turn);
+            }
         }
 
         public void PerformPlayerTurn()
@@ -233,6 +247,20 @@ namespace dev.susybaka.TurnBasedGame.Battle
                 currentTargets[source] = target;
             else if (currentTargets.ContainsKey(source))
                 currentTargets.Remove(source);
+        }
+
+        public void ShowDescription(string text)
+        {
+            battleWindow.DescriptionWindow.SetText(text);
+            if (!battleWindow.DescriptionWindow.isOpen)
+                battleWindow.DescriptionWindow.OpenWindow();
+        }
+
+        public void HideDescription()
+        {
+            battleWindow.DescriptionWindow.ClearText();
+            if (battleWindow.DescriptionWindow.isOpen)
+                battleWindow.DescriptionWindow.CloseWindow();
         }
     }
 }

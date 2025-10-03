@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Item
   m_EditorClassIdentifier: 
   displayName: Item
-  description: 
+  description: Choose an item to use.
   type: 1
   ability: {fileID: 0}
   children: []

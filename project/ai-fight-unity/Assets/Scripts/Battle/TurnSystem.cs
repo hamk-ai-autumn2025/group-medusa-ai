@@ -6,8 +6,8 @@ using dev.susybaka.TurnBasedGame.Battle.Data;
 using dev.susybaka.TurnBasedGame.Characters;
 using dev.susybaka.TurnBasedGame.Minigame;
 using dev.susybaka.TurnBasedGame.UI;
+using Unity.VisualScripting;
 using UnityEngine;
-using static dev.susybaka.TurnBasedGame.AI.AIHandler;
 
 namespace dev.susybaka.TurnBasedGame.Battle
 {
@@ -51,6 +51,7 @@ namespace dev.susybaka.TurnBasedGame.Battle
             while (true)
             {
                 currentTurn++;
+                battleHandler.UpdateTurnState(currentTurn);
 
                 yield return IE_PlayerPlanning();
                 if (CheckWinLose())
@@ -123,7 +124,8 @@ namespace dev.susybaka.TurnBasedGame.Battle
                 // float mult = 1f;
                 // yield return RhythmRunner.Play(intent.actor, intent.ability, v => mult = v);
 
-                ActionContext ctx = new ActionContext(gameManager, battleHandler, intent.actor, intent.targets, intent.ability);
+                // Skip for now, because it is not used right now
+                //ActionContext ctx = new ActionContext(gameManager, battleHandler, intent.actor, intent.targets, intent.ability);
                 /*{
                     game = GameManager.Instance,
                     battle = battleHandler,
@@ -134,7 +136,7 @@ namespace dev.susybaka.TurnBasedGame.Battle
                     //damageMitigation = 0f
                 };*/
 
-                yield return battleHandler.AbilitySystem.Run(ctx.ability, ctx.actor, ctx.targets);
+                yield return battleHandler.AbilitySystem.Run(intent.ability, intent.actor, intent.targets);
                 if (CheckWinLose())
                     yield break;
             }
@@ -167,19 +169,51 @@ namespace dev.susybaka.TurnBasedGame.Battle
                 // This is what the AI will see and base its decision on
                 // Currently only supports single-target abilities and very basic conditions,
                 // Relying on the descriptions of abilities to guide the AI
-                var snap = AIHandler.BuildSnapshot(
+                AIHandler.Snapshot snap = AIHandler.BuildSnapshot(
                     turn: currentTurn,
                     bossHp: enemy.health,
-                    party: battleHandler.allies.members.Select(p => (p.data.name, p.health, p.isAlive)),
-                    abilities: abilities.Select(a => (a.name, a.description)),
-                    validTargets: battleHandler.allies.members.Where(p => p.isAlive).Select(p => p.data.name)
+                    bossAttackPower: enemy.attackPower.Value,
+                    bossDefense: enemy.defense.Value,
+                    bossStatusEffects: enemy.GetStatusEffects().Select(s =>
+                        (id: s.data.name,
+                         duration: s.Duration,
+                         stacks: s.Stacks,
+                         description: s.data.description,
+                         tags: s.data.tags.AsEnumerable()) // force IEnumerable<string>
+                    ),
+                    bossCharacterDescription: enemy.data.description,
+                    party: battleHandler.allies.members.Select(p =>
+                        (id: p.data.name,
+                         description: p.data.description,
+                         hp: p.health,
+                         alive: p.isAlive,
+                         statusEffects: p.GetStatusEffects().Select(s =>
+                             (id: s.data.name,
+                              duration: s.Duration,
+                              stacks: s.Stacks,
+                              description: s.data.description,
+                              tags: s.data.tags.AsEnumerable())
+                         ))
+                    ),
+                    abilities: abilities.Select(a =>
+                        (id: a.name,
+                        description: a.description,
+                        requiresTarget: a.requiresTarget,
+                        tags: a.tags.AsEnumerable(), // ensure IEnumerable<string>
+                        conditions: a.GetConditionDescriptions().AsEnumerable())
+                    ),
+                    knowledge: enemy.Knowledge.Select(k => (id: k.name, text: k.text)),
+
+                    validTargets: battleHandler.allies.members
+                        .Where(p => p.isAlive)
+                        .Select(p => p.data.name)
                 );
 
-                Decision picked = null;
+                AIHandler.Decision picked = null;
                 yield return StartCoroutine(gameManager.AIHandler.DecideCoroutine(snap, d => picked = d));
 
                 // Fallback to dumb AI: Random first usable ability + a random valid target set
-                if (picked == null)
+                if (picked == null || picked.rationale.Contains("fallback-"))
                 {
                     Debug.LogWarning($"AIHandler returned no decision for {enemy.data.name}, falling back to random usable ability.");
                     ability = PickFirstUsableAbility(enemy);
@@ -187,12 +221,18 @@ namespace dev.susybaka.TurnBasedGame.Battle
                         continue;
 
                     targets = PickTargetsFor(ability, enemy, battleHandler);
+
+                    Debug.Log($"Dumb AI picked ability '{ability.name}' with target(s): {string.Join(", ", targets.Select(t => t.data.name))}");
                 }
                 else // Otherwise, parse the decision and map to actual game logic
                 {
                     Debug.Log($"AIHandler returned the following:\ntarget_id '{picked.target_id}'\nability_id '{picked.ability_id}'\ntarget_id '{picked.target_id}'\nrationale '{picked.rationale}'");
                     ability = abilities.Find(a => a.name == picked.ability_id);
-                    targets = battleHandler.allies.members.Where(c => c.data.name == picked.target_id).ToList();
+
+                    if (string.IsNullOrEmpty(picked.target_id) || picked.target_id.Contains("none") || picked.target_id.Contains("self"))
+                        targets = new List<Character> { enemy };
+                    else
+                        targets = battleHandler.allies.members.Where(c => c.data.name == picked.target_id).ToList();
                 }
 
                 enemyPlan.Add(new Intent { actor = enemy, ability = ability, targets = targets });
@@ -208,7 +248,15 @@ namespace dev.susybaka.TurnBasedGame.Battle
                 if (!intent.actor.isAlive)
                     continue;
 
-                ActionContext ctx = new ActionContext(gameManager, battleHandler, intent.actor, intent.targets, intent.ability);
+                if (intent.ability == null || intent.targets == null || intent.targets.Count < 1)
+                    continue;
+
+                if (intent.ability.dialogueOnUse != null)
+                {
+                    yield return gameManager.DialogueHandler.IE_QueueDialogue(intent.ability.dialogueOnUse);
+                }
+
+                ActionContext ctx = new ActionContext(gameManager, battleHandler, intent.actor, intent.targets, intent.ability, null);
                 /*{
                     game = GameManager.Instance,
                     battle = battleHandler,
@@ -219,9 +267,16 @@ namespace dev.susybaka.TurnBasedGame.Battle
                     damageMitigation = mitigation
                 };*/
                 
-                // float mitigation = 0f;
-                minigameHandler.Setup(ctx, () => partyWindow.RefreshUI());
-                yield return minigameHandler.IE_StartMinigame(); //v => mitigation = v
+                if (intent.ability.minigame != null)
+                {
+                    // float mitigation = 0f;
+                    minigameHandler.Setup(ctx, () => partyWindow.RefreshUI());
+                    yield return minigameHandler.IE_StartMinigame(); //v => mitigation = v
+                }
+                else
+                {
+                    yield return battleHandler.AbilitySystem.Run(ctx.ability, ctx.actor, ctx.targets);
+                }
                 //yield return new WaitForSeconds(2f); // slight delay for clarity
 
                 //yield return battleHandler.AbilitySystem.Run(ctx.ability, ctx.actor, ctx.targets);

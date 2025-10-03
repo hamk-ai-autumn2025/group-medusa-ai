@@ -16,6 +16,9 @@ namespace dev.susybaka.TurnBasedGame.Characters
         private readonly List<Vector2> _points = new List<Vector2>();
         private Vector2Int _lastTile = new Vector2Int(int.MinValue, int.MinValue);
 
+        private Controller _controller;
+        public Controller Controller => _controller;
+
         public int PointCount => _points.Count;
         public Vector2 GetPoint(int index)
         {
@@ -32,6 +35,7 @@ namespace dev.susybaka.TurnBasedGame.Characters
             var tile = WorldToTile(transform.position);
             _points.Add(TileToWorld(tile));
             _lastTile = tile;
+            _controller = GetComponentInChildren<Controller>(true);
         }
 
         void Update()

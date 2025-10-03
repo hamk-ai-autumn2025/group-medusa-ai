@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Greg
   m_EditorClassIdentifier: 
   characterName: Greg
+  description: Former school bully turned into the tank of the party. He has good
+    damage output, good defense and some utility.
   characterPortraits:
   - {fileID: -127314363, guid: bb5e27f998edd5c48a28ae54b995407c, type: 3}
   - {fileID: -946197285, guid: bb5e27f998edd5c48a28ae54b995407c, type: 3}

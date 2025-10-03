@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e92850a4241af48ab64af3c4fcabbc, type: 3}
+  m_Name: SteelPunch
+  m_EditorClassIdentifier: 
+  displayName: Steel Punch
+  description: Physical attack that summons 2 big steel fists that try punching the
+    target dealing 50 damage on succesful hit.
+  tags:
+  - attack
+  - magic
+  - damage_medium
+  - target_single
+  - dodge_chance_medium
+  - speed_slow
+  - has_minigame_true
+  requiresTarget: 1
+  targetGroup: 3
+  consumesMana: 0
+  consumedMana: 0
+  restoresMana: 0
+  restoredMana: 0
+  consumesActionPoints: 0
+  consumedActionPoints: 0
+  restoresActionPoints: 0
+  restoredActionPoints: 0
+  dealsDamage: 1
+  amountDamage: -50
+  conditions: []
+  effects:
+  - {fileID: 1104353887558607489}
+  minigame: {fileID: 11400000, guid: 6b203652cd6cabd4f9b9a8eab1b65bef, type: 2}
+  dialogueOnUse: {fileID: 11400000, guid: bed657c7171c11e4689d661d58b6ccdd, type: 2}
+--- !u!114 &1104353887558607489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36dc94234817cd7439e7853b5dbc9da2, type: 3}
+  m_Name: DealDamageSteelPunch
+  m_EditorClassIdentifier: 
+  amount: -50

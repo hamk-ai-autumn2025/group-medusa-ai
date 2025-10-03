@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 213e846a714e60847a58760362e5eab1, type: 3}
   m_Name: John
   m_EditorClassIdentifier: 
-  characterName: John RPG
+  characterName: John
+  description: Mysterious nimble fighter who takes on the role of the party's damage
+    dealer and main character. He has almost no utility. He is able to do more complex
+    interactions with enemies.
   characterPortraits:
   - {fileID: -1019086157, guid: 31f441948ddc9bb43859ca821ae15613, type: 3}
   - {fileID: 2008078494, guid: 31f441948ddc9bb43859ca821ae15613, type: 3}

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Guard
   m_EditorClassIdentifier: 
   displayName: Guard
-  description: Guard against an upcoming attack reducing it's damage.
+  description: Defend against an upcoming attack reducing it's damage and generating
+    10 <color=yellow>Action Points</color>.
   type: 2
   ability: {fileID: 11400000, guid: 6f9a9e9e9b17cb14b896a72399dcc387, type: 2}
   children: []

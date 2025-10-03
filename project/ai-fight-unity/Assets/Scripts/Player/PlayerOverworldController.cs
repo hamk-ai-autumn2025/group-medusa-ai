@@ -63,7 +63,13 @@ namespace dev.susybaka.TurnBasedGame.Player
 
             float spd = speed;
             if (Input.SprintHoldInput)
+            {
                 spd *= sprintMultiplier;
+                sprinting = true;
+            } else
+            {
+                sprinting = false;
+            }
 
             // Normalize to avoid diagonal speed boost
             Vector2 dir = movement.sqrMagnitude > 1e-6f ? movement.normalized : Vector2.zero;
@@ -74,6 +80,15 @@ namespace dev.susybaka.TurnBasedGame.Player
 
         private void UpdateAnimation()
         {
+            if (sprinting)
+            {
+                m_animator.SetFloat("speed", sprintMultiplier);
+            }
+            else
+            {
+                m_animator.SetFloat("speed", 1f);
+            }
+
             if (playerCharacter.isFighting)
             {
                 m_animator.Play("idle_player_battle");

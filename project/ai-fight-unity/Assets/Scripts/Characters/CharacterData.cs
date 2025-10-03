@@ -9,6 +9,7 @@ namespace dev.susybaka.TurnBasedGame.Characters.Data
     public class CharacterData : ScriptableObject
     {
         public string characterName;
+        [TextArea] public string description;
         public Sprite[] characterPortraits;
         [SoundName] public string characterDialogueSound;
         public CommandNodeData rootCommands;

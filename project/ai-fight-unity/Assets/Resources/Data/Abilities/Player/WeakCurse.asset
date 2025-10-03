@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8989806316812419862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36dc94234817cd7439e7853b5dbc9da2, type: 3}
+  m_Name: DealDamageWeakCurse
+  m_EditorClassIdentifier: 
+  amount: -10
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e92850a4241af48ab64af3c4fcabbc, type: 3}
+  m_Name: WeakCurse
+  m_EditorClassIdentifier: 
+  displayName: Weak Curse
+  description: Attack an opponent dealing 10 damage and inflicting them with Defense
+    Down for 3 turns.
+  tags: []
+  requiresTarget: 1
+  targetGroup: 3
+  consumesMana: 0
+  consumedMana: 0
+  restoresMana: 0
+  restoredMana: 0
+  consumesActionPoints: 0
+  consumedActionPoints: 0
+  restoresActionPoints: 0
+  restoredActionPoints: 0
+  dealsDamage: 1
+  amountDamage: -10
+  conditions:
+  - {fileID: 11400000, guid: f40bcd7a68667fe4285c718357618669, type: 2}
+  effects:
+  - {fileID: -8989806316812419862}
+  - {fileID: 11400000, guid: 5cd49cffdb9d6964bbca383c62974363, type: 2}
+  minigame: {fileID: 0}

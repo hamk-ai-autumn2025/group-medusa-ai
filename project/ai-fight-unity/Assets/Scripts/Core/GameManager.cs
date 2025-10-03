@@ -130,7 +130,7 @@ namespace dev.susybaka.TurnBasedGame
                     window = bw?.TargetWindow;
                     break;
                 case GameStateWindowType.ultimate:
-                    window = bw?.UltimateBar;
+                    window = bw?.ActionPointBar;
                     break;
                 case GameStateWindowType.talk:
                     window = bw?.TalkWindow;

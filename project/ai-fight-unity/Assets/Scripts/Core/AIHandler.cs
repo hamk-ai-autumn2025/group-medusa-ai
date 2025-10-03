@@ -11,18 +11,26 @@ namespace dev.susybaka.TurnBasedGame.AI
 {
     public class AIHandler : MonoBehaviour
     {
-        [Serializable] public class PartyMember { public string id; public int hp; public bool alive = true; }
-        [Serializable] public class Ability { public string id; public string description; } // e.g., ["aoe","fire"]
+        public bool useApi = true;
+        [Serializable] public class PartyMember { public string id; public string characterDescription; public int hp; public bool alive = true; public StatusEffect[] statusEffects; }
+        [Serializable] public class Ability { public string id; public string description; public bool requiresTarget; public string[] tags; public string[] conditions; } // e.g., ["aoe","fire"]
+        [Serializable] public class StatusEffect { public string id; public int duration; public int stacks; public string description; public string[] tags; } // e.g., "burning", "stunned"
         //[Serializable] public class RecentBehavior { public string element_spam; public int guard_streak; }
+        [Serializable] public class Knowledge { public string id; public string description; } // e.g., "fire_weakness", "regen"
 
         [Serializable]
         public class Snapshot
         {
             public int turn;
             public int boss_hp;
+            public int boss_attack_power;
+            public int boss_defense;
+            public string boss_character_description;
+            public List<StatusEffect> boss_statusEffects = new();
             public List<PartyMember> player_party = new();
             //public RecentBehavior recent_player_behavior = new();
             public List<Ability> abilities = new();
+            public List<Knowledge> knowledge = new();
             public List<string> valid_targets = new();
         }
 
@@ -48,10 +56,17 @@ namespace dev.susybaka.TurnBasedGame.AI
             // Build the user payload once
             var stateJson = JsonUtility.ToJson(snapshot);
 
+            if (!useApi)
+            {
+                Debug.Log($"AI Snapshot json:\n\n{stateJson}");
+                onComplete?.Invoke(null);
+                yield break;
+            }
+
             // System prompt
-            var system = "You are a turn based battle AI selector. Pick exactly ONE ability and ONE target from the lists I provide. "
-                       + "Only output valid JSON with keys: ability_id, target_id, rationale. Never invent IDs. "
-                       + "Prefer counters to repeated player behavior. Keep rationale short.";
+            var system = "You are a turn based battle AI selector. Pick exactly ONE ability and ONE target (If required) from the lists I provide. "
+                       + "Only output valid JSON with keys: ability_id, target_id, rationale. If the ability has no targets required use 'none' as the target_id. Never invent IDs. "
+                       + "Prefer counters to repeated player behavior. Try to keep your strategy varied. Keep rationale short.";
 
             var req = new ChatReq
             {
@@ -64,7 +79,7 @@ namespace dev.susybaka.TurnBasedGame.AI
             var apiKey = LoadApiKey();
             if (string.IsNullOrEmpty(apiKey))
             {
-                onComplete?.Invoke(RandomFallback(snapshot));
+                onComplete?.Invoke(null);
                 yield break;
             }
 
@@ -85,12 +100,12 @@ namespace dev.susybaka.TurnBasedGame.AI
                     }
                     catch { /* ignore and fall back */ }
 
-                    onComplete?.Invoke(IsValid(decision, snapshot) ? decision : RandomFallback(snapshot));
+                    onComplete?.Invoke(IsValid(decision, snapshot) ? decision : null);//RandomFallback(snapshot));
                 }
                 else
                 {
                     Debug.LogWarning($"UnityWebRequest failed!\nText: '{www.downloadHandler.text}'\nError: '{www.error}'");
-                    onComplete?.Invoke(RandomFallback(snapshot));
+                    onComplete?.Invoke(null);
                 }
             }));          
         }
@@ -174,35 +189,42 @@ namespace dev.susybaka.TurnBasedGame.AI
             if (d == null)
                 return false;
             bool abilityOK = s.abilities.Any(a => a.id == d.ability_id /*&& a.cd <= 0*/);
-            bool targetOK = s.valid_targets.Contains(d.target_id);
+            bool targetOK = s.valid_targets.Contains(d.target_id) || string.IsNullOrEmpty(d.target_id) || d.target_id.Contains("none") || d.target_id.Contains("self");
             return abilityOK && targetOK;
         }
 
-        Decision RandomFallback(Snapshot s)
+        /*Decision RandomFallback(Snapshot s)
         {
             var pool = s.abilities;//.Where(a => a.cd <= 0).ToList();
             if (pool.Count == 0)
-                pool = s.abilities.ToList();
+                return new Decision { ability_id = "none", target_id = "none", rationale = "fallback-none" };
             var ability = pool[UnityEngine.Random.Range(0, pool.Count)].id;
             var target = s.valid_targets[UnityEngine.Random.Range(0, s.valid_targets.Count)];
             return new Decision { ability_id = ability, target_id = target, rationale = "fallback-random" };
-        }
+        }*/
 
         // Build the Snapshot JSON from your current state
         public static Snapshot BuildSnapshot(
-            int turn, int bossHp,
-            IEnumerable<(string id, int hp, bool alive)> party,
+            int turn, int bossHp, int bossAttackPower, int bossDefense, string bossCharacterDescription,
+            IEnumerable<(string id, int duration, int stacks, string description, IEnumerable<string> tags)> bossStatusEffects,
+            IEnumerable<(string id, string description, int hp, bool alive, IEnumerable<(string id, int duration, int stacks, string description, IEnumerable<string> tags)> statusEffects)> party,
             //string elementSpam, int guardStreak,
-            IEnumerable<(string id, /*int cd,*/ string description)> abilities,
+            IEnumerable<(string id, string description, bool requiresTarget, IEnumerable<string> tags, IEnumerable<string> conditions)> abilities,
+            IEnumerable<(string id, string description)> knowledge,
             IEnumerable<string> validTargets)
         {
             var snap = new Snapshot
             {
                 turn = turn,
                 boss_hp = bossHp,
+                boss_attack_power = bossAttackPower,
+                boss_defense = bossDefense,
+                boss_statusEffects = bossStatusEffects.Select(se => new StatusEffect { id = se.id, duration = se.duration, stacks = se.stacks, description = se.description, tags = se.tags.ToArray() }).ToList(),
+                boss_character_description = bossCharacterDescription,
                 //recent_player_behavior = new RecentBehavior { element_spam = elementSpam, guard_streak = guardStreak },
-                player_party = party.Select(p => new PartyMember { id = p.id, hp = p.hp, alive = p.alive }).ToList(),
-                abilities = abilities.Select(a => new Ability { id = a.id, /*cd = a.cd,*/ description = a.description }).ToList(),
+                player_party = party.Select(p => new PartyMember { id = p.id, characterDescription = p.description, hp = p.hp, alive = p.alive, statusEffects = p.statusEffects.Select(pse => new StatusEffect { id = pse.id, duration = pse.duration, stacks = pse.stacks, description = pse.description, tags = pse.tags.ToArray() }).ToArray() }).ToList(),
+                abilities = abilities.Select(a => new Ability { id = a.id, description = a.description, requiresTarget = a.requiresTarget, tags = a.tags.ToArray(), conditions = a.conditions.ToArray() }).ToList(),
+                knowledge = knowledge.Select(k => new Knowledge { id = k.id, description = k.description }).ToList(),
                 valid_targets = validTargets.ToList()
             };
             return snap;

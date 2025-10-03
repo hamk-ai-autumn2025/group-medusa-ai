@@ -17,7 +17,8 @@ namespace dev.susybaka.TurnBasedGame.Battle
                 battle = gm.BattleHandler,
                 actor = actor,
                 targets = targets ?? new List<Character>(),
-                ability = ability
+                ability = ability,
+                status = null
             };
 
             if (ability.conditions != null)

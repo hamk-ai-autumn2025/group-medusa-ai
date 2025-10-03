@@ -10,6 +10,7 @@ namespace dev.susybaka.TurnBasedGame.UI
     {
         protected readonly ListNavigator nav = new ListNavigator();
 
+        protected BattleHandler battleHandler;
         protected TurnSystem turnSystem;
         protected HudNavigationHandler navHandler;
         protected ScrollBox scrollBox;
@@ -27,7 +28,8 @@ namespace dev.susybaka.TurnBasedGame.UI
             base.Initialize(manager);
             scrollBox = GetComponentInChildren<ScrollBox>();
             navHandler = manager.HudNavigationHandler;
-            turnSystem = manager.BattleHandler?.TurnSystem;
+            battleHandler = manager.BattleHandler;
+            turnSystem = battleHandler.TurnSystem;
         }
 
         public override void OpenWindow()
@@ -116,6 +118,8 @@ namespace dev.susybaka.TurnBasedGame.UI
             currentIndex = index;
 #endif
             SelectLine(index);
+
+            battleHandler.ShowDescription(commands[index].description);
         }
 
         private void Execute(Command command)
@@ -136,6 +140,7 @@ namespace dev.susybaka.TurnBasedGame.UI
 
         protected virtual void Back()
         {
+            battleHandler.HideDescription();
             navHandler?.PopWindow();
         }
     }

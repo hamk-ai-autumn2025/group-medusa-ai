@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e92850a4241af48ab64af3c4fcabbc, type: 3}
+  m_Name: AnalyzeTarget
+  m_EditorClassIdentifier: 
+  displayName: Analyze
+  description: Action that let's you see all stats (e.g. Defense and Attack Power)
+    for one target.
+  tags:
+  - utility
+  - action
+  - damage_none
+  - target_single
+  - dodge_chance_none
+  - informational
+  - has_minigame_false
+  requiresTarget: 1
+  targetGroup: 3
+  consumesMana: 0
+  consumedMana: 0
+  restoresMana: 0
+  restoredMana: 0
+  consumesActionPoints: 0
+  consumedActionPoints: 0
+  restoresActionPoints: 0
+  restoredActionPoints: 0
+  dealsDamage: 0
+  amountDamage: 0
+  conditions: []
+  effects:
+  - {fileID: 11400000, guid: 73e2e62c6450af84c9a303bbc0cbcd14, type: 2}
+  minigame: {fileID: 0}
+  dialogueOnUse: {fileID: 11400000, guid: 24b868846e39c4442915befa5b856b68, type: 2}

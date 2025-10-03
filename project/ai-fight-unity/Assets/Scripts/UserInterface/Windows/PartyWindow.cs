@@ -15,6 +15,7 @@ namespace dev.susybaka.TurnBasedGame.UI
         private bool planningMode = false;
         private List<Character> pool = new List<Character>();
         private ActionWindow actionWindow;
+        private ActionPointBarWindow actionPointBar;
         private HashSet<Character> disabled = new HashSet<Character>();
 
 #if UNITY_EDITOR
@@ -54,7 +55,12 @@ namespace dev.susybaka.TurnBasedGame.UI
         public void SetActionWindow(ActionWindow window)
         {
             actionWindow = window;
-        }     
+        }
+
+        public void SetActionPointBar(ActionPointBarWindow bar)
+        {
+            actionPointBar = bar;
+        }
 
         protected override void SelectLine(int index)
         {
@@ -234,6 +240,8 @@ namespace dev.susybaka.TurnBasedGame.UI
                     members[i].root.SetActive(false);
                 }
             }
+
+            actionPointBar?.UpdateBar();
         }
 
         private void OpenActionsFor(Character ch)

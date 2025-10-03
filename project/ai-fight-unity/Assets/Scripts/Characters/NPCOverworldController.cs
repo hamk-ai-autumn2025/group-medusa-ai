@@ -8,7 +8,6 @@ namespace dev.susybaka.TurnBasedGame.Characters
         private enum Mode { idle, movePath, chaseTransform, followTrail }
 
         [Header("Movement")]
-        public bool sprint = false;
         public float speed = 2f;
         public float sprintMultiplier = 2f;
         public float arriveEpsilon = 0.05f;
@@ -85,7 +84,7 @@ namespace dev.susybaka.TurnBasedGame.Characters
             m_rigidbody.gravityScale = 0f;
 
             float spd = speed;
-            if (sprint)
+            if (sprinting)
                 spd *= sprintMultiplier;
 
             // Small catch-up when a path is long or target is moving
@@ -154,6 +153,11 @@ namespace dev.susybaka.TurnBasedGame.Characters
                 return Vector2.zero; 
             }
 
+            if (trail.Controller != null && trail.Controller.sprinting)
+                sprinting = true;
+            else
+                sprinting = false;
+
             int newestUsable = trail.PointCount - lagTiles - 1;
             if (newestUsable < 0)
                 return Vector2.zero;
@@ -175,6 +179,15 @@ namespace dev.susybaka.TurnBasedGame.Characters
             {
                 //Debug.LogWarning("NPCOverworldController missing components.");
                 return;
+            }
+
+            if (sprinting)
+            {
+                m_animator.SetFloat("speed", sprintMultiplier);
+            }
+            else
+            {
+                m_animator.SetFloat("speed", 1f);
             }
 
             if (m_character.isFighting)

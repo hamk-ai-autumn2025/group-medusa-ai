@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Glorb
   m_EditorClassIdentifier: 
   characterName: Glorb
+  description: Weird and powerful alien.
   characterPortraits:
   - {fileID: -127314363, guid: bb5e27f998edd5c48a28ae54b995407c, type: 3}
   - {fileID: -946197285, guid: bb5e27f998edd5c48a28ae54b995407c, type: 3}

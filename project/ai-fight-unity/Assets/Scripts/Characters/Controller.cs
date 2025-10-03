@@ -14,6 +14,7 @@ namespace dev.susybaka.TurnBasedGame.Characters
 
         [Header("Base")]
         public bool disabled = false;
+        public bool sprinting = false;
         [SerializeField] protected bool flipSprite = true;
         public Flag bound = new Flag("bound", FlagAggregateLogic.AnyTrue);
         public Flag uncontrollable = new Flag("uncontrollable", FlagAggregateLogic.AnyTrue);

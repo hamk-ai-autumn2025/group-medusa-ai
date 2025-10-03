@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-370819236426300595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36dc94234817cd7439e7853b5dbc9da2, type: 3}
+  m_Name: DealDamageTheCloud
+  m_EditorClassIdentifier: 
+  amount: -35
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e92850a4241af48ab64af3c4fcabbc, type: 3}
+  m_Name: TheCloud
+  m_EditorClassIdentifier: 
+  displayName: The Cloud
+  description: Spell that summons a slow lingering Cloud that rains down projectiles
+    that deal 35 damage on succesful hit.
+  tags:
+  - attack
+  - magic
+  - damage_medium
+  - target_single
+  - dodge_chance_medium
+  - speed_medium
+  - has_minigame_true
+  requiresTarget: 1
+  targetGroup: 3
+  consumesMana: 0
+  consumedMana: 0
+  restoresMana: 0
+  restoredMana: 0
+  consumesActionPoints: 0
+  consumedActionPoints: 0
+  restoresActionPoints: 0
+  restoredActionPoints: 0
+  dealsDamage: 1
+  amountDamage: -35
+  conditions:
+  - {fileID: 11400000, guid: f40bcd7a68667fe4285c718357618669, type: 2}
+  effects:
+  - {fileID: -370819236426300595}
+  minigame: {fileID: 11400000, guid: 1cb64dbdc9a68684a9cbbfacc16d0f71, type: 2}
+  dialogueOnUse: {fileID: 11400000, guid: f2cc999305fb6424e979bd3031675c43, type: 2}

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6f3d56961031a447a50d24bfa8c5b91, type: 3}
+  m_Name: Regen
+  m_EditorClassIdentifier: 
+  displayName: Regen
+  description: You get healed 10 points every turn.
+  tags:
+  - beneficial
+  - danger_none
+  type: 1
+  isInfinite: 0
+  allowRefresh: 0
+  maxStacks: 1
+  onApply:
+  - {fileID: 11400000, guid: d0d851881a6ea83439d5d941314a63f7, type: 2}
+  onRemove: []
+  onTick:
+  - {fileID: 11400000, guid: aa88a8e70d1a64944a6d36b8e13ae474, type: 2}

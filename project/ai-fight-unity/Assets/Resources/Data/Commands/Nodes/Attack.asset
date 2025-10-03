@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Attack
   m_EditorClassIdentifier: 
   displayName: Attack
-  description: 
+  description: Choose an attack to use.
   type: 1
   ability: {fileID: 0}
   children: []
