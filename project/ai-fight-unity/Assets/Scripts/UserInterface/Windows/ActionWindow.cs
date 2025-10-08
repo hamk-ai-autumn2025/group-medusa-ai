@@ -26,6 +26,7 @@ namespace dev.susybaka.TurnBasedGame.UI
 
         private MenuMode mode;
         private TargetWindow targetWindow;
+        private LabelWindow descriptionWindow;
         private HudNavigationHandler navHandler;
         private AbilitySystem abilityRunner;
         private ScrollBox scrollBox;
@@ -44,6 +45,7 @@ namespace dev.susybaka.TurnBasedGame.UI
             navHandler = manager.HudNavigationHandler;
             abilityRunner = manager.BattleHandler?.AbilitySystem;
             turnSystem = manager.BattleHandler?.TurnSystem;
+            descriptionWindow = manager.BattleHandler?.battleWindow?.DescriptionWindow;
 
             if (subWindow != null)
             {
@@ -62,6 +64,12 @@ namespace dev.susybaka.TurnBasedGame.UI
             targetWindow = window;
             if (subWindow != null)
                 subWindow.SetTargetWindow(window);
+        }
+
+        public override void OpenWindow()
+        {
+            base.OpenWindow();
+            UpdateDescription(nav.Index);
         }
 
         public override void CloseWindow()
@@ -150,9 +158,11 @@ namespace dev.susybaka.TurnBasedGame.UI
             nav.SetCount(scrollBox.lines.Count);
             scrollBox.SelectLine(0);
             scrollBox.ForceRefresh();
+
+            UpdateDescription(0);
         }
 
-        public void OnFocus(HudNavigationHandler _) { if (scrollBox) scrollBox.SelectLine(nav.Index); isActive = true; }
+        public void OnFocus(HudNavigationHandler _) { if (scrollBox) scrollBox.SelectLine(nav.Index); isActive = true; UpdateDescription(nav.Index); }
         public void OnBlur() { isActive = false; }
 
         public void OnNavCommand(HudNavCommand cmd)
@@ -176,7 +186,7 @@ namespace dev.susybaka.TurnBasedGame.UI
             }
         }
 
-        private void SelectLine() { if (scrollBox) scrollBox.SelectLine(nav.Index); }
+        private void SelectLine() { if (scrollBox) scrollBox.SelectLine(nav.Index); UpdateDescription(nav.Index); }
 
         private void ActivateCurrent()
         {
@@ -184,6 +194,8 @@ namespace dev.susybaka.TurnBasedGame.UI
                 ActivateNode(nodes[nav.Index]);
             else
                 ActivateAbility(abilities[nav.Index]);
+
+            //descriptionWindow.ClearText();
         }
 
         private void ActivateNode(CommandNodeData node)
@@ -265,6 +277,19 @@ namespace dev.susybaka.TurnBasedGame.UI
             turnSystem.CommitIntent(actor, ability, targets);
             yield return null;
             navHandler?.ReturnToRoot();
+        }
+
+        private void UpdateDescription(int index)
+        {
+            if (!isOpen)
+                return;
+
+            if (mode == MenuMode.Abilities && abilities.Count > 0)
+                descriptionWindow.SetText(abilities[index].description);
+            else if (mode == MenuMode.Nodes && nodes.Count > 0)
+                descriptionWindow.SetText(nodes[index].description);
+            else
+                descriptionWindow.ClearText();
         }
     }
 }

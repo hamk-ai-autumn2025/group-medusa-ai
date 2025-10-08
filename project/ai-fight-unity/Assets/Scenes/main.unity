@@ -766,7 +766,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0000009536743, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -19.999992, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &116314724
@@ -10384,7 +10384,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disabled: 0
-  sprinting: 0
   flipSprite: 1
   bound:
     name: bound
@@ -10396,6 +10395,7 @@ MonoBehaviour:
     values: []
     logic: 1
     thresholdPercentage: 0
+  sprint: 0
   speed: 2
   sprintMultiplier: 2
   arriveEpsilon: 0.05
@@ -10520,6 +10520,7 @@ MonoBehaviour:
     maxValue: 999
     preventNegative: 1
   isAlive: 1
+  isSprinting: 0
   isFighting: 0
   isSilenced:
     name: isSilenced
@@ -10532,8 +10533,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: adb6cd20231ef1c4bb3ec655365e2de2, type: 2}
   - {fileID: 11400000, guid: 16761caf15bca19419365c5716556b6a, type: 2}
   KnownSpells:
-  - {fileID: 11400000, guid: 56db864fea7daa9499555938df91e5f5, type: 2}
-  - {fileID: 11400000, guid: 5f7c6954281c58840bbae9073c4dac1c, type: 2}
+  - {fileID: 11400000, guid: b73576c78fe33f8408fa936486e8e715, type: 2}
+  - {fileID: 11400000, guid: 107928334c576f84eba10f9643095c64, type: 2}
   - {fileID: 11400000, guid: 1cbfa0f823df7304d86ab284aae0bc17, type: 2}
   damageSound: sfx_ch_hit_boss
   aggressionLevel: 50
@@ -11947,6 +11948,7 @@ MonoBehaviour:
     maxValue: 999
     preventNegative: 1
   isAlive: 1
+  isSprinting: 0
   isFighting: 0
   isSilenced:
     name: isSilenced
@@ -11957,7 +11959,7 @@ MonoBehaviour:
     thresholdPercentage: 0
   KnownAbilities:
   - {fileID: 11400000, guid: 0c7249605e164114eb9356231d1ac800, type: 2}
-  - {fileID: 11400000, guid: 0c0e74faaf5da784c8636908c054d299, type: 2}
+  - {fileID: 11400000, guid: d5547b2979d9d7c488aeb0e7f939d67c, type: 2}
   KnownSpells: []
   damageSound: sfx_ch_hit_player
   Level: 0
@@ -12439,6 +12441,7 @@ MonoBehaviour:
     maxValue: 999
     preventNegative: 1
   isAlive: 1
+  isSprinting: 0
   isFighting: 0
   isSilenced:
     name: isSilenced
@@ -12449,14 +12452,15 @@ MonoBehaviour:
     thresholdPercentage: 0
   KnownAbilities:
   - {fileID: 11400000, guid: 51ac3ae22df4f3b418e36aec8021089d, type: 2}
-  - {fileID: 11400000, guid: e6380e302d6cabd4e830d17d4db69452, type: 2}
+  - {fileID: 11400000, guid: 381ea93e84cee20458fdb964620c2b32, type: 2}
   KnownSpells:
-  - {fileID: 11400000, guid: 81b01fb55096d794b98d38cbacf418f2, type: 2}
+  - {fileID: 11400000, guid: b1c6fd0d451f6a7418edad68c98b854f, type: 2}
   - {fileID: 11400000, guid: 53cad9c05e129fc45889f1a27be66abc, type: 2}
   damageSound: sfx_ch_hit_player
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  isFollowing: 0
 --- !u!114 &548113757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12470,7 +12474,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disabled: 0
-  sprinting: 0
   flipSprite: 1
   bound:
     name: bound
@@ -12482,6 +12485,7 @@ MonoBehaviour:
     values: []
     logic: 1
     thresholdPercentage: 0
+  sprint: 0
   speed: 2
   sprintMultiplier: 2
   arriveEpsilon: 0.05
@@ -12715,6 +12719,7 @@ MonoBehaviour:
   enemies:
     name: Enemies
     maxMembers: 3
+    leader: {fileID: 0}
     members:
     - {fileID: 248834451}
     points: 0
@@ -12722,6 +12727,7 @@ MonoBehaviour:
   allies:
     name: Allies
     maxMembers: 3
+    leader: {fileID: 468748868}
     members:
     - {fileID: 468748868}
     - {fileID: 548113756}
@@ -13766,6 +13772,7 @@ MonoBehaviour:
     maxValue: 999
     preventNegative: 1
   isAlive: 1
+  isSprinting: 0
   isFighting: 0
   isSilenced:
     name: isSilenced
@@ -13776,15 +13783,16 @@ MonoBehaviour:
     thresholdPercentage: 0
   KnownAbilities:
   - {fileID: 11400000, guid: b9ebf1ba51a8f3f41b6b554fa8d71299, type: 2}
-  - {fileID: 11400000, guid: ad38f1d191f39244d9407b3b0fed66cb, type: 2}
+  - {fileID: 11400000, guid: e7f78e9d448cae542be0ea9920e76ecf, type: 2}
   - {fileID: 11400000, guid: cc29ed7785a5b7243bf10e57ce560538, type: 2}
   KnownSpells:
-  - {fileID: 11400000, guid: e528b707b7c9cec4fae5e1fbef77df82, type: 2}
+  - {fileID: 11400000, guid: 9f15701dfa622cb4f92906eb492caea4, type: 2}
   - {fileID: 11400000, guid: 1ebefd918032e2941a2dc70f7793b694, type: 2}
   damageSound: sfx_ch_hit_player
   onInteract:
     m_PersistentCalls:
       m_Calls: []
+  isFollowing: 0
 --- !u!114 &827038675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13798,7 +13806,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disabled: 0
-  sprinting: 0
   flipSprite: 1
   bound:
     name: bound
@@ -13810,6 +13817,7 @@ MonoBehaviour:
     values: []
     logic: 1
     thresholdPercentage: 0
+  sprint: 0
   speed: 2
   sprintMultiplier: 2
   arriveEpsilon: 0.05
@@ -13991,7 +13999,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disabled: 0
-  sprinting: 0
   flipSprite: 0
   bound:
     name: bound
@@ -23264,7 +23271,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   textLabel: {fileID: 116314724}
-  textSpeed: 0.05
+  textSpeed: 0.15
 --- !u!1 &1679452100
 GameObject:
   m_ObjectHideFlags: 0
@@ -24591,7 +24598,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disabled: 0
-  sprinting: 0
   flipSprite: 1
   bound:
     name: bound

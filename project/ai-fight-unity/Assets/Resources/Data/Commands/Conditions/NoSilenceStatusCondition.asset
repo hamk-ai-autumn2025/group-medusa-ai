@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90b6f510c2ed0e84f982507daf2d87a5, type: 3}
   m_Name: NoSilenceStatusCondition
   m_EditorClassIdentifier: 
-  statusEffect: silence
+  description: Requires that you are not silenced. No 'Silenced' status effect present.
+  statusEffect: {fileID: 11400000, guid: 695d0b343bec9b844b61740cc7db1c9e, type: 2}
   checkForPresence: 0

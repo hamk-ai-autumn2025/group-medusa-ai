@@ -29,6 +29,7 @@ namespace dev.susybaka.TurnBasedGame.Characters
         [Min(1)] public Stat attackPower = new Stat("attackPower", 1, 999);
         [Min(0)] public Stat defense = new Stat("defense", 1, 999);
         public bool isAlive = true;
+        public bool isSprinting = false;
         public bool isFighting = false;
         protected bool wasFighting = false;
         public Flag isSilenced = new Flag("isSilenced", new List<Flag.Value> { new Flag.Value("base", false) }, FlagAggregateLogic.AllTrue);

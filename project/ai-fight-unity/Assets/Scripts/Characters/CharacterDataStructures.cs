@@ -10,27 +10,12 @@ namespace dev.susybaka.TurnBasedGame.Characters
 
         public string name;
         public int maxMembers;
+        public Character leader;
         public List<Character> members;
         [SerializeField] private int points = 0;
         public int Points => points;
         [SerializeField] private int maxPoints = 100;
         public int MaxPoints => maxPoints;
-
-        public Party(string name, int maxMembers)
-        {
-            this.name = name;
-            this.maxMembers = maxMembers;
-            this.members = new List<Character>();
-            this.points = 0;
-        }
-
-        public Party(string name, int maxMembers, List<Character> members)
-        {
-            this.name = name;
-            this.maxMembers = maxMembers;
-            this.members = members ?? new List<Character>();
-            this.points = 0;
-        }
 
         public void Initialize(GameManager manager)
         {

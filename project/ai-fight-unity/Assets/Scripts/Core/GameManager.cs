@@ -84,8 +84,8 @@ namespace dev.susybaka.TurnBasedGame
                 for (int i = 0; i < battleHandler.allies.members.Count; i++)
                 {
                     var member = battleHandler.allies.members[i];
-                    if (member != null && member is FriendCharacter)
-                        member.GetComponent<NPCOverworldController>().FollowCharacterTrail(player.GetComponentInChildren<CharacterTrailRecorder>(), i + (1 * i)); // God save us from this awful hardcoded spacing
+                    if (member != null && member is FriendCharacter friend)
+                        friend.FollowPartyLeader();//member.GetComponent<NPCOverworldController>().FollowCharacterTrail(player.GetComponentInChildren<CharacterTrailRecorder>(), i + (1 * i)); // God save us from this awful hardcoded spacing
                 }
             }
         }
@@ -130,7 +130,7 @@ namespace dev.susybaka.TurnBasedGame
                     window = bw?.TargetWindow;
                     break;
                 case GameStateWindowType.ultimate:
-                    window = bw?.UltimateBar;
+                    window = bw?.ActionPointBar;
                     break;
                 case GameStateWindowType.talk:
                     window = bw?.TalkWindow;

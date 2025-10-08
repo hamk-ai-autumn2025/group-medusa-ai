@@ -22,7 +22,7 @@ namespace dev.susybaka.TurnBasedGame.Minigame
             if (!initialized)
                 return;
 
-            transform.Rotate(rotation);
+            transform.Rotate(rotation * Time.deltaTime);
         }
     }
 }

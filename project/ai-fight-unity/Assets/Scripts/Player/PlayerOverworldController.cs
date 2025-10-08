@@ -18,6 +18,7 @@ namespace dev.susybaka.TurnBasedGame.Player
         [SerializeField] private Transform interactionTrigger;
         public bool rotateInteractionTrigger = true;
 
+        private bool sprint;
         private Vector2 movement;
         private Vector2 storedMovement;
 
@@ -31,6 +32,8 @@ namespace dev.susybaka.TurnBasedGame.Player
         protected override void Update()
         {
             base.Update();
+
+            playerCharacter.isSprinting = sprint;
 
             if (Input == null || disabled)
             {
@@ -63,7 +66,14 @@ namespace dev.susybaka.TurnBasedGame.Player
 
             float spd = speed;
             if (Input.SprintHoldInput)
+            {
+                sprint = true;
                 spd *= sprintMultiplier;
+            }
+            else
+            {
+                sprint = false;
+            }
 
             // Normalize to avoid diagonal speed boost
             Vector2 dir = movement.sqrMagnitude > 1e-6f ? movement.normalized : Vector2.zero;
@@ -74,6 +84,15 @@ namespace dev.susybaka.TurnBasedGame.Player
 
         private void UpdateAnimation()
         {
+            if (sprint)
+            {
+                m_animator.SetFloat("speed", sprintMultiplier);
+            }
+            else
+            {
+                m_animator.SetFloat("speed", 1f);
+            }
+
             if (playerCharacter.isFighting)
             {
                 m_animator.Play("idle_player_battle");

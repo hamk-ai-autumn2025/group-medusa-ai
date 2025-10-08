@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5c51b477356544bb842e10895a87e1, type: 3}
   m_Name: ApplyDefenseDown0_3t
   m_EditorClassIdentifier: 
-  statusEffect: {fileID: 11400000, guid: 9885a947e22c9754c9b33717294f2202, type: 2}
+  statusEffect: {fileID: 11400000, guid: 5e127b64f5820b74ead6b74f344d0a9d, type: 2}
   duration: 3
   stacks: 1

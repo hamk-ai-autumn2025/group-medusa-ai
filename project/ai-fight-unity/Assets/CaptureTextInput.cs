@@ -12,6 +12,7 @@ namespace dev.susybaka.TurnBasedGame.UI
         private LabelWindow labelWindow;
         private string currentText = string.Empty;
         private bool isRunning;
+        private bool confirmed;
 
         // Exposed result after coroutine finishes
         public string Result { get; private set; }
@@ -37,6 +38,7 @@ namespace dev.susybaka.TurnBasedGame.UI
             if (isRunning)
                 yield break; // hard stop; avoid nested capture
 
+            confirmed = false;
             isRunning = true;
             WasCancelled = false;
             Result = null;
@@ -61,7 +63,7 @@ namespace dev.susybaka.TurnBasedGame.UI
                     }
                     else if (c == '\n' || c == '\r')
                     {
-                        // ignore: confirmation is via input.Confirm
+                        confirmed = true;
                     }
                     else
                     {
@@ -86,7 +88,7 @@ namespace dev.susybaka.TurnBasedGame.UI
                     break;
                 }
 
-                if (input.ConfirmInput)
+                if (confirmed) //input.ConfirmInput
                 {
                     Result = currentText;
                     break;

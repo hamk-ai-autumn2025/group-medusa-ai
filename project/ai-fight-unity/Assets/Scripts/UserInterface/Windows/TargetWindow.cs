@@ -39,6 +39,7 @@ namespace dev.susybaka.TurnBasedGame.UI
                 commands.Add(cmd);
             }
             UpdateCommands(commands.ToArray());
+            UpdateDescription(nav.Index);
         }
 
         private List<Character> BuildPool(TargetGroup g)

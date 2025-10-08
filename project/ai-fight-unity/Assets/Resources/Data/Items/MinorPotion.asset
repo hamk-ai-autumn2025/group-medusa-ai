@@ -65,12 +65,28 @@ MonoBehaviour:
   m_Name: UseMinorPotion
   m_EditorClassIdentifier: 
   displayName: Minor Potion
-  description: Potion that heals you for some amount.
+  description: Potion that heals you for 20 health.
+  tags: []
   requiresTarget: 1
   targetGroup: 1
+  consumesMana: 0
+  consumedMana: 0
+  restoresMana: 0
+  restoredMana: 0
+  consumesActionPoints: 0
+  consumedActionPoints: 0
+  restoresActionPoints: 0
+  restoredActionPoints: 0
+  dealsDamage: 0
+  amountDamage: 0
+  isDefensive: 0
+  isSpell: 0
+  isHeal: 0
+  opensActMenu: 0
   conditions:
   - {fileID: 1480714798313054825}
   effects:
   - {fileID: -3041769045458954873}
-  - {fileID: 11400000, guid: 906daddef930f904ba569ae5cab15ed2, type: 2}
+  - {fileID: 11400000, guid: 549ee5d90a0ed10499e9e2805113369c, type: 2}
   minigame: {fileID: 0}
+  dialogueOnUse: {fileID: 0}

@@ -40,20 +40,6 @@ namespace dev.susybaka.TurnBasedGame.Battle.Data
         public MinigameData minigame;
         public DialogueData dialogueOnUse;
 
-        public string[] GetConditionDescriptions()
-        {
-            List<string> descriptions = new List<string>();
-            if (conditions != null)
-            {
-                foreach (ConditionData c in conditions)
-                {
-                    if (c != null)
-                        descriptions.Add(c.description);
-                }
-            }
-            return descriptions.ToArray();
-        }
-
 #if UNITY_EDITOR
         [NaughtyAttributes.Button("Refresh Default Conditions and Effects")]
         public void RefreshDefaults()
@@ -160,6 +146,17 @@ namespace dev.susybaka.TurnBasedGame.Battle.Data
                 RemoveSubAssets<EffectData>(effects, e => e is ModifyActionPointsEffect && e.name.StartsWith("Restore") && e.name.EndsWith(this.name));
             }
 
+            UnityEditor.AssetDatabase.SaveAssets();
+        }
+
+        [NaughtyAttributes.Button("Delete All Sub-Assets")]
+        public void DeleteAllSubAssets()
+        {
+            for (int i = effects.Count - 1; i >= 0; i--)
+            {
+                UnityEditor.AssetDatabase.RemoveObjectFromAsset(effects[i]);
+                effects.RemoveAt(i);
+            }
             UnityEditor.AssetDatabase.SaveAssets();
         }
 #endif

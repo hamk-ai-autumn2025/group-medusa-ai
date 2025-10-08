@@ -177,6 +177,15 @@ namespace dev.susybaka.TurnBasedGame.Characters
                 return;
             }
 
+            if (sprint)
+            {
+                m_animator.SetFloat("speed", sprintMultiplier);
+            }
+            else
+            {
+                m_animator.SetFloat("speed", 1f);
+            }
+
             if (m_character.isFighting)
             {
                 m_animator.Play("idle_npc_battle");

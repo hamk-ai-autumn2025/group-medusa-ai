@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Garlic
   m_EditorClassIdentifier: 
   characterName: Garlic
+  description: Magical talkative cat who is the parties healer, has good utility
+    against debuffs. She is a very good cat.
   characterPortraits:
   - {fileID: -2136750780, guid: 8e1c7851c1e0d1a4db173d86e9551b61, type: 3}
   - {fileID: -1331244519, guid: 8e1c7851c1e0d1a4db173d86e9551b61, type: 3}

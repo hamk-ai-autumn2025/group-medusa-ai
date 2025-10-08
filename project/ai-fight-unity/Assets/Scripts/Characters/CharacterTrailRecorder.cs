@@ -12,7 +12,7 @@ namespace dev.susybaka.TurnBasedGame.Characters
         [Header("Grid")]
         public Vector2 gridOffset = new Vector2(0.5f, 0.5f); // tile centers
         public int maxPoints = 4096; // large enough so we don't trim under normal play
-
+        
         private readonly List<Vector2> _points = new List<Vector2>();
         private Vector2Int _lastTile = new Vector2Int(int.MinValue, int.MinValue);
 

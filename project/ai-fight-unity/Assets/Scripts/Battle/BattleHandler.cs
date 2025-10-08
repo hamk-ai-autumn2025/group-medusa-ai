@@ -104,6 +104,7 @@ namespace dev.susybaka.TurnBasedGame.Battle
             battleWindow.ActionPointBar.OpenWindow();
             gameManager.HudNavigationHandler?.OpenRoot(battleWindow.PartyMembers);
             //battleWindow.PartyMembers.OpenWindow(); No need, opened in OpenRoot()
+            battleWindow.DescriptionWindow.OpenWindow();
             battleWindow.PopupWindow.OpenWindow();
             battleWindow.SpeechWindow.CloseWindow();
 
@@ -133,7 +134,9 @@ namespace dev.susybaka.TurnBasedGame.Battle
                     if (allies.members[i] == playerCharacter)
                         continue; // Player is moved separately below for now
 
-                    allies.members[i].transform.GetComponentInChildren<NPCOverworldController>()?.Stop();
+                    //allies.members[i].transform.GetComponentInChildren<NPCOverworldController>()?.Stop();
+                    if (allies.members[i] is FriendCharacter friend)
+                        friend.StopFollowing();
                     allies.members[i].isFighting = true;
                     allies.members[i].transform.position = battlePartyMemberLocations[i].position;
                 }
@@ -179,7 +182,9 @@ namespace dev.susybaka.TurnBasedGame.Battle
             for (int i = 0; i < allies.members.Count; i++)
             {
                 allies.members[i].isFighting = false;
-                allies.members[i].transform.GetComponentInChildren<NPCOverworldController>()?.FollowCharacterTrail(playerCharacter.GetComponentInChildren<CharacterTrailRecorder>(), i + (1 * i));
+                //allies.members[i].transform.GetComponentInChildren<NPCOverworldController>()?.FollowCharacterTrail(playerCharacter.GetComponentInChildren<CharacterTrailRecorder>(), i + (1 * i));
+                if (allies.members[i] is FriendCharacter friend)
+                    friend.FollowPartyLeader();
             }
 
             playerCharacter.isFighting = false;
@@ -205,6 +210,7 @@ namespace dev.susybaka.TurnBasedGame.Battle
             //battleWindow.PartyMembers.CloseWindow(); No need, closed in CloseRoot()
             battleWindow.ActionWindow.CloseWindow();
             battleWindow.TargetWindow.CloseWindow();
+            battleWindow.DescriptionWindow.CloseWindow();
             battleWindow.PopupWindow.CloseWindow();
             battleWindow.SpeechWindow.CloseWindow();
 

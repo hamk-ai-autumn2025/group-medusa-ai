@@ -3,6 +3,7 @@ using dev.susybaka.Shared.UI;
 using dev.susybaka.TurnBasedGame.Battle;
 using dev.susybaka.TurnBasedGame.Interfaces;
 using UnityEngine;
+using static dev.susybaka.TurnBasedGame.UI.ActionWindow;
 
 namespace dev.susybaka.TurnBasedGame.UI
 {
@@ -10,6 +11,7 @@ namespace dev.susybaka.TurnBasedGame.UI
     {
         protected readonly ListNavigator nav = new ListNavigator();
 
+        protected LabelWindow descriptionWindow;
         protected TurnSystem turnSystem;
         protected HudNavigationHandler navHandler;
         protected ScrollBox scrollBox;
@@ -28,6 +30,7 @@ namespace dev.susybaka.TurnBasedGame.UI
             scrollBox = GetComponentInChildren<ScrollBox>();
             navHandler = manager.HudNavigationHandler;
             turnSystem = manager.BattleHandler?.TurnSystem;
+            descriptionWindow = manager.BattleHandler?.battleWindow?.DescriptionWindow;
         }
 
         public override void OpenWindow()
@@ -62,25 +65,26 @@ namespace dev.susybaka.TurnBasedGame.UI
                 Debug.Log($"CommandWindow: Loaded {commands.Count} commands.");
             }*/
 
-            if (scrollBox == null)
-                return;
-
-            scrollBox.lines.Clear();
-            scrollBox.lines.Capacity = commands.Count;
-            foreach (var cmd in commands)
-                scrollBox.lines.Add(cmd.name);
-            scrollBox.SelectLine(0);
-            scrollBox.ForceRefresh();
+            if (scrollBox != null)
+            {
+                scrollBox.lines.Clear();
+                scrollBox.lines.Capacity = commands.Count;
+                foreach (var cmd in commands)
+                    scrollBox.lines.Add(cmd.name);
+                scrollBox.SelectLine(0);
+                scrollBox.ForceRefresh();
+            }
+            UpdateDescription(0);
         }
 
         public void OnFocus(HudNavigationHandler handler)
         {
             isActive = true;
 
-            if (scrollBox == null)
-                return;
+            if (scrollBox != null)
+                scrollBox.SelectLine(nav.Index);
 
-            scrollBox.SelectLine(nav.Index);
+            UpdateDescription(nav.Index);
         }
 
         public void OnBlur() { isActive = false; }
@@ -124,19 +128,30 @@ namespace dev.susybaka.TurnBasedGame.UI
                 return;
 
             command.action?.Invoke();
+            UpdateDescription(nav.Index);
         }
 
         protected virtual void SelectLine(int index)
         {
-            if (scrollBox == null)
-                return;
-
-            scrollBox.SelectLine(index);
+            if (scrollBox != null)
+                scrollBox.SelectLine(index);
+            UpdateDescription(index);
         }
 
         protected virtual void Back()
         {
             navHandler?.PopWindow();
+        }
+
+        protected void UpdateDescription(int index)
+        {
+            if (!isOpen || (isOpen && !isActive))
+                return;
+
+            if (commands != null && commands.Count > 0)
+            {
+                descriptionWindow.SetText(commands[index].description);
+            }
         }
     }
 }

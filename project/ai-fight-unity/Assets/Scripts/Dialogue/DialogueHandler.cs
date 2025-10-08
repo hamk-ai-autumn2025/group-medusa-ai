@@ -68,6 +68,16 @@ namespace dev.susybaka.TurnBasedGame.Dialogue
             }
         }
 
+        public IEnumerator IE_QueueDialogue(DialogueData data)
+        {
+            this.data = data;
+
+            dialogueBox = gameManager.currentGameWindow.DialogueBox;
+
+            yield return IE_ProcessDialogue();
+            gameManager.HudNavigationHandler.Root.isActive = false;
+        }
+
         private IEnumerator IE_ProcessDialogue()
         {
             if (dialogueBox != null && !dialogueBox.isOpen && GameManager.HudNavigationHandlerAvailable)
