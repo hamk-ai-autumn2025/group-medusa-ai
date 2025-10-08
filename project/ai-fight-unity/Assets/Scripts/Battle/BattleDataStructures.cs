@@ -158,4 +158,192 @@ namespace dev.susybaka.TurnBasedGame.Battle
             );
         }
     }
+
+    public static class Extensions
+    {
+        public static IList<Turn.Choice> ToChoices(this IList<Intent> intents)
+        {
+            List<Turn.Choice> choices = new List<Turn.Choice>(intents.Count);
+            foreach (Intent intent in intents)
+            {
+                choices.Add(intent.ToChoice());
+            }
+            return choices;
+        }
+
+        public static Turn.Choice ToChoice(this Intent intent)
+        {
+            return new Turn.Choice(
+                new Turn.Actor(
+                    intent.actor.data.name,
+                    intent.actor.health,
+                    intent.actor.maxHealth,
+                    intent.actor.ActionPoints,
+                    intent.actor.MaxActionPoints,
+                    intent.actor.isAlive,
+                    intent.actor.GetStatusEffects().Length
+                ),
+                intent.ability,
+                intent.targets != null ? new List<Turn.Actor>(
+                    intent.targets.Count > 0
+                        ? System.Linq.Enumerable.ToList(
+                            System.Linq.Enumerable.Select(
+                                intent.targets,
+                                t => new Turn.Actor(
+                                    t.data.name,
+                                    t.health,
+                                    t.maxHealth,
+                                    t.ActionPoints,
+                                    t.MaxActionPoints,
+                                    t.isAlive,
+                                    t.GetStatusEffects().Length
+                                )
+                            )
+                        )
+                        : new List<Turn.Actor>()
+                ) : new List<Turn.Actor>()
+            );
+        }
+    }
+
+    public static class Extensions
+    {
+        public static IList<Turn.Choice> ToChoices(this IList<Intent> intents)
+        {
+            List<Turn.Choice> choices = new List<Turn.Choice>(intents.Count);
+            foreach (Intent intent in intents)
+            {
+                choices.Add(intent.ToChoice());
+            }
+            return choices;
+        }
+
+        public static Turn.Choice ToChoice(this Intent intent)
+        {
+            return new Turn.Choice(
+                new Turn.Actor(
+                    intent.actor.data.name,
+                    intent.actor.health,
+                    intent.actor.maxHealth,
+                    intent.actor.ActionPoints,
+                    intent.actor.MaxActionPoints,
+                    intent.actor.isAlive,
+                    intent.actor.GetStatusEffects().Length
+                ),
+                intent.ability,
+                intent.targets != null ? new List<Turn.Actor>(
+                    intent.targets.Count > 0
+                        ? System.Linq.Enumerable.ToList(
+                            System.Linq.Enumerable.Select(
+                                intent.targets,
+                                t => new Turn.Actor(
+                                    t.data.name,
+                                    t.health,
+                                    t.maxHealth,
+                                    t.ActionPoints,
+                                    t.MaxActionPoints,
+                                    t.isAlive,
+                                    t.GetStatusEffects().Length
+                                )
+                            )
+                        )
+                        : new List<Turn.Actor>()
+                ) : new List<Turn.Actor>()
+            );
+        }
+    }
+
+    public static class Extensions
+    {
+        public static IList<Turn.Choice> ToChoices(this IList<Intent> intents)
+        {
+            List<Turn.Choice> choices = new List<Turn.Choice>(intents.Count);
+            foreach (Intent intent in intents)
+            {
+                choices.Add(intent.ToChoice());
+            }
+            return choices;
+        }
+
+        public static Turn.Choice ToChoice(this Intent intent)
+        {
+            return new Turn.Choice(
+                new Turn.Actor(
+                    intent.actor.data.name,
+                    intent.actor.health,
+                    intent.actor.maxHealth,
+                    intent.actor.ActionPoints,
+                    intent.actor.MaxActionPoints,
+                    intent.actor.isAlive,
+                    intent.actor.GetStatusEffects().Length
+                ),
+                intent.ability,
+                intent.targets != null ? new List<Turn.Actor>(
+                    intent.targets.Count > 0
+                        ? System.Linq.Enumerable.ToList(
+                            System.Linq.Enumerable.Select(
+                                intent.targets,
+                                t => new Turn.Actor(
+                                    t.data.name,
+                                    t.health,
+                                    t.maxHealth,
+                                    t.ActionPoints,
+                                    t.MaxActionPoints,
+                                    t.isAlive,
+                                    t.GetStatusEffects().Length
+                                )
+                            )
+                        )
+                        : new List<Turn.Actor>()
+                ) : new List<Turn.Actor>()
+            );
+        }
+    }
+
+    public static class Extensions
+    {
+        public static IList<Turn.Choice> ToChoices(this IList<Intent> intents)
+        {
+            List<Turn.Choice> choices = new List<Turn.Choice>(intents.Count);
+            foreach (Intent intent in intents)
+            {
+                choices.Add(intent.ToChoice());
+            }
+            return choices;
+        }
+
+        public static Turn.Choice ToChoice(this Intent intent)
+        {
+            return new Turn.Choice(
+                new Turn.Actor(
+                    intent.actor.data.name,
+                    intent.actor.health,
+                    intent.actor.maxHealth,
+                    intent.actor.ActionPoints,
+                    intent.actor.MaxActionPoints,
+                    intent.actor.isAlive,
+                    intent.actor.GetStatusEffects().Length
+                ),
+                intent.ability,
+                intent.targets != null ? new List<Turn.Actor>(
+                    intent.targets.Count > 0
+                        ? System.Linq.Enumerable.ToList(
+                            System.Linq.Enumerable.Select(
+                                intent.targets,
+                                t => new Turn.Actor(
+                                    t.data.name,
+                                    t.health,
+                                    t.maxHealth,
+                                    t.ActionPoints,
+                                    t.MaxActionPoints,
+                                    t.isAlive,
+                                    t.GetStatusEffects().Length
+                                )
+                            )
+                        )
+                        : new List<Turn.Actor>()
+                ) : new List<Turn.Actor>()
+            );
+        }
+    }
 }
