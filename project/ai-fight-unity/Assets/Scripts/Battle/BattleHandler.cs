@@ -82,6 +82,8 @@ namespace dev.susybaka.TurnBasedGame.Battle
                 turnSystem = gameObject.AddComponent<TurnSystem>();
 
             turnSystem.Initialize(manager, battleWindow.PartyMembers);
+            allies.Initialize(manager);
+            enemies.Initialize(manager);
 
             EndBattle();
         }
@@ -99,9 +101,11 @@ namespace dev.susybaka.TurnBasedGame.Battle
 
             battleWindow.OpenPartyWindow(allies);
 
-            battleWindow.UltimateBar.OpenWindow();
+            battleWindow.ActionPointBar.OpenWindow();
             gameManager.HudNavigationHandler?.OpenRoot(battleWindow.PartyMembers);
             //battleWindow.PartyMembers.OpenWindow(); No need, opened in OpenRoot()
+            battleWindow.PopupWindow.OpenWindow();
+            battleWindow.SpeechWindow.CloseWindow();
 
             if (data.startDialogue != null)
             {
@@ -141,7 +145,7 @@ namespace dev.susybaka.TurnBasedGame.Battle
 
             // For now move player separately because their controller is not attached to the character transform
             playerCharacter.overworldController.transform.position = data.playerPosition;
-            playerCharacter.battleController.Initialize(data.playerHeartPosition);
+            //playerCharacter.battleController.Initialize(data.playerHeartPosition);
             playerCharacter.isFighting = true;
             
             m_camera.gameObject.SetActive(true);
@@ -178,7 +182,7 @@ namespace dev.susybaka.TurnBasedGame.Battle
                 allies.members[i].transform.GetComponentInChildren<NPCOverworldController>()?.FollowCharacterTrail(playerCharacter.GetComponentInChildren<CharacterTrailRecorder>(), i + (1 * i));
             }
 
-            //playerCharacter.isFighting = false;
+            playerCharacter.isFighting = false;
             playerCharacter.battleController.disabled = true;
             playerCharacter.battleController.Deinitialize();
 
@@ -197,10 +201,12 @@ namespace dev.susybaka.TurnBasedGame.Battle
 
             gameManager.HudNavigationHandler?.CloseRoot();
 
-            battleWindow.UltimateBar.CloseWindow();
+            battleWindow.ActionPointBar.CloseWindow();
             //battleWindow.PartyMembers.CloseWindow(); No need, closed in CloseRoot()
             battleWindow.ActionWindow.CloseWindow();
             battleWindow.TargetWindow.CloseWindow();
+            battleWindow.PopupWindow.CloseWindow();
+            battleWindow.SpeechWindow.CloseWindow();
 
             battleWindow.CloseWindow();
             overworldWindow.OpenWindow();
@@ -209,22 +215,16 @@ namespace dev.susybaka.TurnBasedGame.Battle
             Debug.Log("Battle Ended!");
         }
 
-        public void PerformPlayerTurn()
+        public void UpdateTurnState(int turn)
         {
-            playerCharacter.battleController.disabled = true;
-
-            // Get the player's input for the action to perform
-            // Perform the selected action (e.g., Attack, Use Item, etc.)
-            // Call EndTurn() in the turn handler to proceed to the next turn
-        }
-
-        public void PerformEnemyTurn()
-        {
-            // Determine the action for the enemy character (e.g., AI logic)
-            // Perform the selected action
-            // Call EndTurn() in the turn handler to proceed to the next turn
-
-            playerCharacter.battleController.disabled = false;
+            for (int i = 0; i < allies.members.Count; i++)
+            {
+                allies.members[i].UpdateTurnState(turn);
+            }
+            for (int i = 0; i < enemies.members.Count; i++)
+            {
+                enemies.members[i].UpdateTurnState(turn);
+            }
         }
 
         public void SetCharacterTarget(Character source, Character target)

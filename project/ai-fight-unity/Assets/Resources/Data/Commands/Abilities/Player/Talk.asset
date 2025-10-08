@@ -13,10 +13,26 @@ MonoBehaviour:
   m_Name: Talk
   m_EditorClassIdentifier: 
   displayName: Talk
-  description: 
+  description: Perform an action or talk to an opponent.
+  tags: []
   requiresTarget: 1
   targetGroup: 3
+  consumesMana: 0
+  consumedMana: 0
+  restoresMana: 0
+  restoredMana: 0
+  consumesActionPoints: 0
+  consumedActionPoints: 0
+  restoresActionPoints: 0
+  restoredActionPoints: 0
+  dealsDamage: 0
+  amountDamage: 0
+  isDefensive: 0
+  isSpell: 0
+  isHeal: 0
+  opensActMenu: 1
   conditions:
   - {fileID: 11400000, guid: f40bcd7a68667fe4285c718357618669, type: 2}
-  effects:
-  - {fileID: 11400000, guid: 1a60abb413cc6cc47b36759019b9f0d5, type: 2}
+  effects: []
+  minigame: {fileID: 0}
+  dialogueOnUse: {fileID: 0}

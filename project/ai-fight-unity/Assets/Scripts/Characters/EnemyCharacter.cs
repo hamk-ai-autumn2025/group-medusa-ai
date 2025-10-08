@@ -1,43 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using dev.susybaka.TurnBasedGame.Characters;
+using dev.susybaka.TurnBasedGame.Interfaces;
+using dev.susybaka.TurnBasedGame.Items;
 
 namespace dev.susybaka.TurnBasedGame.Enemies
 {
-    public class EnemyCharacter : Character
+    public class EnemyCharacter : Character, IInteractable
     {
         [Header("Enemy")]
-        public string AIType;
-        public List<int> LootTable;
+        public int aggressionLevel = 50;
+        public int fearLevel = 0;
+        public int respectLevel = 0;
+        public int pityLevel = 0;
+        public int curiosityLevel = 0;
+        public int desperationLevel = 0;
+        public List<ItemData> drops;
+        public UnityEvent<Character> onInteract;
 
-        public bool inCombat = false;
-        public bool isWalking = false;
-        Animator animator;
-
-        protected override void Awake()
+        public void Interact()
         {
-            base.Awake();
-            animator = GetComponentInChildren<Animator>();
-        }
-
-        private void Update()
-        {
-            if (animator != null)
-            {
-                animator.SetBool("inCombat", inCombat);
-                animator.SetBool("isWalking", isWalking);
-            }
+            //Debug.Log("Interact");
+            onInteract?.Invoke(this);
         }
 
         public void DropLoot()
         {
             // Implement loot drop logic
-        }
-
-        [ContextMenu("Debug Hurt")]
-        public void Hurt()
-        {
-            animator.SetTrigger("hit");
         }
     }
 }

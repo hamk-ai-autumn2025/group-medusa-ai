@@ -153,11 +153,10 @@ namespace dev.susybaka.TurnBasedGame.Player
 
         public void Initialize(Vector2 startPos)
         {
-            transform.position = startPos;
-            movement = startPos;
+            movement = Vector2.zero;
             m_collider.isTrigger = true;
             active = false;
-            Utilities.FunctionTimer.Create(this, () => { m_collider.isTrigger = false; active = true; }, 2f, "PlayerBattleController_CollisionDelay", false, true);
+            Utilities.FunctionTimer.Create(this, () => { m_collider.isTrigger = false; active = true; transform.position = startPos; }, 2f, "PlayerBattleController_CollisionDelay", false, true);
         }
 
         public void Deinitialize()

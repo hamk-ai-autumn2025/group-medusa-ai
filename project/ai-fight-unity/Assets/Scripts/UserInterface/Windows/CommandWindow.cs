@@ -52,7 +52,7 @@ namespace dev.susybaka.TurnBasedGame.UI
             commands.Clear();
             commands.AddRange(cmds);
 
-            if (commands == null || commands.Count <= 0)
+            /*if (commands == null || commands.Count <= 0)
             {
                 Debug.LogWarning("CommandWindow: No commands to display.");
                 return;
@@ -60,7 +60,7 @@ namespace dev.susybaka.TurnBasedGame.UI
             else
             {
                 Debug.Log($"CommandWindow: Loaded {commands.Count} commands.");
-            }
+            }*/
 
             if (scrollBox == null)
                 return;

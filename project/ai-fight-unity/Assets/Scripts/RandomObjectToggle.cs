@@ -8,9 +8,11 @@ namespace dev.susybaka.TurnBasedGame.Misc
     {
         [SerializeField] private List<GameObject> objects;
         [SerializeField] private bool oneAtTime = true;
+        [SerializeField] private bool startDisabled = true;
         [SerializeField] private Vector2 duration = new Vector2(1f, 3f);
 
         private bool initialized = false;
+        private bool visible = true;
         private bool notEnough = false;
         private float timer = 0f;
         private GameObject picked = null;
@@ -24,12 +26,18 @@ namespace dev.susybaka.TurnBasedGame.Misc
             notEnough = false;
             timer = Random.Range(duration.x, duration.y);
 
+            if (startDisabled)
+            {
+                visible = false;
+                StartCoroutine(Activate());
+            }
+
             if (objects != null && objects.Count > 0)
             {
                 objects.Shuffle();
                 for (int i = 0; i < objects.Count; i++)
                 {
-                    if (i > 0)
+                    if (i > 0 || startDisabled)
                         objects[i].SetActive(false);
                     else
                     {
@@ -40,9 +48,19 @@ namespace dev.susybaka.TurnBasedGame.Misc
             }
         }
 
+        private IEnumerator Activate()
+        {
+            yield return new WaitForSeconds(0.1f);
+            visible = true;
+            Pick();
+        }
+
         private void Update()
         {
             if (!initialized || objects == null)
+                return;
+
+            if (!visible)
                 return;
 
             if (objects.Count < 2)
@@ -63,20 +81,25 @@ namespace dev.susybaka.TurnBasedGame.Misc
             {
                 timer = Random.Range(duration.x, duration.y);
 
-                if (oneAtTime)
+                Pick();
+            }
+        }
+
+        private void Pick()
+        {
+            if (oneAtTime)
+            {
+                if (picked != null)
+                    picked.SetActive(false);
+
+                GameObject r = objects.GetRandomItem();
+                while (picked == r)
                 {
-                    if (picked != null)
-                        picked.SetActive(false);
-
-                    GameObject r = objects.GetRandomItem();
-                    while (picked == r)
-                    {
-                        r = objects.GetRandomItem();
-                    }
-
-                    picked = r;
-                    picked.SetActive(true);
+                    r = objects.GetRandomItem();
                 }
+
+                picked = r;
+                picked.SetActive(true);
             }
         }
     }

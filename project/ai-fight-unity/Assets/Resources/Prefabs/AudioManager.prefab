@@ -437,3 +437,30 @@ MonoBehaviour:
     source: {fileID: 0}
     sources: []
     hasMultipleSources: 0
+  - name: sfx_ui_player_edging
+    multipleClips: 0
+    clip: {fileID: 8300000, guid: 90ef84af6da22a64ebd54f5c4b39b66c, type: 3}
+    clips:
+      array: []
+    mixerGroup: {fileID: 24300002, guid: 08ef7112a01a2634f8d64f025ab4ef08, type: 2}
+    maxInstances: 4
+    mute: 0
+    bypassEffects: 0
+    bypassListenerEffects: 0
+    bypassReverbZones: 0
+    playOnAwake: 0
+    specificScenesOnly: []
+    loop: 0
+    priority: 128
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    stereoPan: 0
+    spatialBlend: 0
+    reverbZoneMix: 1
+    positions:
+    - {x: 0, y: 0, z: 0}
+    source: {fileID: 0}
+    sources: []
+    hasMultipleSources: 0

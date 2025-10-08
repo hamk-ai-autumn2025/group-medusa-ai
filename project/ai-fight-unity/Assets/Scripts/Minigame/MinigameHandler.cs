@@ -85,7 +85,7 @@ namespace dev.susybaka.TurnBasedGame.Minigame
                     for (int p = 0; p < e.prefabs.Length; p++)
                     {
                         MinigamePrefabSpawn spawn = e.prefabs[p];
-                        Instantiate(spawn.prefab, spawn.spawnLocation, Quaternion.identity, dynamicParent).Initialize(OnHit);
+                        Instantiate(spawn.prefab, spawn.spawnLocation, spawn.rotation != 0 ? Quaternion.Euler(new Vector3(0f, 0f, spawn.rotation)) : Quaternion.identity, dynamicParent).Initialize(OnHit);
                     }
                 }
 

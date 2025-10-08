@@ -50,5 +50,6 @@ namespace dev.susybaka.TurnBasedGame.Minigame.Data
         public string name;
         public MinigamePrefab prefab;
         public Vector2 spawnLocation;
+        public float rotation;
     }
 }

@@ -12,13 +12,22 @@ namespace dev.susybaka.TurnBasedGame.Battle.Data
         {
             foreach (var t in ctx.targets)
             {
+                bool isHeal = amount >= 0;
+                int finalAmount = amount;
+
+                if (!isHeal)
+                    // Use a simple scaling formula for attackPower:
+                    // finalAmount = amount + Mathf.FloorToInt(Mathf.Pow(ctx.actor.attackPower.Value, 0.7f))
+                    // This gives diminishing returns for higher attackPower, but still increases damage meaningfully.
+                    finalAmount = amount + Mathf.FloorToInt(Mathf.Pow(ctx.actor.attackPower.Value, 0.7f));
+
                 t.ModifyHealth(amount);
 
                 // Trigger visual effect based on whether damage or healing was applied
-                if (amount < 0)
-                    t.DamageEffect();
+                if (!isHeal)
+                    t.DamageEffect(finalAmount);
                 else
-                    t.HealEffect();
+                    t.HealEffect(finalAmount);
             }
             yield break;
         }

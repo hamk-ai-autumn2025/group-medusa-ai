@@ -10,19 +10,28 @@ namespace dev.susybaka.TurnBasedGame.UI
     {
         [Header("Battle Window")]
         [SerializeField] private PartyWindow partyMembers;
-        [SerializeField] private HudWindow ultimateBar;
+        [SerializeField] private ActionPointBarWindow actionPointBar;
         [SerializeField] private ActionWindow actionWindow;
         [SerializeField] private TargetWindow targetWindow;
-        [SerializeField] private HudWindow talkWindow;
+        [SerializeField] private LabelWindow descriptionWindow;
+        [SerializeField] private LabelWindow talkWindow;
+        private CaptureTextInput talkCapture;
+        [SerializeField] private PopupWindow popupWindow;
+        [SerializeField] private SpeechWindow speechWindow;
 
         public ActionWindow ActionWindow => actionWindow;
         public TargetWindow TargetWindow => targetWindow;
         public PartyWindow PartyMembers => partyMembers;
-        public HudWindow UltimateBar => ultimateBar;
-        public HudWindow TalkWindow => talkWindow;
+        public ActionPointBarWindow ActionPointBar => actionPointBar;
+        public LabelWindow DescriptionWindow => descriptionWindow;
+        public LabelWindow TalkWindow => talkWindow;
+        public CaptureTextInput TalkCapture => talkCapture;
+        public PopupWindow PopupWindow => popupWindow;
+        public SpeechWindow SpeechWindow => speechWindow;
 
         public void OpenPartyWindow(Party party)
         {
+            actionPointBar?.SetParty(party);
             partyMembers?.OpenForPlanning(party);
         }
 
@@ -32,15 +41,21 @@ namespace dev.susybaka.TurnBasedGame.UI
                 return;
 
             base.Initialize(manager);
+            talkCapture = talkWindow?.GetComponent<CaptureTextInput>();
 
             partyMembers?.Initialize(manager);
-            ultimateBar?.Initialize(manager);
+            actionPointBar?.Initialize(manager);
             actionWindow?.Initialize(manager);
             targetWindow?.Initialize(manager);
             talkWindow?.Initialize(manager);
+            descriptionWindow?.Initialize(manager);
+            popupWindow?.Initialize(manager);
+            speechWindow?.Initialize(manager);
 
             actionWindow?.SetTargetWindow(targetWindow);
             partyMembers?.SetActionWindow(actionWindow);
+            partyMembers?.SetActionPointBar(actionPointBar);
+            descriptionWindow?.CloseWindow();
         }
     }
 }
