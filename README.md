@@ -2,4 +2,6 @@
 
 Here's list of all the contents:
 
-- [Unity Game Project](https://github.com/hamk-ai-autumn2025/group-medusa-ai/tree/main/project)
+- [AI Project Unity Game](https://github.com/hamk-ai-autumn2025/group-medusa-ai/tree/main/project)
+
+- [AI Tools Assignments](https://github.com/hamk-ai-autumn2025/group-medusa-ai/tree/main/tools)
