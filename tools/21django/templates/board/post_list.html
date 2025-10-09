@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}Posts — Feedback Board{% endblock %}
+{% block content %}
+  <h1>Top Feedback</h1>
+  <div class="filters">
+    <a href="?">All</a>
+    <a href="?status=open">Open</a>
+    <a href="?status=closed">Closed</a>
+  </div>
+  <ul class="post-list">
+    {% for p in posts %}
+      <li class="post-card">
+        <div class="score">{{ p.votes.count }}</div>
+        <div class="content">
+          <a class="title" href="{% url 'post_detail' p.pk %}">{{ p.title }}</a>
+          <div class="meta">
+            {{ p.created_by.username }} • {{ p.created_at|naturaltime }} •
+            {{ p.comments.count }} comment{{ p.comments.count|pluralize }} •
+            <span class="status {{ p.status }}">{{ p.get_status_display }}</span>
+          </div>
+        </div>
+      </li>
+    {% empty %}
+      <p>No posts yet.</p>
+    {% endfor %}
+  </ul>
+
+  {% if is_paginated %}
+    <div class="pagination">
+      {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+      {% endif %}
+      <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}

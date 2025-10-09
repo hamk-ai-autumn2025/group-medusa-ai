@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}{{ post.title }} — Feedback Board{% endblock %}
+{% block content %}
+  <article class="post-detail">
+    <div class="post-head">
+      <div class="score big">{{ post.votes.count }}</div>
+      <div>
+        <h1>{{ post.title }}</h1>
+        <div class="meta">
+          {{ post.created_by.username }} • {{ post.created_at|naturaltime }} •
+          <span class="status {{ post.status }}">{{ post.get_status_display }}</span>
+        </div>
+      </div>
+    </div>
+    <p class="body">{{ post.body|linebreaksbr }}</p>
+
+    <div class="actions">
+      {% if user.is_authenticated %}
+        <form action="{% url 'toggle_vote' post.pk %}" method="post" style="display:inline">
+          {% csrf_token %}
+          <button class="btn">{% if user.votes.filter(post=post).exists %}Unvote{% else %}Up-vote{% endif %}</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}?next={{ request.path }}" class="btn">Login to vote</a>
+      {% endif %}
+    </div>
+
+    <h2>Comments ({{ post.comments.count }})</h2>
+    <ul class="comments">
+      {% for c in post.comments.all %}
+        <li>
+          <div class="meta">{{ c.created_by.username }} • {{ c.created_at|naturaltime }}</div>
+          <div class="text">{{ c.body|linebreaksbr }}</div>
+        </li>
+      {% empty %}
+        <p>No comments yet.</p>
+      {% endfor %}
+    </ul>
+
+    {% if user.is_authenticated %}
+      <form action="{% url 'add_comment' post.pk %}" method="post" class="card">
+        {% csrf_token %}
+        {{ comment_form.body }}
+        <button class="btn">Add comment</button>
+      </form>
+    {% else %}
+      <p><a href="{% url 'login' %}?next={{ request.path }}">Login</a> to comment.</p>
+    {% endif %}
+  </article>
+{% endblock %}

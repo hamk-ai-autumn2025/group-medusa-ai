@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Login — Feedback Board{% endblock %}
+{% block content %}
+  <h1>Login</h1>
+  <form method="post" class="card narrow">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <label>Username {{ form.username }}</label>
+    <label>Password {{ form.password }}</label>
+    <button class="btn">Login</button>
+  </form>
+  <p class="muted">Use the admin to create users quickly during the demo.</p>
+{% endblock %}

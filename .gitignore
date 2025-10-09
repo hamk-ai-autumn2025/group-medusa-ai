@@ -456,3 +456,33 @@ project/.vscode
 project/ai-fight-unity/.DS_Store
 project/ai-fight-unity/.vscode
 
+# Python
+tools/21django/__pycache__/
+tools/21django/*.py[cod]
+tools/21django/*$py.class
+tools/21django/*.pyo
+tools/21django/*.pyd
+tools/21django/*.so
+tools/21django/.pytest_cache/
+tools/21django/.mypy_cache/
+tools/21django/.ruff_cache/
+tools/21django/.coverage
+tools/21django/htmlcov/
+
+# Django
+tools/21django/db.sqlite3
+tools/21django/media/
+tools/21django/staticfiles/
+tools/21django/.env
+tools/21django/.env.*
+
+# Virtual envs
+tools/21django/.venv/
+tools/21django/venv/
+tools/21django/env/
+
+# Editors/OS
+tools/21django/.vscode/
+tools/21django/.idea/
+tools/21django/.DS_Store
+tools/21django/Thumbs.db
