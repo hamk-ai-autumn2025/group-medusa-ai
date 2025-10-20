@@ -480,9 +480,14 @@ tools/21django/.env.*
 tools/21django/.venv/
 tools/21django/venv/
 tools/21django/env/
+apis-and-apps/.venv/
+apis-and-apps/venv/
 
 # Editors/OS
 tools/21django/.vscode/
 tools/21django/.idea/
 tools/21django/.DS_Store
 tools/21django/Thumbs.db
+
+# Test files
+apis-and-apps/.test/
