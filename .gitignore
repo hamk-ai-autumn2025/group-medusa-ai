@@ -491,3 +491,4 @@ tools/21django/Thumbs.db
 
 # Test files
 apis-and-apps/.test/
+*.pdf
