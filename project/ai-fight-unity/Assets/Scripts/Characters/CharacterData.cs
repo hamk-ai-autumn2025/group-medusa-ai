@@ -13,5 +13,6 @@ namespace dev.susybaka.TurnBasedGame.Characters.Data
         [SoundName] public string characterDialogueSound;
         public CommandNodeData rootCommands;
         public InventoryData inventory;
+        public bool isMainPlayerCharacter = false;
     }
 }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36dc94234817cd7439e7853b5dbc9da2, type: 3}
   m_Name: DealDamageSwordSlash
   m_EditorClassIdentifier: 
+  preTurn: 0
   amount: -10
 --- !u!114 &11400000
 MonoBehaviour:
@@ -26,10 +27,15 @@ MonoBehaviour:
   m_Name: SwordSlash
   m_EditorClassIdentifier: 
   displayName: Sword Slash
-  description: Attack an opponent with your sword dealing 10 slashing damage.
+  description: Attack an opponent with your sword dealing <color=red>10</color> slashing
+    damage.
   tags: []
   requiresTarget: 1
   targetGroup: 3
+  attackSpeed: 4
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
   consumesMana: 0
   consumedMana: 0
   restoresMana: 0
@@ -40,7 +46,13 @@ MonoBehaviour:
   restoredActionPoints: 0
   dealsDamage: 1
   amountDamage: -10
+  isDefensive: 0
+  isSpell: 0
+  isHeal: 0
+  isAttack: 1
+  opensActMenu: 0
   conditions: []
   effects:
   - {fileID: -7739313272763583498}
   minigame: {fileID: 0}
+  dialogueOnUse: {fileID: 0}

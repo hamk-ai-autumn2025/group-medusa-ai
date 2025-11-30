@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e92850a4241af48ab64af3c4fcabbc, type: 3}
+  m_Name: SystemRestore
+  m_EditorClassIdentifier: 
+  displayName: System Restore
+  description: Spell that inflicts <color=purple>Reboot</color> for <color=green>4</color>
+    turns. <color=purple>Reboot</color> restores half of the target's health upon
+    expiring. Costs 40 <color=yellow>AP</color>.
+  tags:
+  - magic
+  - target_single
+  - restore_target_resources
+  - type_heal
+  - cost_40_action_points
+  requiresTarget: 1
+  targetGroup: 3
+  attackSpeed: 3
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
+  consumesMana: 0
+  consumedMana: 0
+  restoresMana: 0
+  restoredMana: 0
+  consumesActionPoints: 1
+  consumedActionPoints: -40
+  restoresActionPoints: 0
+  restoredActionPoints: 0
+  dealsDamage: 0
+  amountDamage: 0
+  isDefensive: 0
+  isSpell: 1
+  isHeal: 1
+  isAttack: 0
+  opensActMenu: 0
+  conditions:
+  - {fileID: 1367990295522492160}
+  - {fileID: 11400000, guid: a5c23221dcad98845920035545411ee7, type: 2}
+  effects:
+  - {fileID: 5336616946018402654}
+  - {fileID: 11400000, guid: 06793181c004acb498b15ffe9fbacc00, type: 2}
+  minigame: {fileID: 0}
+  dialogueOnUse: {fileID: 11400000, guid: 32ce79402c400414ba8dedd0b14b3ab1, type: 2}
+--- !u!114 &1367990295522492160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a806d65261c494bac44f07e43a93b7, type: 3}
+  m_Name: HasActionPointsSystemRestore
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  postTurn: 0
+  actionPointCost: -40
+--- !u!114 &5336616946018402654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a898db53a504a4090c6ddc980deaf0, type: 3}
+  m_Name: ConsumeActionPointsSystemRestore
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  amount: -40

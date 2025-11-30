@@ -1,5 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
+using dev.susybaka.TurnBasedGame.Battle.Data;
+using dev.susybaka.TurnBasedGame.Characters;
 using dev.susybaka.TurnBasedGame.Characters.Data;
+using dev.susybaka.TurnBasedGame.Items;
 
 namespace dev.susybaka.TurnBasedGame.Dialogue
 {
@@ -21,6 +25,22 @@ namespace dev.susybaka.TurnBasedGame.Dialogue
             this.speed = speed;
             this.lineBreakPause = lineBreakPause;
             this.text = text;
+        }
+    }
+
+    public readonly struct DialogueContext
+    {
+        public readonly Character source { init; get; }
+        public readonly IList<Character> targets { init; get; }
+        public readonly AbilityData ability { init; get; }
+        public readonly IList<ItemData> items { init; get; }
+
+        public DialogueContext(Character source, IList<Character> targets, AbilityData action, IList<ItemData> items)
+        {
+            this.source = source;
+            this.targets = targets ?? new List<Character>();
+            this.ability = action;
+            this.items = items;
         }
     }
 }

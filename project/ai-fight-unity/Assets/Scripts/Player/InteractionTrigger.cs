@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using dev.susybaka.TurnBasedGame.Characters;
 using dev.susybaka.TurnBasedGame.Input;
 using dev.susybaka.TurnBasedGame.Interfaces;
 
@@ -9,6 +10,7 @@ namespace dev.susybaka.TurnBasedGame.Player
     public class InteractionTrigger : MonoBehaviour
     {
         InputHandler Input;
+        Character character;
 
         private List<IInteractable> interactables = new List<IInteractable>();
 
@@ -16,6 +18,7 @@ namespace dev.susybaka.TurnBasedGame.Player
         {
             Input = GameManager.Instance.Input;
             interactables = new List<IInteractable>();
+            character = transform.GetComponentInParents<Character>();
         }
 
         private void Update()
@@ -26,7 +29,7 @@ namespace dev.susybaka.TurnBasedGame.Player
             if (Input.InteractInput && interactables.Count > 0)
             {
                 // Interact with the first interactable in the list
-                interactables[0].Interact();
+                interactables[0].Interact(character);
             }
         }
 

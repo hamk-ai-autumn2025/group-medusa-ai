@@ -20,12 +20,15 @@ MonoBehaviour:
   - state_modifier
   - value_true
   - type_restriction
+  - runs_on_apply
   type: 2
   isInfinite: 0
   allowRefresh: 1
   maxStacks: 1
   onApply:
   - {fileID: 11400000, guid: 9499bf9889ecb8c44a43fbecbcb7ba1d, type: 2}
+  - {fileID: 11400000, guid: 22fcabc7c20a1ab4b9f4e3f5dbedf8bc, type: 2}
   onRemove:
   - {fileID: 11400000, guid: caf016d37865a5446831d6bb91325a29, type: 2}
+  - {fileID: 11400000, guid: fec6026c0c05f4244b3d36b9fd989c4d, type: 2}
   onTick: []

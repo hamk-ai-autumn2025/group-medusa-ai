@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e100a2eca9f16144b89bbd4c2d941a96, type: 3}
+  m_Name: Story_Beginning
+  m_EditorClassIdentifier: 
+  dialogueName: Intro Text
+  dialogue:
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 4
+    speed: 20
+    lineBreakPause: 1
+    text: 'Ugh...
+
+      Where am I?'
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 4
+    speed: 20
+    lineBreakPause: 1
+    text: 'I don''t remember what happened?
+
+      I was in a fight I think...
+
+      There
+      were others...'
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'I need to get going.
+
+      I must get out of this place.'
+  - speaker: {fileID: 11400000, guid: 1f3ab7ea342cb0644b26990907ffea4c, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'Use WASD or Arrow Keys to move.
+
+      E or Z to interact and X or Esc
+      to cancel.
+
+      Space is used for jumping and minigames.'
+  - speaker: {fileID: 11400000, guid: 1f3ab7ea342cb0644b26990907ffea4c, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'You have to recruit your party members.
+
+      After that you can fight
+      the AI boss.
+
+      Good luck!'
+  onComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 846c2b2cda687f8429d369be8305c043, type: 2}
+        m_TargetAssemblyTypeName: dev.susybaka.TurnBasedGame.Events.RemoveObjectEvent,
+          Assembly-CSharp
+        m_MethodName: TriggerEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

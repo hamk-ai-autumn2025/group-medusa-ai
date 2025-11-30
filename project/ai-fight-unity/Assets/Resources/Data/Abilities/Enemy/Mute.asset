@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3362028929563808691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a898db53a504a4090c6ddc980deaf0, type: 3}
+  m_Name: ConsumeActionPointsMute
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  amount: -40
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e92850a4241af48ab64af3c4fcabbc, type: 3}
+  m_Name: Mute
+  m_EditorClassIdentifier: 
+  displayName: Mute Volume
+  description: Spell that applies <color=purple>Silenced</color> to one target. <color=purple>Silenced</color>
+    prevents the target from using any spoken actions. Costs 40 <color=yellow>AP</color>.
+  tags:
+  - spell
+  - target_single
+  - dodge_chance_none
+  - speed_fast
+  - minigame_type_debuff
+  - debuff_silence_prevent_spells
+  - cost_40_action_points
+  requiresTarget: 1
+  targetGroup: 3
+  attackSpeed: 3
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
+  consumesMana: 0
+  consumedMana: 0
+  restoresMana: 0
+  restoredMana: 0
+  consumesActionPoints: 1
+  consumedActionPoints: -40
+  restoresActionPoints: 0
+  restoredActionPoints: 0
+  dealsDamage: 1
+  amountDamage: -5
+  isDefensive: 0
+  isSpell: 1
+  isHeal: 0
+  isAttack: 0
+  opensActMenu: 0
+  conditions:
+  - {fileID: 2756203720758100828}
+  - {fileID: 11400000, guid: f40bcd7a68667fe4285c718357618669, type: 2}
+  - {fileID: 11400000, guid: ac047b25c9948d9459f3131f17d41a9f, type: 2}
+  effects:
+  - {fileID: -3362028929563808691}
+  - {fileID: 11400000, guid: bceb33bc3235f0b45aba765eb7fb3bec, type: 2}
+  - {fileID: 7846527228549702879}
+  minigame: {fileID: 11400000, guid: 569abe5ce1b192048997cd7e276086e6, type: 2}
+  dialogueOnUse: {fileID: 11400000, guid: 24b868846e39c4442915befa5b856b68, type: 2}
+--- !u!114 &2756203720758100828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a806d65261c494bac44f07e43a93b7, type: 3}
+  m_Name: HasActionPointsMute
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  postTurn: 0
+  actionPointCost: -40
+--- !u!114 &7846527228549702879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36dc94234817cd7439e7853b5dbc9da2, type: 3}
+  m_Name: DealDamageMute
+  m_EditorClassIdentifier: 
+  preTurn: 0
+  amount: -5

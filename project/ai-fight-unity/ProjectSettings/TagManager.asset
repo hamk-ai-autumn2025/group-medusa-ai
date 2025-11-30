@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Interactable
+  - Edging
+  - ZoneTrigger
   layers:
   - Default
   - TransparentFX
@@ -14,12 +16,12 @@ TagManager:
   - UI
   - Player
   - Ignore Player
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Edging
+  - Ignore Itself
+  - Interaction
+  - Minigame
+  - No Collision
+  - Player Battle
   - 
   - 
   - 

@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e92850a4241af48ab64af3c4fcabbc, type: 3}
+  m_Name: RitualCurse
+  m_EditorClassIdentifier: 
+  displayName: Ritual Curse
+  description: Inflict an opponent with <color=purple>Ritual Curse</color> for <color=green>3</color>
+    turns. <color=purple>Ritual Curse</color> prevents target from receiving any
+    healing. Costs 50 <color=yellow>AP</color>.
+  tags: []
+  requiresTarget: 1
+  targetGroup: 3
+  attackSpeed: 5
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
+  consumesMana: 0
+  consumedMana: 0
+  restoresMana: 0
+  restoredMana: 0
+  consumesActionPoints: 1
+  consumedActionPoints: -30
+  restoresActionPoints: 0
+  restoredActionPoints: 0
+  dealsDamage: 1
+  amountDamage: -10
+  isDefensive: 0
+  isSpell: 1
+  isHeal: 0
+  isAttack: 1
+  opensActMenu: 0
+  conditions:
+  - {fileID: 3165735832961280635}
+  - {fileID: 11400000, guid: f40bcd7a68667fe4285c718357618669, type: 2}
+  effects:
+  - {fileID: 6812756720043421836}
+  - {fileID: 2340645018208450084}
+  - {fileID: 11400000, guid: e10f4458f93a92d4d91dcf01aaeffb68, type: 2}
+  minigame: {fileID: 0}
+  dialogueOnUse: {fileID: 0}
+--- !u!114 &2340645018208450084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36dc94234817cd7439e7853b5dbc9da2, type: 3}
+  m_Name: DealDamageRitualCurse
+  m_EditorClassIdentifier: 
+  preTurn: 0
+  amount: -10
+--- !u!114 &3165735832961280635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a806d65261c494bac44f07e43a93b7, type: 3}
+  m_Name: HasActionPointsRitualCurse
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  postTurn: 0
+  actionPointCost: -30
+--- !u!114 &6812756720043421836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a898db53a504a4090c6ddc980deaf0, type: 3}
+  m_Name: ConsumeActionPointsRitualCurse
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  amount: -30

@@ -15,8 +15,11 @@ namespace dev.susybaka.TurnBasedGame.Characters
         
         private readonly List<Vector2> _points = new List<Vector2>();
         private Vector2Int _lastTile = new Vector2Int(int.MinValue, int.MinValue);
+        public int ResetCounter { get; private set; }
+        public int Version { get; private set; }
 
         public int PointCount => _points.Count;
+        private int _pointCount;
         public Vector2 GetPoint(int index)
         {
             if (_points == null)
@@ -24,6 +27,16 @@ namespace dev.susybaka.TurnBasedGame.Characters
             if (_points.Count < 1 || index < 0 || index >= _points.Count)
                 return Vector2.zero;
             return _points[index];
+        }
+
+        public void ResetAtPosition(Vector2 newWorldPos)
+        {
+            Version++;
+            _points.Clear();
+
+            var tile = WorldToTile(newWorldPos);
+            _points.Add(TileToWorld(tile));
+            _lastTile = tile;
         }
 
         void Start()
@@ -36,6 +49,8 @@ namespace dev.susybaka.TurnBasedGame.Characters
 
         void Update()
         {
+            _pointCount = _points.Count;
+
             var tile = WorldToTile(transform.position);
             if (tile != _lastTile)
             {
@@ -47,7 +62,13 @@ namespace dev.susybaka.TurnBasedGame.Characters
             }
         }
 
-        public Vector2Int WorldToTile(Vector3 world) => new Vector2Int(Mathf.FloorToInt(world.x), Mathf.FloorToInt(world.y));
+        //public Vector2Int WorldToTile(Vector3 world) => new Vector2Int(Mathf.FloorToInt(world.x), Mathf.FloorToInt(world.y));
+        public Vector2Int WorldToTile(Vector3 world)
+        {
+            int ix = Mathf.RoundToInt(world.x - gridOffset.x);
+            int iy = Mathf.RoundToInt(world.y - gridOffset.y);
+            return new Vector2Int(ix, iy);
+        }
         public Vector2 TileToWorld(Vector2Int tile) => new Vector2(tile.x + gridOffset.x, tile.y + gridOffset.y);
     }
 }

@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e100a2eca9f16144b89bbd4c2d941a96, type: 3}
+  m_Name: Story_GarlicJoinParty
+  m_EditorClassIdentifier: 
+  dialogueName: Story Garlic Join Text
+  dialogue:
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0
+    text: Here is your food.
+  - speaker: {fileID: 11400000, guid: 9f589b09030d3c843b41c13e7c976fee, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0
+    text: Thank you so much.
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0
+    text: Shall we get going then?
+  - speaker: {fileID: 11400000, guid: 9f589b09030d3c843b41c13e7c976fee, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'Yes, let''s go.
+
+      We need to go meet with Brok.
+
+      He can help
+      us leave this place.'
+  - speaker: {fileID: 11400000, guid: 1f3ab7ea342cb0644b26990907ffea4c, type: 2}
+    portrait: 0
+    speed: 10
+    lineBreakPause: 0
+    text: Garlic joins the party!
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []

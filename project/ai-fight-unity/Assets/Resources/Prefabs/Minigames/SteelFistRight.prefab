@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8986238888198651214}
   - component: {fileID: 1361367829379055914}
   - component: {fileID: 2803675019831633357}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SteelFistRight
   m_TagString: Edging
   m_Icon: {fileID: 0}
@@ -120,12 +120,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b680fdbc78c6c6a42b63d0ec93583087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {x: 6, y: 0, z: 6, w: 0}
-  delay: 2
+  movement: {x: 12, y: 0, z: 12, w: 0}
+  delay: 0.35
   lifetime: 5
   invincibilityTime: 1
   destroyedOnContact: 0
-  localSpace: 0
+  localSpace: 1
+  onSpawn:
+    m_PersistentCalls:
+      m_Calls: []
   onInitialize:
     m_PersistentCalls:
       m_Calls: []
@@ -139,7 +142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1279885159490097725}
   - component: {fileID: 226703261685377524}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprite0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +226,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1685909492069213329}
   - component: {fileID: 9077647596944882377}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Collider
   m_TagString: Edging
   m_Icon: {fileID: 0}

@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using dev.susybaka.TurnBasedGame.Characters.Data;
+using dev.susybaka.TurnBasedGame.Enemies;
 using UnityEngine;
 
 namespace dev.susybaka.TurnBasedGame.Characters
@@ -45,6 +47,12 @@ namespace dev.susybaka.TurnBasedGame.Characters
             return true;
         }
 
+        public void AddMember(Character character, Vector3 location)
+        {
+            Character c = GameObject.Instantiate(character.gameObject, location, Quaternion.identity).GetComponent<Character>();
+            AddMember(c);
+        }
+
         public bool RemoveMember(Character character)
         {
             if (members.Contains(character))
@@ -53,6 +61,42 @@ namespace dev.susybaka.TurnBasedGame.Characters
                 return true;
             }
             return false;
+        }
+
+        public void RemoveMember(CharacterData data)
+        {
+            for (int i = 0; i < members.Count; i++)
+            {
+                if (members[i].data == data)
+                {
+                    members.RemoveAt(i);
+                    return;
+                }
+            }
+        }
+
+        public bool HasMember(CharacterData data)
+        {
+            for (int i = 0; i < members.Count; i++)
+            {
+                if (members[i].data == data)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public Character GetMember(CharacterData data)
+        {
+            for (int i = 0; i < members.Count; i++)
+            {
+                if (members[i].data == data)
+                {
+                    return members[i];
+                }
+            }
+            return null;
         }
 
         public Character GetFirstAliveMember() 
@@ -95,6 +139,9 @@ namespace dev.susybaka.TurnBasedGame.Characters
 
         public void ModifyPoints(int amount)
         {
+            if (amount == 0) 
+                return;
+
             points += amount;
 
             if (points < 0) 
@@ -102,6 +149,73 @@ namespace dev.susybaka.TurnBasedGame.Characters
             
             if (points > maxPoints) 
                 points = maxPoints;
+        }
+
+        public void MoveParty(Vector3 location, Vector3 direction)
+        {
+            if (leader != null)
+            {
+                if (leader.transform.root.TryGetComponentInChildren(true, out CharacterTrailRecorder trail))
+                {
+                    trail.ResetAtPosition(location);
+                }
+            }
+
+            for (int i = 0; i < members.Count; i++)
+            {
+                if (members[i] == null)
+                    continue;
+
+                //Debug.Log("Moving " + members[i].name + " to " + (location + direction * i));
+
+                if (members[i].CharacterTransform != null)
+                {
+                    members[i].CharacterTransform.position = location + direction * i;
+                }
+                else
+                {
+                    members[i].transform.position = location + direction * i;
+                }
+
+                if (members[i].transform.TryGetComponentInChildren(true, out NPCOverworldController npcOwc))
+                {
+                    //Debug.Log("Clearing path for " + members[i].name);
+                    npcOwc.OnTeleported();
+                }
+            }
+        }
+
+        public void MoveParty(IList<Vector3> locations)
+        {
+            int count = Mathf.Min(members.Count, locations.Count);
+
+            if (leader != null)
+            {
+                if (leader.transform.root.TryGetComponentInChildren(true, out CharacterTrailRecorder trail))
+                {
+                    trail.ResetAtPosition(locations[0]);
+                }
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                if (members[i] == null)
+                    continue;
+
+                if (members[i].CharacterTransform != null)
+                {
+                    members[i].CharacterTransform.position = locations[i];
+                }
+                else
+                {
+                    members[i].transform.position = locations[i];
+                }
+
+                if (members[i].transform.TryGetComponentInChildren(true, out NPCOverworldController npcOwc))
+                {
+                    npcOwc.OnTeleported();
+                }
+            }
         }
     }
 

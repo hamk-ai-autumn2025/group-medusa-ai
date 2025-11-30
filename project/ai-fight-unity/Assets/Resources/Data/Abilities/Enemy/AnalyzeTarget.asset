@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-3186700184103509320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a806d65261c494bac44f07e43a93b7, type: 3}
+  m_Name: HasActionPointsAnalyzeTarget
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  postTurn: 0
+  actionPointCost: -10
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14,20 +29,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: Analyze
   description: Action that let's you see all stats (e.g. Defense and Attack Power)
-    for one target.
+    for one target. Costs 10 <color=yellow>AP</color>.
   tags:
   - action
   - target_single
   - reveal_target_stats
   - type_analyze
+  - cost_10_action_points
   requiresTarget: 1
   targetGroup: 3
+  attackSpeed: 3
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
   consumesMana: 0
   consumedMana: 0
   restoresMana: 0
   restoredMana: 0
-  consumesActionPoints: 0
-  consumedActionPoints: 0
+  consumesActionPoints: 1
+  consumedActionPoints: -10
   restoresActionPoints: 0
   restoredActionPoints: 0
   dealsDamage: 0
@@ -35,8 +55,26 @@ MonoBehaviour:
   isDefensive: 0
   isSpell: 0
   isHeal: 0
-  conditions: []
+  isAttack: 0
+  opensActMenu: 0
+  conditions:
+  - {fileID: -3186700184103509320}
   effects:
+  - {fileID: 4265325178099117156}
   - {fileID: 11400000, guid: 73e2e62c6450af84c9a303bbc0cbcd14, type: 2}
   minigame: {fileID: 0}
-  dialogueOnUse: {fileID: 11400000, guid: 24b868846e39c4442915befa5b856b68, type: 2}
+  dialogueOnUse: {fileID: 11400000, guid: 32ce79402c400414ba8dedd0b14b3ab1, type: 2}
+--- !u!114 &4265325178099117156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a898db53a504a4090c6ddc980deaf0, type: 3}
+  m_Name: ConsumeActionPointsAnalyzeTarget
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  amount: -10

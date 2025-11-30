@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4953155425710644305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a898db53a504a4090c6ddc980deaf0, type: 3}
+  m_Name: ConsumeActionPointsPounce
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  amount: -20
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e92850a4241af48ab64af3c4fcabbc, type: 3}
+  m_Name: Pounce
+  m_EditorClassIdentifier: 
+  displayName: Pounce
+  description: Attack an opponent with your claws dealing <color=red>20</color> piercing
+    damage. Costs 20 <color=yellow>AP</color>.
+  tags: []
+  requiresTarget: 1
+  targetGroup: 3
+  attackSpeed: 4
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
+  consumesMana: 0
+  consumedMana: 0
+  restoresMana: 0
+  restoredMana: 0
+  consumesActionPoints: 1
+  consumedActionPoints: -20
+  restoresActionPoints: 0
+  restoredActionPoints: 0
+  dealsDamage: 1
+  amountDamage: -20
+  isDefensive: 0
+  isSpell: 0
+  isHeal: 0
+  isAttack: 1
+  opensActMenu: 0
+  conditions:
+  - {fileID: 5249740844003386056}
+  effects:
+  - {fileID: -4953155425710644305}
+  - {fileID: 1107456487656465595}
+  minigame: {fileID: 0}
+  dialogueOnUse: {fileID: 0}
+--- !u!114 &1107456487656465595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36dc94234817cd7439e7853b5dbc9da2, type: 3}
+  m_Name: DealDamagePounce
+  m_EditorClassIdentifier: 
+  preTurn: 0
+  amount: -20
+--- !u!114 &5249740844003386056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a806d65261c494bac44f07e43a93b7, type: 3}
+  m_Name: HasActionPointsPounce
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  postTurn: 0
+  actionPointCost: -20

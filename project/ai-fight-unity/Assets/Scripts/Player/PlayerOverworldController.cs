@@ -44,7 +44,14 @@ namespace dev.susybaka.TurnBasedGame.Player
             if (sensitivity == 0)
                 sensitivity = 1;
 
-            movement = Input.MovementInput * sensitivity;
+            if (!bound.value && !uncontrollable.value)
+            {
+                movement = Input.MovementInput * sensitivity;
+            }
+            else if (bound.value)
+            {
+                movement = Vector2.zero;
+            }
 
             if (movement != Vector2.zero)
                 storedMovement = movement; // keep last look dir for animation
@@ -86,7 +93,7 @@ namespace dev.susybaka.TurnBasedGame.Player
         {
             if (sprint)
             {
-                m_animator.SetFloat("speed", sprintMultiplier);
+                m_animator.SetFloat("speed", 2f);
             }
             else
             {

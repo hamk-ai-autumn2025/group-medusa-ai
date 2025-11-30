@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7466885466256412359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a898db53a504a4090c6ddc980deaf0, type: 3}
+  m_Name: ConsumeActionPointsFaithfulPrayer
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  amount: -25
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e92850a4241af48ab64af3c4fcabbc, type: 3}
+  m_Name: FaithfulPrayer
+  m_EditorClassIdentifier: 
+  displayName: Faithful Prayer
+  description: Announce a strong prayer that applies <color=purple>Damage Up</color>
+    for <color=green>4</color> turns to you. <color=purple>Damage Up</color> increases
+    attack power by 10 points. Costs 25 <color=yellow>AP</color>.
+  tags: []
+  requiresTarget: 0
+  targetGroup: 0
+  attackSpeed: 3
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
+  consumesMana: 0
+  consumedMana: 0
+  restoresMana: 0
+  restoredMana: 0
+  consumesActionPoints: 1
+  consumedActionPoints: -25
+  restoresActionPoints: 0
+  restoredActionPoints: 0
+  dealsDamage: 0
+  amountDamage: 0
+  isDefensive: 0
+  isSpell: 0
+  isHeal: 0
+  isAttack: 1
+  opensActMenu: 0
+  conditions:
+  - {fileID: 8514380379298232809}
+  - {fileID: 11400000, guid: f40bcd7a68667fe4285c718357618669, type: 2}
+  effects:
+  - {fileID: -7466885466256412359}
+  - {fileID: 11400000, guid: e24887b387e5f974bb12547e560996f9, type: 2}
+  minigame: {fileID: 0}
+  dialogueOnUse: {fileID: 0}
+--- !u!114 &8514380379298232809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a806d65261c494bac44f07e43a93b7, type: 3}
+  m_Name: HasActionPointsFaithfulPrayer
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  postTurn: 0
+  actionPointCost: -25

@@ -13,22 +13,65 @@ MonoBehaviour:
   m_Name: Purification
   m_EditorClassIdentifier: 
   displayName: Purification
-  description: Inflict an ally with Regen for 4 turns. Removes all debuffs from target.
+  description: Applies <color=purple>Regen</color> for <color=green>4</color> turns
+    to target. Removes all debuffs from target. <color=purple>Regen</color> restores
+    10 health every turn. Costs 20 <color=yellow>AP</color>.
   tags: []
   requiresTarget: 1
   targetGroup: 1
+  attackSpeed: 3
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
   consumesMana: 0
   consumedMana: 0
   restoresMana: 0
   restoredMana: 0
-  consumesActionPoints: 0
-  consumedActionPoints: 0
+  consumesActionPoints: 1
+  consumedActionPoints: -20
   restoresActionPoints: 0
   restoredActionPoints: 0
   dealsDamage: 0
   amountDamage: 0
+  isDefensive: 0
+  isSpell: 1
+  isHeal: 1
+  isAttack: 0
+  opensActMenu: 0
   conditions:
   - {fileID: 11400000, guid: f40bcd7a68667fe4285c718357618669, type: 2}
+  - {fileID: 319636098335535218}
   effects:
   - {fileID: 11400000, guid: 97a63b108fae8e64f8df86fdd809dc94, type: 2}
+  - {fileID: 996219342239494981}
   minigame: {fileID: 0}
+  dialogueOnUse: {fileID: 0}
+--- !u!114 &319636098335535218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a806d65261c494bac44f07e43a93b7, type: 3}
+  m_Name: HasActionPointsPurification
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  postTurn: 0
+  actionPointCost: -20
+--- !u!114 &996219342239494981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69a898db53a504a4090c6ddc980deaf0, type: 3}
+  m_Name: ConsumeActionPointsPurification
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  amount: -20

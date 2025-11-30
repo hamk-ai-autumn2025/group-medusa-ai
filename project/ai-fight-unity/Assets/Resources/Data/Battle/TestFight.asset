@@ -18,3 +18,7 @@ MonoBehaviour:
   playerPosition: {x: -4.25, y: 0, z: 0}
   playerHeartPosition: {x: 0, y: 1.5, z: 0}
   startDialogue: {fileID: 11400000, guid: 2fb0aad6def67994da7d4d58d6bcc45c, type: 2}
+  enemyStartingActionPoints: 30
+  allyStartingActionPoints: 0
+  enemyActionPointsPerTurn: 5
+  allyActionPointsPerTurn: 0

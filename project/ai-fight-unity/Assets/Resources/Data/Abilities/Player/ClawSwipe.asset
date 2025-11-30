@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: ClawSwipe
   m_EditorClassIdentifier: 
   displayName: Claw Swipe
-  description: Attack an opponent with your claws dealing 10 slashing damage.
+  description: Attack an opponent with your claws dealing <color=red>10</color> slashing
+    damage.
   tags: []
   requiresTarget: 1
   targetGroup: 3
+  attackSpeed: 3
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
   consumesMana: 0
   consumedMana: 0
   restoresMana: 0
@@ -27,10 +32,16 @@ MonoBehaviour:
   restoredActionPoints: 0
   dealsDamage: 1
   amountDamage: -10
+  isDefensive: 0
+  isSpell: 0
+  isHeal: 0
+  isAttack: 1
+  opensActMenu: 0
   conditions: []
   effects:
   - {fileID: 9165366106684942774}
   minigame: {fileID: 0}
+  dialogueOnUse: {fileID: 0}
 --- !u!114 &9165366106684942774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43,4 +54,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36dc94234817cd7439e7853b5dbc9da2, type: 3}
   m_Name: DealDamageClawSwipe
   m_EditorClassIdentifier: 
+  preTurn: 0
   amount: -10

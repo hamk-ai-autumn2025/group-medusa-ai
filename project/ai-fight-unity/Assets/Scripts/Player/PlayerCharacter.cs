@@ -16,11 +16,36 @@ namespace dev.susybaka.TurnBasedGame.Player
         public PlayerOverworldController overworldController;
         public Transform cameraTarget;
 
+        private Transform cameraFollowTarget;
+
+#if UNITY_EDITOR
+        [Header("Editor")]
+        [SerializeField] private ItemData giveItem;
+        [SerializeField] private int giveItemAmount = 1;
+        [NaughtyAttributes.Button("Give Item")]
+        public void GiveItem()
+        {
+            Inventory.Add(giveItem, giveItemAmount);
+        }
+        [NaughtyAttributes.Button("Log Inventory")]
+        public void LogInventory()
+        {
+            var items = Inventory.NonZeroEntries();
+            Debug.Log("Player Inventory has the following items:");
+            foreach (var item in items)
+            {
+                Debug.Log(string.Format("- {0} x{1}", item.item.displayName, item.count));
+            }
+        }
+#endif
+
         protected override void Awake()
         {
             base.Awake();
             battleController = GetComponentInChildren<PlayerBattleController>();
             overworldController = GetComponentInChildren<PlayerOverworldController>();
+            characterTransform = overworldController.transform;
+            cameraFollowTarget = characterTransform;
         }
 
         private void Update()
@@ -30,15 +55,17 @@ namespace dev.susybaka.TurnBasedGame.Player
                 wasFighting = isFighting;
                 battleController.disabled = true;
                 overworldController.disabled = true;
-                cameraTarget.position = Vector3.zero;
+                cameraFollowTarget = transform;
             }
             else if (!isFighting && isFighting != wasFighting)
             {
                 wasFighting = isFighting;
                 battleController.disabled = true;
                 overworldController.disabled = false;
-                cameraTarget.position = overworldController.transform.position;
+                cameraFollowTarget = characterTransform;
             }
+
+            cameraTarget.position = cameraFollowTarget.position;
         }
 
         public void LevelUp()

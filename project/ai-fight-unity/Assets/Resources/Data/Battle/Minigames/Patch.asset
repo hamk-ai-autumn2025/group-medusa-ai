@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e6183bce3666b47b11624266633ba1, type: 3}
+  m_Name: Patch
+  m_EditorClassIdentifier: 
+  startDelay: 2
+  finishDelay: 2
+  pickRandomEvent: 0
+  randomizeEventOrder: 0
+  randomizeOrderBetweenLoops: 1
+  useGravity: 1
+  events:
+  - name: SpawnPatchBarMiddle
+    prefabs:
+    - name: PatchBarMiddle
+      prefab: {fileID: 130921787333654701, guid: f9398f34ff7df4447868746b73cee3cc, type: 3}
+      spawnLocation: {x: 0, y: 3.75}
+      rotation: 0
+    duration: 1.7
+    repeatCount: 0
+  - name: SpawnPatchBarLeft
+    prefabs:
+    - name: PatchBarLeft
+      prefab: {fileID: 958488758613127817, guid: 211ba6cabe9e73b449a144e1675a6fa3, type: 3}
+      spawnLocation: {x: 0, y: 3.75}
+      rotation: 0
+    duration: 1.7
+    repeatCount: 0
+  - name: SpawnPatchBarRight
+    prefabs:
+    - name: PatchBarRight
+      prefab: {fileID: 4014786831574913487, guid: 242496d2462ab3b4cb1ee15c47618c5c, type: 3}
+      spawnLocation: {x: 0, y: 3.75}
+      rotation: 0
+    duration: 1.7
+    repeatCount: 0
+  - name: Repeat 3x
+    prefabs: []
+    duration: 0
+    repeatCount: 3

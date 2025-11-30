@@ -53,7 +53,7 @@ namespace dev.susybaka.TurnBasedGame.Characters
 
             for (int i = 0; i < edgingEffects.Length; i++)
             {
-                battleHandler.AbilitySystem.StartCoroutine(edgingEffects[i].Execute(new Battle.ActionContext(gameManager, battleHandler, character, new Character[] { character }, null, null)));
+                battleHandler.AbilitySystem.StartCoroutine(edgingEffects[i].Execute(new ActionContext(gameManager, battleHandler, character, new Character[] { character }, null, null, 0, 1.0f)));
             }
         }
 

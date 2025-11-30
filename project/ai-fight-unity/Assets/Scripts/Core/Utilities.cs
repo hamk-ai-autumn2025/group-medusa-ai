@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using dev.susybaka.TurnBasedGame.Battle;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -385,7 +386,7 @@ namespace dev.susybaka.TurnBasedGame
 
         public static void Shuffle<T>(this IList<T> list)
         {
-            for (var i = list.Count - 1; i > 1; i--)
+            for (var i = list.Count - 1; i > 0; i--)
             {
                 var j = UnityEngine.Random.Range(0, i + 1);
                 var value = list[j];
@@ -473,6 +474,30 @@ namespace dev.susybaka.TurnBasedGame
             {
                 arr[i] = value;
             }
+        }
+
+        public static bool RegionMatches(this string s, int start, string token, bool ignoreCase)
+        {
+            if (start < 0 || start + token.Length > s.Length)
+                return false;
+            for (int k = 0; k < token.Length; k++)
+            {
+                char a = s[start + k];
+                char b = token[k];
+                if (ignoreCase)
+                {
+                    a = char.ToLowerInvariant(a);
+                    b = char.ToLowerInvariant(b);
+                }
+                if (a != b)
+                    return false;
+            }
+            return true;
+        }
+
+        public static bool Available<T>(this IList<T> list)
+        {
+            return list != null && list.Count > 0;
         }
 
         /// <summary>

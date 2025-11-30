@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 53
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff72ddc2da234e244a8e96eb44e4c03d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DefaultPixelsPerUnit: 16
+  m_DefaultEdgesPerEllipse: 32
+  m_AnimationFramerate: 20
+  m_DefaultMaterial: {fileID: 0}
+  m_MaterialMatchings: []
+  m_ObjectTypesXml: {fileID: 0}
+  m_ParseXmlError: 
+  m_CollisionGeometryType: 1
+  m_LayerColors:
+  - {r: 0.27450982, g: 0.50980395, b: 0.7058824, a: 1}
+  - {r: 1, g: 0.3882353, b: 0.2784314, a: 1}
+  - {r: 0.9411765, g: 0.972549, b: 1, a: 1}
+  - {r: 0.5764706, g: 0.4392157, b: 0.85882354, a: 1}
+  - {r: 0.6901961, g: 0.8784314, b: 0.9019608, a: 1}
+  - {r: 0.56078434, g: 0.7372549, b: 0.54509807, a: 1}
+  - {r: 0.9411765, g: 0.9019608, b: 0.54901963, a: 1}
+  - {r: 0.8039216, g: 0.36078432, b: 0.36078432, a: 1}
+  - {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0.49803922, a: 1}
+  - {r: 0.93333334, g: 0.9098039, b: 0.6666667, a: 1}
+  - {r: 1, g: 0.89411765, b: 0.76862746, a: 1}
+  - {r: 0.6901961, g: 0.76862746, b: 0.87058824, a: 1}
+  - {r: 1, g: 0.85490197, b: 0.7254902, a: 1}
+  - {r: 1, g: 0.89411765, b: 0.88235295, a: 1}
+  - {r: 0.9607843, g: 1, b: 0.98039216, a: 1}
+  - {r: 0.54509807, g: 0, b: 0, a: 1}
+  - {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
+  - {r: 0.85490197, g: 0.4392157, b: 0.8392157, a: 1}
+  - {r: 0.6, g: 0.19607843, b: 0.8, a: 1}
+  - {r: 0.33333334, g: 0.41960785, b: 0.18431373, a: 1}
+  - {r: 0.11764706, g: 0.5647059, b: 1, a: 1}
+  - {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+  - {r: 0.9411765, g: 1, b: 0.9411765, a: 1}
+  - {r: 1, g: 0.7137255, b: 0.75686276, a: 1}
+  - {r: 0.8666667, g: 0.627451, b: 0.8666667, a: 1}
+  - {r: 0.6784314, g: 1, b: 0.18431373, a: 1}
+  - {r: 1, g: 0.98039216, b: 0.98039216, a: 1}
+  - {r: 1, g: 0.64705884, b: 0, a: 1}
+  - {r: 0, g: 1, b: 1, a: 1}
+  - {r: 0.7372549, g: 0.56078434, b: 0.56078434, a: 1}
+  m_CustomObjectTypes: []
+  m_PrefabReplacements:
+  - m_TypeName: Interactable_Chest_Standard
+    m_Prefab: {fileID: 2508160807100568583, guid: 08432d8fb2543f24488bc58655e3d409, type: 3}
+  - m_TypeName: Interactable_Chest_Special
+    m_Prefab: {fileID: 4314540339971863987, guid: 2932a9e8a5175c3419ef7edb76ee74fe, type: 3}
+  - m_TypeName: Interactable_Chest_Super
+    m_Prefab: {fileID: 9097347095823320290, guid: 73b6ee997a446b541909cb3bf54dd637, type: 3}
+  - m_TypeName: Interactable_Dialogue1x1
+    m_Prefab: {fileID: 8614767176351892923, guid: 2a8680f884d2bde4aac6c3a26319d9fd, type: 3}
+  - m_TypeName: Interactable_Dialogue1x2
+    m_Prefab: {fileID: 3425813841504875523, guid: 4fd00b3993f746b4e8a5739d8f3f221e, type: 3}
+  - m_TypeName: Interactable_Dialogue1x3
+    m_Prefab: {fileID: 3949663506716571521, guid: d003fb5a27f891343bac802c5c1079a6, type: 3}
+  - m_TypeName: Story_1
+    m_Prefab: {fileID: 7821058868741142298, guid: d71320b7cb4d1a047a3d4b5b8862b35a, type: 3}
+  - m_TypeName: Story_2
+    m_Prefab: {fileID: 3664039137639250852, guid: ee5b05f9774ca844ba965dca0668f3a4, type: 3}
+  - m_TypeName: Story_3
+    m_Prefab: {fileID: 6534468846987437031, guid: 41923466f6227a249967c0a485830233, type: 3}
+  - m_TypeName: Trigger_Dialogue3x5
+    m_Prefab: {fileID: 1145449776258342004, guid: cc1824a45a64a134a91cc778c72e0250, type: 3}
+  - m_TypeName: Interactable_Warp1x1
+    m_Prefab: {fileID: 7317333705064078387, guid: 9aeafa1f14edd8c459d85ba824cadaf3, type: 3}

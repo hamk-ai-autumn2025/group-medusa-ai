@@ -14,11 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDelay: 2
   finishDelay: 2
+  pickRandomEvent: 1
   events:
-  - name: SpawnDataBeamLaser
+  - name: SpawnDataBeamLaserN
     prefabs:
     - name: DataBeam
       prefab: {fileID: 6500616429271794941, guid: 46ee0cec5bc91794db19d0f6ef6bd775, type: 3}
-      spawnLocation: {x: 0, y: 1.5}
+      spawnLocation: {x: 0, y: 4}
+      rotation: 90
+    duration: 8
+  - name: SpawnDataBeamLaserW
+    prefabs:
+    - name: DataBeam
+      prefab: {fileID: 6500616429271794941, guid: 46ee0cec5bc91794db19d0f6ef6bd775, type: 3}
+      spawnLocation: {x: 2.5, y: 1.5}
+      rotation: 90
+    duration: 8
+  - name: SpawnDataBeamLaserS
+    prefabs:
+    - name: DataBeam
+      prefab: {fileID: 6500616429271794941, guid: 46ee0cec5bc91794db19d0f6ef6bd775, type: 3}
+      spawnLocation: {x: 0, y: -2.5}
+      rotation: 90
+    duration: 8
+  - name: SpawnDataBeamLaserE
+    prefabs:
+    - name: DataBeam
+      prefab: {fileID: 6500616429271794941, guid: 46ee0cec5bc91794db19d0f6ef6bd775, type: 3}
+      spawnLocation: {x: -2.5, y: 1.5}
       rotation: 90
     duration: 8

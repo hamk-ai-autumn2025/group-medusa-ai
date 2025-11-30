@@ -18,6 +18,13 @@ namespace dev.susybaka.TurnBasedGame.Battle
             this.ability = ability;
             this.targets = targets;
         }
+
+        public Intent(Intent copyFrom)
+        {
+            this.actor = copyFrom.actor;
+            this.ability = copyFrom.ability;
+            this.targets = copyFrom.targets;
+        }
     }
 
     public readonly struct Turn
@@ -102,8 +109,10 @@ namespace dev.susybaka.TurnBasedGame.Battle
         public IList<Character> targets { get; init; }  // empty for no-target abilities
         public AbilityData ability { get; init; } // can be null
         public StatusEffectData status { get; init; } // can be null
+        public int damage { get; init; } // optional damage value for effects that modify damage
+        public float accuracy { get; init; } // optional accuracy value for effects that modify accuracy
 
-        public ActionContext(GameManager game, BattleHandler battle, Character actor, IList<Character> targets, AbilityData ability, StatusEffectData status)
+        public ActionContext(GameManager game, BattleHandler battle, Character actor, IList<Character> targets, AbilityData ability, StatusEffectData status, int damage, float accuracy)
         {
             this.game = game;
             this.battle = battle;
@@ -111,6 +120,8 @@ namespace dev.susybaka.TurnBasedGame.Battle
             this.targets = targets;
             this.ability = ability;
             this.status = status;
+            this.damage = damage;
+            this.accuracy = accuracy;
         }
 
         public ActionContext(StatusEffectContext ctx)
@@ -121,6 +132,44 @@ namespace dev.susybaka.TurnBasedGame.Battle
             this.targets = ctx.targets;
             this.ability = ctx.sourceAbility;
             this.status = ctx.data;
+            this.damage = 0;
+            this.accuracy = 1.0f;
+        }
+
+        public ActionContext(ActionContext ctx, int damage, float accuracy)
+        {
+            this.game = ctx.game;
+            this.battle = ctx.battle;
+            this.actor = ctx.actor;
+            this.targets = ctx.targets;
+            this.ability = ctx.ability;
+            this.status = ctx.status;
+            this.damage = damage;
+            this.accuracy = accuracy;
+        }
+
+        public ActionContext(GameManager game, BattleHandler battle, Character actor, IList<Character> targets, AbilityData ability)
+        {
+            this.game = game;
+            this.battle = battle;
+            this.actor = actor;
+            this.targets = targets;
+            this.ability = ability;
+            this.status = null;
+            this.damage = 0;
+            this.accuracy = 1.0f;
+        }
+
+        public ActionContext(GameManager game, BattleHandler battle, Character actor, IList<Character> targets, AbilityData ability, int damage, float accuracy)
+        {
+            this.game = game;
+            this.battle = battle;
+            this.actor = actor;
+            this.targets = targets;
+            this.ability = ability;
+            this.status = null;
+            this.damage = damage;
+            this.accuracy = accuracy;
         }
     }
 

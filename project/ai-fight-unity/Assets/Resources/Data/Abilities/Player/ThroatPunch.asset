@@ -13,10 +13,16 @@ MonoBehaviour:
   m_Name: ThroatPunch
   m_EditorClassIdentifier: 
   displayName: Throat Punch
-  description: Inflict an opponent with Silenced for 2 turns. Costs 40 <color=yellow>AP</color>.
+  description: Inflict target with <color=purple>Silenced</color> for <color=green>2</color>
+    turns. <color=purple>Silenced</color> prevents target from casting spells. Costs
+    40 <color=yellow>AP</color>.
   tags: []
   requiresTarget: 1
   targetGroup: 3
+  attackSpeed: 5
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
   consumesMana: 0
   consumedMana: 0
   restoresMana: 0
@@ -30,14 +36,30 @@ MonoBehaviour:
   isDefensive: 0
   isSpell: 0
   isHeal: 0
+  isAttack: 1
   opensActMenu: 0
   conditions:
-  - {fileID: 11400000, guid: 07fabfb53ab1d1e48bd77d9244c39e2d, type: 2}
+  - {fileID: 2599187019334882616}
   effects:
   - {fileID: 5537561143352988324}
   - {fileID: 11400000, guid: 418d72b6dcc6c0145aec73390dd236a0, type: 2}
   minigame: {fileID: 0}
   dialogueOnUse: {fileID: 0}
+--- !u!114 &2599187019334882616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a806d65261c494bac44f07e43a93b7, type: 3}
+  m_Name: HasActionPointsThroatPunch
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  postTurn: 0
+  actionPointCost: -40
 --- !u!114 &5537561143352988324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50,4 +72,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a898db53a504a4090c6ddc980deaf0, type: 3}
   m_Name: ConsumeActionPointsThroatPunch
   m_EditorClassIdentifier: 
+  preTurn: 1
   amount: -40

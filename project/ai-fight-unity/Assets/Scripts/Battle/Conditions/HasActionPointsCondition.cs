@@ -9,10 +9,19 @@ namespace dev.susybaka.TurnBasedGame.Battle.Data
 
         public override bool Evaluate(ActionContext ctx, out string reason)
         {
-            if (ctx.actor.ActionPoints >= actionPointCost)
-            { reason = null; return true; }
+            if (ctx.actor.ActionPoints >= Mathf.Abs(actionPointCost))
+            { 
+                reason = null; 
+                return true; 
+            }
             reason = "Not enough Action Points";
             return false;
+        }
+
+        public void Reset()
+        {
+            preTurn = true;
+            actionPointCost = 0;
         }
     }
 }

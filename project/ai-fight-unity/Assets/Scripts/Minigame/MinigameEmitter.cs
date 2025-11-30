@@ -45,7 +45,7 @@ namespace dev.susybaka.TurnBasedGame.Minigame
                         index = Random.Range(0, prefabs.Length);
                     }
                 }
-                Instantiate(prefabs[index], transform.position + (Vector3)positionOffset, transform.rotation, transform.parent).Initialize(onHit);
+                Instantiate(prefabs[index], transform.position + (Vector3)positionOffset, transform.rotation, transform.root).Initialize(onHit);
                 previousIndex = index;
             }
         }

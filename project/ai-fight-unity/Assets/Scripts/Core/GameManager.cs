@@ -1,4 +1,9 @@
+#if UNITY_EDITOR
+using System.Linq;
+#endif
 using UnityEngine;
+using dev.susybaka.TurnBasedGame.AI;
+using dev.susybaka.TurnBasedGame.Characters;
 using dev.susybaka.TurnBasedGame.Battle;
 using dev.susybaka.TurnBasedGame.Dialogue;
 using dev.susybaka.TurnBasedGame.Input;
@@ -6,8 +11,8 @@ using dev.susybaka.TurnBasedGame.Minigame;
 using dev.susybaka.TurnBasedGame.Player;
 using dev.susybaka.TurnBasedGame.UI;
 using dev.susybaka.Shared.UI;
-using dev.susybaka.TurnBasedGame.Characters;
-using dev.susybaka.TurnBasedGame.AI;
+using dev.susybaka.TurnBasedGame.Battle.Data;
+using UnityEngine.Events;
 
 namespace dev.susybaka.TurnBasedGame
 {
@@ -25,6 +30,13 @@ namespace dev.susybaka.TurnBasedGame
 
         [Header("Game Settings")]
         public GameStateWindow currentGameWindow;
+        public bool story1 = false;
+        public bool story2 = false;
+        public bool story3 = false;
+        public bool story4 = false;
+
+        public UnityEvent lose;
+        public UnityEvent win;
 
         [Header("Components")]
         [SerializeField] private PlayerCharacter player;
@@ -34,6 +46,7 @@ namespace dev.susybaka.TurnBasedGame
         [SerializeField] private HudNavigationHandler hudNavigationHandler;
         [SerializeField] private MinigameHandler minigameHandler;
         [SerializeField] private AIHandler aiHandler;
+        [SerializeField] private EnvironmentHandler environmentHandler;
 
         public PlayerCharacter Player => player;
         public InputHandler Input => inputHandler;
@@ -42,6 +55,7 @@ namespace dev.susybaka.TurnBasedGame
         public HudNavigationHandler HudNavigationHandler => hudNavigationHandler;
         public MinigameHandler MinigameHandler => minigameHandler;
         public AIHandler AIHandler => aiHandler;
+        public EnvironmentHandler EnvironmentHandler => environmentHandler;
 
         public static bool Available => Instance != null;
         public static bool PlayerAvailable => Available && Instance.player != null;
@@ -51,6 +65,65 @@ namespace dev.susybaka.TurnBasedGame
         public static bool HudNavigationHandlerAvailable => Available && Instance.hudNavigationHandler != null;
         public static bool MinigameHandlerAvailable => Available && Instance.minigameHandler != null;
         public static bool AIHandlerAvailable => Available && Instance.aiHandler != null;
+        public static bool EnvironmentHandlerAvailable => Available && Instance.environmentHandler != null;
+
+
+        [Header("Editor")]
+        public Character[] partyMembers;
+        public Characters.Data.CharacterData opponent;
+#if UNITY_EDITOR
+        public AbilityData testAbility;
+        public Enemies.EnemyCharacter enemy;
+
+        [NaughtyAttributes.Button("Test Ability Minigame")]
+        public void TestAbilityMinigame()
+        {
+            if (enemy == null || testAbility == null)
+                return;
+
+            // Configure AIHandler to not use API for testing
+            aiHandler.useApi = false;
+
+            // Find the testAbility in KnownSpells or KnownAbilities
+            var foundAbility = enemy.KnownAbilities.FirstOrDefault(a => a == testAbility);
+            var foundSpell = enemy.KnownSpells.FirstOrDefault(a => a == testAbility);
+
+            // If found, set KnownSpells and KnownAbilities to only contain testAbility
+            if (foundAbility != null)
+            {
+                enemy.KnownSpells = new AbilityData[0];
+                enemy.KnownAbilities = new[] { testAbility };
+            }
+            else if (foundSpell != null)
+            {
+                enemy.KnownAbilities = new AbilityData[0];
+                enemy.KnownSpells = new[] { testAbility };
+            }
+            else
+            {
+                Debug.LogWarning("testAbility not found in enemy's KnownSpells or KnownAbilities.");
+            }
+        }
+
+        [NaughtyAttributes.Button("Skip To Fight")]
+#endif
+        public void SkipToFight()
+        {
+            for (int i = 0; i < partyMembers.Length; i++)
+            {
+                var member = partyMembers[i];
+                if (member != null && member is FriendCharacter friend)
+                {
+                    if (battleHandler.allies.HasMember(partyMembers[i].data))
+                        continue;
+
+                    battleHandler.AddPartyMember(friend);
+                }
+            }
+
+            if (battleHandler != null)
+                battleHandler.StartBattle(opponent);
+        }
 
         private void Awake()
         {
@@ -102,6 +175,27 @@ namespace dev.susybaka.TurnBasedGame
                     dialogueHandler.dialogueBox = currentGameWindow.DialogueBox;
                 }
             }
+
+            if (inputHandler.DebugSkipInput)
+            {
+                SkipToFight();
+            }
+        }
+
+        public void SetStoryFlag(int index)
+        {
+            //Debug.Log("Setting story flag " + index);
+
+            if (index == 1)
+                story1 = true;
+            if (index == 2)
+                story2 = true;
+            if (index == 3)
+                story3 = true;
+            if (index == 4)
+                story4 = true;
+            if (index < 1 || index > 4)
+                Debug.LogWarning("Invalid story flag index: " + index);
         }
 
         // Opens a specific window in the HUD navigation handler

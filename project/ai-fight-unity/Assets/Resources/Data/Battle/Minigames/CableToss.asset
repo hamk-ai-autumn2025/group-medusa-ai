@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e6183bce3666b47b11624266633ba1, type: 3}
+  m_Name: CableToss
+  m_EditorClassIdentifier: 
+  startDelay: 2
+  finishDelay: 3
+  pickRandomEvent: 0
+  events:
+  - name: SpawnSteelPunchRight
+    prefabs:
+    - name: CableTossMain
+      prefab: {fileID: 1522714971495335476, guid: 6469d96f5b9505945b843d2c59cabcd0, type: 3}
+      spawnLocation: {x: 0, y: 3.7}
+      rotation: 0
+    duration: 3
+  - name: SpawnSteelPunchRight
+    prefabs:
+    - name: SteelFistLeft
+      prefab: {fileID: 8603360073234074885, guid: 3795cf801845d1241bf4a68c87e2c7bf, type: 3}
+      spawnLocation: {x: 3, y: 2.8}
+      rotation: 0
+    duration: 1
+  - name: SpawnSteelPunchRight
+    prefabs:
+    - name: SteelFistRight
+      prefab: {fileID: 2803675019831633357, guid: 4f620f84935b7da44b764689a7dd2490, type: 3}
+      spawnLocation: {x: -3, y: 0.315}
+      rotation: 0
+    duration: 2
+  - name: SpawnSteelPunchRight
+    prefabs:
+    - name: SteelFistRight
+      prefab: {fileID: 2803675019831633357, guid: 4f620f84935b7da44b764689a7dd2490, type: 3}
+      spawnLocation: {x: 1.2, y: 4.5}
+      rotation: -90
+    duration: 1
+  - name: SpawnSteelPunchRight
+    prefabs:
+    - name: SteelFistLeft
+      prefab: {fileID: 8603360073234074885, guid: 3795cf801845d1241bf4a68c87e2c7bf, type: 3}
+      spawnLocation: {x: -1.2, y: 4.5}
+      rotation: 90
+    duration: 1

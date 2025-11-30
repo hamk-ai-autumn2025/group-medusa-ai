@@ -17,6 +17,10 @@ MonoBehaviour:
   tags: []
   requiresTarget: 1
   targetGroup: 3
+  attackSpeed: 3
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
   consumesMana: 0
   consumedMana: 0
   restoresMana: 0
@@ -30,6 +34,7 @@ MonoBehaviour:
   isDefensive: 0
   isSpell: 0
   isHeal: 0
+  isAttack: 0
   opensActMenu: 1
   conditions:
   - {fileID: 11400000, guid: f40bcd7a68667fe4285c718357618669, type: 2}

@@ -38,7 +38,7 @@ namespace dev.susybaka.TurnBasedGame.Characters
             }
         }
 
-        public void Interact()
+        public void Interact(Character character)
         {
             Debug.Log("Interact");
             onInteract?.Invoke(this);
@@ -48,6 +48,8 @@ namespace dev.susybaka.TurnBasedGame.Characters
         {
             if (trailRecorder == null || npcController == null)
                 return;
+
+            npcController.ClearPath();
 
             if (distance < 0)
             {
@@ -65,6 +67,7 @@ namespace dev.susybaka.TurnBasedGame.Characters
             {
                 npcController.FollowCharacterTrail(trailRecorder, distance);
             }
+            //Debug.Log("Following at distance: " + distance);
             isFollowing = true;
         }
 

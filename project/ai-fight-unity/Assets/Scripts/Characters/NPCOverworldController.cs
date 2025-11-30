@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
+using UnityEngine.Tilemaps;
 
 namespace dev.susybaka.TurnBasedGame.Characters
 {
@@ -22,11 +24,23 @@ namespace dev.susybaka.TurnBasedGame.Characters
         public CharacterTrailRecorder trail;
         [Min(0)] public int lagTiles = 3;
         private int consumedTrailIndex = -1;
+        [SerializeField] private float maxWaypointStep = 1.6f; // > sqrt(2) tile; good for orthogonal/diag
+
+        [Header("Catchup Gating")]
+        public int catchupBacklogTiles = 3;     // how many unconsumed trail points before we boost
+        public float catchupDistance = 0.6f;    // or if physically this far from next waypoint, boost
 
         private readonly Queue<Vector2> currentPath = new Queue<Vector2>();
         private Mode mode = Mode.idle;
         private Vector2 movement;
         private Vector2 storedMovement;
+        private bool wasFighting = false;
+        private Vector2 animMove;
+        private Vector2? lastEnqueued;
+        private int seenTrailVersion = -1;
+
+        [Header("Animations")]
+        [SerializeField] private bool hasMovementAnimations = true;
 
         protected override void Update()
         {
@@ -89,9 +103,21 @@ namespace dev.susybaka.TurnBasedGame.Characters
                 spd *= sprintMultiplier;
 
             // Small catch-up when a path is long or target is moving
-            if (mode == Mode.followTrail || mode == Mode.chaseTransform)
-                spd *= catchupMultiplier;
-            
+            if (mode == Mode.followTrail)
+            {
+                int backlog = (trail != null) ? (trail.PointCount - lagTiles - 1) - consumedTrailIndex : 0;
+                bool behind = backlog >= catchupBacklogTiles
+                              || (currentPath.Count > 0 && Vector2.Distance(m_rigidbody.position, currentPath.Peek()) > catchupDistance);
+
+                if (behind)
+                    spd *= catchupMultiplier;
+            }
+            else if (mode == Mode.chaseTransform)
+            {
+                if (target != null && Vector2.Distance(m_rigidbody.position, (Vector2)target.position) > catchupDistance)
+                    spd *= catchupMultiplier;
+            }
+
             m_rigidbody.velocity = movement * spd;
         }
 
@@ -140,6 +166,14 @@ namespace dev.susybaka.TurnBasedGame.Characters
             var pos = (Vector2)m_rigidbody.position;
             var delta = (Vector2)target.position - pos;
 
+            // If this hop is unrealistically large for a tile path, it's a stale pre-warp waypoint.
+            // Nuke the queue and wait for fresh trail points.
+            if (mode == Mode.followTrail && delta.magnitude > maxWaypointStep)
+            {
+                currentPath.Clear();
+                return Vector2.zero;
+            }
+
             if (delta.magnitude <= arriveEpsilon)
                 return Vector2.zero;
 
@@ -154,6 +188,16 @@ namespace dev.susybaka.TurnBasedGame.Characters
                 return Vector2.zero; 
             }
 
+            if (seenTrailVersion != trail.Version)
+            {
+                seenTrailVersion = trail.Version;
+                currentPath.Clear();
+                consumedTrailIndex = -1;
+                // optional if you added it:
+                // lastEnqueued = null;
+                return Vector2.zero; // wait one frame, then we’ll enqueue only post-warp points
+            }
+
             int newestUsable = trail.PointCount - lagTiles - 1;
             if (newestUsable < 0)
                 return Vector2.zero;
@@ -161,9 +205,11 @@ namespace dev.susybaka.TurnBasedGame.Characters
             for (int i = consumedTrailIndex + 1; i <= newestUsable; i++)
             {
                 var p = trail.GetPoint(i);
+                if (lastEnqueued.HasValue && (p - lastEnqueued.Value).sqrMagnitude < 1e-6f)
+                    continue; // skip duplicates
                 currentPath.Enqueue(p);
+                lastEnqueued = p;
                 consumedTrailIndex = i;
-                // Debug.Log($"[{name}] Enqueued trail[{i}] {p}");
             }
 
             return UpdateMovePath();
@@ -177,24 +223,47 @@ namespace dev.susybaka.TurnBasedGame.Characters
                 return;
             }
 
+            if (!hasMovementAnimations)
+            {
+                return;
+            }
+
+            float targetX = m_rigidbody.velocity.x;
+            float targetY = m_rigidbody.velocity.y;
+            animMove = new Vector2(Mathf.MoveTowards(animMove.x, targetX, Time.deltaTime * 16f), Mathf.MoveTowards(animMove.y, targetY, Time.deltaTime * 16f)); // damp
+
             if (sprint)
             {
-                m_animator.SetFloat("speed", sprintMultiplier);
+                m_animator.SetFloat("speed", 2f);
             }
             else
             {
                 m_animator.SetFloat("speed", 1f);
             }
 
-            if (m_character.isFighting)
+            if (m_character.isFighting && !wasFighting)
             {
-                m_animator.Play("idle_npc_battle");
+                if (m_character.isAlive)
+                {
+                    m_animator.Play("idle_npc_battle");
+                }
                 m_renderer.flipX = false;
                 spriteFlipped = false;
+                wasFighting = true;
+            } 
+            else if (!m_character.isFighting)
+            {
+                m_animator.SetBool("inBattle", false);
+                wasFighting = false;
+            }
+
+            if (m_character.isFighting)
+            {
+                m_animator.SetBool("inBattle", true);
                 return;
             }
 
-            if (movement == Vector2.zero)
+            if (animMove == Vector2.zero)//animMove < 0.05f && animMove > -0.05f) //movement == Vector2.zero)
             {
                 if (Mathf.Abs(storedMovement.x) > Mathf.Abs(storedMovement.y))
                 {
@@ -211,11 +280,11 @@ namespace dev.susybaka.TurnBasedGame.Characters
                 return;
             }
 
-            if (Mathf.Abs(movement.x) > Mathf.Abs(movement.y))
+            if (Mathf.Abs(animMove.x) > Mathf.Abs(animMove.y))
             {
                 m_animator.Play("walk_side_npc_overworld");
             }
-            else if (movement.y > 0)
+            else if (animMove.y > 0)
             {
                 m_animator.Play("walk_up_npc_overworld");
             }
@@ -237,7 +306,10 @@ namespace dev.susybaka.TurnBasedGame.Characters
 
         public void ClearPath()
         {
+            if (trail != null)
+                trail.ResetAtPosition(m_rigidbody.position);
             currentPath.Clear();
+            consumedTrailIndex = -1;
             if (mode == Mode.movePath)
                 mode = Mode.idle;
         }
@@ -278,6 +350,30 @@ namespace dev.susybaka.TurnBasedGame.Characters
             mode = Mode.movePath;
             target = null;
             trail = null;
+        }
+
+        public void OnTeleported()
+        {
+            currentPath.Clear();
+            consumedTrailIndex = -1;
+            lastEnqueued = null;
+
+            // Start so the very next UpdateFollowTrail enqueues the first usable point
+            if (trail != null)
+            {
+                consumedTrailIndex = Mathf.Clamp(trail.PointCount - lagTiles - 2, -1, trail.PointCount - 1);
+
+                // Optional: snap follower to its rightful lag position to avoid racing
+                int idx = Mathf.Clamp(trail.PointCount - lagTiles - 1, 0, trail.PointCount - 1);
+                m_rigidbody.position = trail.GetPoint(idx);
+                m_rigidbody.velocity = Vector2.zero;
+                target = null;
+                mode = Mode.followTrail;
+            }
+            else
+            {
+                mode = Mode.idle;
+            }
         }
 
         public void FollowTransform(Transform t)

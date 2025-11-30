@@ -22,10 +22,10 @@ MonoBehaviour:
   - speaker: {fileID: 11400000, guid: 02ebafa8ff5d34b4fa8244397aeb372e, type: 2}
     portrait: 1
     speed: 20
-    lineBreakPause: 0.75
-    text: '%p1Brok.
+    lineBreakPause: 0.5
+    text: '&p1Brok.
 
-      %p1Super advanced AI powered computer.'
+      &p1Super advanced AI powered computer.'
   - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
     portrait: 4
     speed: 20
@@ -39,12 +39,12 @@ MonoBehaviour:
   - speaker: {fileID: 11400000, guid: 02ebafa8ff5d34b4fa8244397aeb372e, type: 2}
     portrait: 0
     speed: 20
-    lineBreakPause: 0.75
-    text: '%p3You don''t know me?
+    lineBreakPause: 0.5
+    text: '&p3You don''t know me?
 
-      %p2Do you live under a rock?
+      &p2Do you live under a rock?
 
-      %p2That''s
+      &p2That''s
       it, you had this coming!'
   onComplete:
     m_PersistentCalls:

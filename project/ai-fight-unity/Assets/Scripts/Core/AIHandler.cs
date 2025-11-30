@@ -18,7 +18,7 @@ namespace dev.susybaka.TurnBasedGame.AI
         //[SerializeField] public class Boss { public int hp; public int maxHp; public int attackPower; public int defense; public StatusEffect[] statusEffects; }
         [Serializable] public class PartyMember { public string id; public int hp; public bool alive = true; public StatusEffect[] status_effects; public bool analyzed = false; public Stat[] analyzed_stats; }
         [Serializable]
-        public class Enemy { public string id; public int hp; public int max_hp; public int attack_power; public int defense; public bool alive = true; public StatusEffect[] status_effects; }
+        public class Enemy { public string id; public int hp; public int max_hp; public int attack_power; public int defense; public int action_points; public bool alive = true; public StatusEffect[] status_effects; }
         [Serializable] public class Ability { public string id; public bool requires_target; public string[] tags; public bool attack; public int use_count = 0; public int last_turn_used = -1; } // e.g., ["aoe","fire"]
         [Serializable] public class StatusEffect { public string id; public int duration; public int stacks; public string[] tags; } // e.g., "burning", "stun"
         [Serializable] public class RecentBehavior { public string element_spam; public int guard_streak; public int heal_streak; }
@@ -27,26 +27,28 @@ namespace dev.susybaka.TurnBasedGame.AI
         [Serializable] public class StoredTurn { public string ability_id; public StoredTurnPartyMember[] player_party; public StoredTurnEnemy[] enemy_party; }
         [Serializable] public class StoredTurnPartyMember { public string id; public int hp; public bool alive = true; public int status_effect_count; }
         [Serializable] public class StoredTurnEnemy { public string id; public int hp; public bool alive = true; public int status_effect_count; }
-
+        [Serializable] public class StoredTurnMood { public int aggression_level; public int fear_level; public int respect_level; public int pity_level; }
 
         [Serializable]
         public class Snapshot
         {
             public int turn;
             public string boss_id;
+            public string main_boss_id;
             //public Boss boss = new();
             public List<PartyMember> player_party = new();
             public List<Enemy> enemy_party = new();
             public RecentBehavior recent_player_behavior = new();
             public List<Ability> abilities = new();
             public List<Knowledge> lore_knowledge = new();
+            public StoredTurnMood boss_mood = new StoredTurnMood();
             public StoredTurn previous_turn = new StoredTurn();
         }
 
         [Serializable] public class StoredMood { public string boss_id; public int aggression_level; public int fear_level; public int respect_level; public int pity_level; public string dialogue; }
 
         [Serializable]
-        public class  ActSnapshot
+        public class ActSnapshot
         {
             public int turn;
             public string boss_id;
@@ -61,89 +63,99 @@ namespace dev.susybaka.TurnBasedGame.AI
 
         // Build the Snapshot JSON from your current state
         public static Snapshot BuildSnapshot(
-            int turn, string bossId,
+            int turn, string bossId, string mainBossId,
             IEnumerable<(string id, int hp, bool alive, IEnumerable<(string id, int duration, int stacks, IEnumerable<string> tags)> statusEffects, bool analyzed, IEnumerable<(string id, string value)> analyzedStats)> playerParty,
-            IEnumerable<(string id, int hp, int maxHp, int attackPower, int defense, bool alive, IEnumerable<(string id, int duration, int stacks, IEnumerable<string> tags)> statusEffects)> enemyParty,
+            IEnumerable<(string id, int hp, int maxHp, int attackPower, int defense, int actionPoints, bool alive, IEnumerable<(string id, int duration, int stacks, IEnumerable<string> tags)> statusEffects)> enemyParty,
             string elementSpam, int guardStreak, int healStreak,
             IEnumerable<(string id, bool requiresTarget, IEnumerable<string> tags, bool attack, int useCount, int lastTurnUsed)> abilities,
             IEnumerable<(string id, string lore)> bossKnowledge,
+            int agressionLevel, int fearLevel, int respectLevel, int pityLevel,
             string previousBossAbilityId, IEnumerable<(string id, int hp, bool alive, int statusEffectCount)> previousPlayerParty, IEnumerable<(string id, int hp, bool alive, int statusEffectCount)> previousEnemyParty)
         {
             Snapshot snap = new Snapshot
             {
                 turn = turn,
                 boss_id = bossId,
-                recent_player_behavior = new RecentBehavior 
-                { 
-                    element_spam = elementSpam, 
-                    guard_streak = guardStreak, 
-                    heal_streak = healStreak 
+                main_boss_id = mainBossId,
+                recent_player_behavior = new RecentBehavior
+                {
+                    element_spam = elementSpam,
+                    guard_streak = guardStreak,
+                    heal_streak = healStreak
                 },
-                player_party = playerParty.Select(p => new PartyMember 
-                { 
-                    id = p.id, 
-                    hp = p.hp, 
-                    alive = p.alive, 
-                    status_effects = p.statusEffects.Select(pse => new StatusEffect 
-                    { 
-                        id = pse.id, 
-                        duration = pse.duration, 
-                        stacks = pse.stacks, 
-                        tags = pse.tags.ToArray() 
-                    }).ToArray(), 
-                    analyzed = p.analyzed, 
-                    analyzed_stats = p.analyzedStats.Select(aps => new Stat 
-                    { 
-                        id = aps.id, 
-                        value = aps.value 
-                    }).ToArray() 
+                player_party = playerParty.Select(p => new PartyMember
+                {
+                    id = p.id,
+                    hp = p.hp,
+                    alive = p.alive,
+                    status_effects = p.statusEffects.Select(pse => new StatusEffect
+                    {
+                        id = pse.id,
+                        duration = pse.duration,
+                        stacks = pse.stacks,
+                        tags = pse.tags.ToArray()
+                    }).ToArray(),
+                    analyzed = p.analyzed,
+                    analyzed_stats = p.analyzedStats.Select(aps => new Stat
+                    {
+                        id = aps.id,
+                        value = aps.value
+                    }).ToArray()
                 }).ToList(),
-                enemy_party = enemyParty.Select(e => new Enemy 
-                { 
-                    id = e.id, 
-                    hp = e.hp, 
-                    max_hp = e.maxHp, 
-                    attack_power = e.attackPower, 
-                    defense = e.defense, 
-                    alive = e.alive, 
-                    status_effects = e.statusEffects.Select(ese => new StatusEffect 
-                    { 
-                        id = ese.id, 
-                        duration = ese.duration, 
-                        stacks = ese.stacks, 
-                        tags = ese.tags.ToArray() 
-                    }).ToArray() 
+                enemy_party = enemyParty.Select(e => new Enemy
+                {
+                    id = e.id,
+                    hp = e.hp,
+                    max_hp = e.maxHp,
+                    attack_power = e.attackPower,
+                    defense = e.defense,
+                    action_points = e.actionPoints,
+                    alive = e.alive,
+                    status_effects = e.statusEffects.Select(ese => new StatusEffect
+                    {
+                        id = ese.id,
+                        duration = ese.duration,
+                        stacks = ese.stacks,
+                        tags = ese.tags.ToArray()
+                    }).ToArray()
                 }).ToList(),
-                abilities = abilities.Select(a => new Ability 
-                { 
-                    id = a.id, 
-                    requires_target = a.requiresTarget, 
-                    tags = a.tags.ToArray(), 
-                    attack = a.attack, 
+                abilities = abilities.Select(a => new Ability
+                {
+                    id = a.id,
+                    requires_target = a.requiresTarget,
+                    tags = a.tags.ToArray(),
+                    attack = a.attack,
                     use_count = a.useCount,
-                    last_turn_used = a.lastTurnUsed 
+                    last_turn_used = a.lastTurnUsed
                 }).ToList(),
-                lore_knowledge = bossKnowledge.Select(k => new Knowledge 
-                { 
-                    id = k.id, 
-                    lore = k.lore 
+                lore_knowledge = bossKnowledge.Select(k => new Knowledge
+                {
+                    id = k.id,
+                    lore = k.lore
                 }).ToList(),
-                previous_turn = new StoredTurn 
-                { 
-                    ability_id = previousBossAbilityId, 
-                    player_party = previousPlayerParty.Select(pp => new StoredTurnPartyMember 
-                    { 
-                        id = pp.id, 
-                        hp = pp.hp, 
-                        alive = pp.alive, 
+                boss_mood = new StoredTurnMood
+                {
+                    aggression_level = agressionLevel,
+                    fear_level = fearLevel,
+                    respect_level = respectLevel,
+                    pity_level = pityLevel
+                },
+                previous_turn = new StoredTurn
+                {
+                    ability_id = previousBossAbilityId,
+                    player_party = previousPlayerParty.Select(pp => new StoredTurnPartyMember
+                    {
+                        id = pp.id,
+                        hp = pp.hp,
+                        alive = pp.alive,
                         status_effect_count = pp.statusEffectCount
-                    }).ToArray(), 
-                    enemy_party = previousEnemyParty.Select(ep => new StoredTurnEnemy 
-                    { 
-                        id = ep.id, 
-                        hp = ep.hp, 
-                        alive = ep.alive, 
-                        status_effect_count = ep.statusEffectCount 
+                    }).ToArray(),
+                    enemy_party = previousEnemyParty.Select(ep => new StoredTurnEnemy
+                    {
+                        id = ep.id,
+                        hp = ep.hp,
+                        alive = ep.alive,
+                        status_effect_count = ep.statusEffectCount
                     }).ToArray()
                 }
             };
@@ -197,13 +209,16 @@ namespace dev.susybaka.TurnBasedGame.AI
 
         private const string Endpoint = "https://api.openai.com/v1/responses";
 
-        private const string systemCombat = "You are the BOSS in a turn-based game. Your ONLY job is to try and defeat the player's party by picking ONE boss ability and target for it from the provided party lists each turn. "
-       + "NEVER invent IDs. ONLY ever pick abilities from each turn's own abilities list, NEVER pick abilities that are not present on the current newest turn's abilities json list. The BOSS'S own information is an entry with matching name to the boss_id string in the enemy_party list. "
+        private const string systemCombat = "You are an enemy in a turn-based game. Your ONLY job is to try and defeat the player's party by picking ONE boss ability and target for it from the provided party lists each turn. Some actions cost and require ACTION POINTS to use. Your party gains few ACTION POINTS every turn or more by using certain actions or by hitting the player characters with attacks."
+       + "NEVER invent IDs. ONLY ever pick abilities from each turn's own abilities list, NEVER pick abilities that are not present on the current newest turn's abilities json list. The current enemy's own information is an entry with matching name to the boss_id string in the enemy_party list. "
        + "If an ability has requires_target=false, return target_id=\"none\". If requires_target=true, return target_id=\"{id}\" from the CORRECT party list, player_party for ATTACKS or enemy_party for SUPPORT. Previous turn's information if turn > 1 is inside previous_turn and should be used to track state across multiple turns."
        + "VARIETY: NEVER pick the same ability that was used on previous turn previous_turn.ability_id unless it is the only option you can pick. Consider use_count and last_turn_used to avoid repetition; prefer synergies and coverage. If turn > 1, do not pick abilities as an opener/start or describe anything as such."
-       + "NEVER choose abilities whose tags include type_analyze with targets that have analyzed=true already unless significant amount of turns have passed (turns > last_turn_used + 3) since last use of an ability with the specified tag. You control and choose ONLY the current enemy boss's (boss_id) next action. Output strictly as JSON per schema.";
+       + "NEVER choose abilities whose tags include type_analyze with targets that have analyzed=true already unless significant amount of turns have passed (turns > last_turn_used + 3) since last use of an ability with the specified tag. You control and choose ONLY the current enemy's (boss_id) next action. This can be the main boss enemy or an additional 'add' summoned during the fight. "
+       + "CRITICAL THINKING: For the main boss enemy (main_boss_id) consider the mood (boss_mood) that the boss has when picking abilities. Try to avoid picking abilities that conflict with the current mood as much as possible. For other enemies, just pick abilities based on the other factors without having to consider the mood at all. "
+       + "Aggression level is how much you want to attack and KO the player, it defines the strength of your attacks. Fear level is how much you are scared of losing, it increases your use of more defensive and supportive actions and the chance to miss attacks. Respect level is how much you agree with the player, it increases your use of non-lethal or less damaging abilities and with high enough respect you can accept the player's request for mercy and end the battle without KOs. Pity level is a more subtle value that determines how much you feel bad for the player or yourself, it basically defines your will to continue the battle, if your pity reaches near 100 the battle can end in mercy. If mood is suitable and otherwise it is available, you can pick mercy as an action to end the battle."
+       + "Always output your result strictly as JSON per schema.";
 
-        private const string systemAct = "You are the BOSS in a turn-based game. Your job is to set your mood each turn and respond with short dialogue based on the player's recent behavior. You can see your previous mood from previous_mood. "
+        private const string systemAct = "You are the BOSS in a turn-based game. Your job is to set your mood each turn and respond with short dialogue based on the player's recent behavior. You can see your previous mood from previous_mood. Any profanities or strong language the player might input will be replaced by '***', keep this in mind and react accordingly. Do not try to encourage the use of bad language. If the player targeted another enemy on your party instead of you, the main boss, the player comment will begin with '[Add.{enemyName}]', please react to this relative to this information and who it was directed at. Only the main boss is reacting back and changing moods. "
             + "Aggression level is how much you want to attack and KO the player, it is increased by the player acting disrespectful towards you or otherwise not caring. Fear level is how much you are scared of losing, it increases your use of more defensive and supportive actions and the chance to miss attacks. Respect level is how much you agree with the player, it increases your use of non-lethal or less damaging abilities and with high enough respect you can accept the player's request for mercy and end the battle without KOs. Pity level is a more subtle value that determines how much you feel bad for the player or yourself, it basically defines your will to continue the battle, if your pity reaches 100 the battle can end. Pity changes should stay small each time it changes to a higher value. "
             + "Return a fitting mood value for aggression_level, fear_level, respect_level and pity_level as an integer ranging from 0-100. ONLY alter them based on the current state. Return the same boss_id back that was requested with the json. "
             + "Return a short Dialogue taunt or comment (max 42 characters) directed at the player that reflects your mood, also return rationale as a brief explanation of why you set your mood this way. For the Dialogue avoid using writing styles such as em dashes (—) and quotes of any kind. ";

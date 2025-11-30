@@ -15,5 +15,9 @@ namespace dev.susybaka.TurnBasedGame.Battle.Data
         public Vector3 playerPosition;
         public Vector3 playerHeartPosition;
         public DialogueData startDialogue;
+        public int enemyStartingActionPoints = 0;
+        public int allyStartingActionPoints = 0;
+        public int enemyActionPointsPerTurn = 0;
+        public int allyActionPointsPerTurn = 0;
     }
 }

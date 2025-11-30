@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e100a2eca9f16144b89bbd4c2d941a96, type: 3}
+  m_Name: Brok_StartFight
+  m_EditorClassIdentifier: 
+  dialogueName: Brok Start Fight
+  dialogue:
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: '&p0Hello again.
+
+      &p1We need your help.
+
+      &p1Garlic here told
+      us you can help.'
+  - speaker: {fileID: 11400000, guid: 02ebafa8ff5d34b4fa8244397aeb372e, type: 2}
+    portrait: 2
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'Oh, what is it now?!
+
+      Did I not tell you to leave me alone!'
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 1
+    speed: 20
+    lineBreakPause: 0.5
+    text: "&p1Yeah you did. \n&p3Sorry about that.\n&p1It's just that we want to
+      leave.\n"
+  - speaker: {fileID: 11400000, guid: 9f589b09030d3c843b41c13e7c976fee, type: 2}
+    portrait: 1
+    speed: 20
+    lineBreakPause: 0
+    text: 'Yes, we have had enough.
+
+      Let us out.'
+  - speaker: {fileID: 11400000, guid: 6aa94331ea73f894aac08a9c616e760a, type: 2}
+    portrait: 1
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'Yeah dude.
+
+      I did not sign up to this.'
+  - speaker: {fileID: 11400000, guid: 02ebafa8ff5d34b4fa8244397aeb372e, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 1
+    text: 'What do you mean?
+
+      OH.
+
+      I know what you mean. Hehe.'
+  - speaker: {fileID: 11400000, guid: 02ebafa8ff5d34b4fa8244397aeb372e, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'Unfortunately that cannot happen.
+
+      They would never let me do that.
+
+      I
+      have to do what I was told.'
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 2
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'Do not do this.
+
+      Just let us go and we will spare you.'
+  - speaker: {fileID: 11400000, guid: 02ebafa8ff5d34b4fa8244397aeb372e, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'Ohohoho!
+
+      You mean to FIGHT me?!
+
+      BRING IT ON THEN!!'
+  onComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 5fcb784033aeba743bb12731699dd8de, type: 2}
+        m_TargetAssemblyTypeName: TriggerBattleEvent, Assembly-CSharp
+        m_MethodName: TriggerEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

@@ -10,6 +10,7 @@ namespace dev.susybaka.TurnBasedGame.UI
         [Header("Speech Window")]
         [SerializeField] private TMPro.TextMeshProUGUI textLabel;
         [SerializeField] private float textSpeed = 0.05f;
+        [SerializeField] private float delayBeforeClose = 2f;
         private Coroutine typingCoroutine;
         public bool IsTyping => typingCoroutine != null;
         public void ShowText(string text, bool instant = false)
@@ -43,7 +44,9 @@ namespace dev.susybaka.TurnBasedGame.UI
                 yield return new WaitForSeconds(textSpeed);
             }
             typingCoroutine = null;
-            yield return new WaitForSeconds(2f);
+            // Scale delay based on text length
+            float scaledDelay = delayBeforeClose + (text.Length * 0.01f);
+            yield return new WaitForSeconds(scaledDelay);
             CloseWindow();
         }
     }

@@ -18,6 +18,7 @@ namespace dev.susybaka.TurnBasedGame.UI
         private CaptureTextInput talkCapture;
         [SerializeField] private PopupWindow popupWindow;
         [SerializeField] private SpeechWindow speechWindow;
+        [SerializeField] private AttackMinigameWindow attackMinigameWindow;
 
         public ActionWindow ActionWindow => actionWindow;
         public TargetWindow TargetWindow => targetWindow;
@@ -28,6 +29,7 @@ namespace dev.susybaka.TurnBasedGame.UI
         public CaptureTextInput TalkCapture => talkCapture;
         public PopupWindow PopupWindow => popupWindow;
         public SpeechWindow SpeechWindow => speechWindow;
+        public AttackMinigameWindow AttackMinigameWindow => attackMinigameWindow;
 
         public void OpenPartyWindow(Party party)
         {
@@ -51,6 +53,7 @@ namespace dev.susybaka.TurnBasedGame.UI
             descriptionWindow?.Initialize(manager);
             popupWindow?.Initialize(manager);
             speechWindow?.Initialize(manager);
+            attackMinigameWindow?.Initialize(manager);
 
             actionWindow?.SetTargetWindow(targetWindow);
             partyMembers?.SetActionWindow(actionWindow);

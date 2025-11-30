@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7093337648145490265}
   - component: {fileID: 4716962095916207626}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: EdgeCollider
   m_TagString: Edging
   m_Icon: {fileID: 0}
@@ -79,10 +79,11 @@ GameObject:
   - component: {fileID: 4518946780176607280}
   - component: {fileID: 8860182181610156062}
   - component: {fileID: 6500616429271794941}
+  - component: {fileID: -1256778439974020865}
   - component: {fileID: 2078874071275621007}
   - component: {fileID: 8925170278451300158}
   - component: {fileID: 7754903246906274094}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DataBeam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,6 +187,22 @@ MonoBehaviour:
   invincibilityTime: 3
   destroyedOnContact: 0
   localSpace: 1
+  onSpawn:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -1256778439974020865}
+        m_TargetAssemblyTypeName: dev.susybaka.TurnBasedGame.Minigame.MinigameMoveObject,
+          Assembly-CSharp
+        m_MethodName: Initialize
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onInitialize:
     m_PersistentCalls:
       m_Calls:
@@ -228,6 +245,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-1256778439974020865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6361321285999454304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9681aab1d28fc14b9292525ad475503, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  position: {x: 0, y: 1.5, z: 0}
+  duration: 2.5
 --- !u!114 &2078874071275621007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +287,7 @@ MonoBehaviour:
   prefabs:
   - {fileID: 8924235533042701584, guid: 5d6cad90c8545e346a7ba5ab9d6af4c9, type: 3}
   positionOffset: {x: 0, y: 0}
-  interval: {x: 0.2, y: 0.3}
+  interval: {x: 0.3, y: 0.4}
   noDuplicates: 1
 --- !u!114 &7754903246906274094
 MonoBehaviour:
@@ -273,7 +304,7 @@ MonoBehaviour:
   prefabs:
   - {fileID: 8924235533042701584, guid: a2fd0756c64c74f41be33a21d180a108, type: 3}
   positionOffset: {x: 0, y: 0}
-  interval: {x: 0.2, y: 0.3}
+  interval: {x: 0.3, y: 0.4}
   noDuplicates: 1
 --- !u!1 &8599950115794810438
 GameObject:
@@ -285,7 +316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5033927213955934867}
   - component: {fileID: 7722644813085452015}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EmitterSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

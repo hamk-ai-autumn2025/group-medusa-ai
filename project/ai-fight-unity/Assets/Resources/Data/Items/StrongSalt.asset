@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4569134377412875439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b142bd67f2f24a46b499860a2195a88, type: 3}
+  m_Name: ConsumeStrongSalt
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  item: {fileID: 11400000}
+  amount: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88b0bbf9af6a42e42ad0ebe318e952a6, type: 3}
+  m_Name: StrongSalt
+  m_EditorClassIdentifier: 
+  type: 1
+  displayName: Strong Salt
+  description: Instantly revives the target to half health. No effect when health
+    is above zero.
+  stackable: 1
+  maxStack: 99
+  value: 50
+  canBeUsed: 1
+  canBeEquipped: 0
+  needsTarget: 1
+  targetGroup: 1
+  consumeOnUse: 1
+  useAbility: {fileID: 1268437432107149776}
+--- !u!114 &492583147041755559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16de33ee5143dad4da63cc871a13904d, type: 3}
+  m_Name: HasStrongSalt
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  postTurn: 0
+  item: {fileID: 11400000}
+  amount: 1
+--- !u!114 &1268437432107149776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46e92850a4241af48ab64af3c4fcabbc, type: 3}
+  m_Name: UseStrongSalt
+  m_EditorClassIdentifier: 
+  displayName: Strong Salt
+  description: Instantly revives the target to half health. No effect when health
+    is above zero.
+  tags: []
+  requiresTarget: 1
+  targetGroup: 1
+  attackSpeed: 3
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
+  consumesMana: 0
+  consumedMana: 0
+  restoresMana: 0
+  restoredMana: 0
+  consumesActionPoints: 0
+  consumedActionPoints: 0
+  restoresActionPoints: 0
+  restoredActionPoints: 0
+  dealsDamage: 0
+  amountDamage: 0
+  isDefensive: 0
+  isSpell: 0
+  isHeal: 1
+  isAttack: 0
+  opensActMenu: 0
+  conditions:
+  - {fileID: 492583147041755559}
+  - {fileID: 11400000, guid: cc6c5b0be9adcbb40a08b1ca1a66dae2, type: 2}
+  effects:
+  - {fileID: -4569134377412875439}
+  - {fileID: 11400000, guid: 92b629810d585a3458511f909f6b9a38, type: 2}
+  minigame: {fileID: 0}
+  dialogueOnUse: {fileID: 0}

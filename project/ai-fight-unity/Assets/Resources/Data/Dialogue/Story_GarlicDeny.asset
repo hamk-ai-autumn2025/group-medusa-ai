@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e100a2eca9f16144b89bbd4c2d941a96, type: 3}
+  m_Name: Story_GarlicDeny
+  m_EditorClassIdentifier: 
+  dialogueName: Story Garlic Deny Text
+  dialogue:
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0
+    text: Hello little cat!
+  - speaker: {fileID: 11400000, guid: 9f589b09030d3c843b41c13e7c976fee, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0
+    text: Hello good sir.
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: '&p4WHAT?
+
+      &p0Did you just speak?'
+  - speaker: {fileID: 11400000, guid: 9f589b09030d3c843b41c13e7c976fee, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'Yes, I am quite capable of speech.
+
+      Anything else you want to ask?'
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'Well to be honest we could use your help.
+
+      Want to join us?'
+  - speaker: {fileID: 11400000, guid: 9f589b09030d3c843b41c13e7c976fee, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'Not so fast.
+
+      I know what we need to do.
+
+      We need to go talk
+      to Brok.'
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0
+    text: Brok?
+  - speaker: {fileID: 11400000, guid: 9f589b09030d3c843b41c13e7c976fee, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'The weird looking computer guy.
+
+      He is in the main plaza.'
+  - speaker: {fileID: 11400000, guid: 9f589b09030d3c843b41c13e7c976fee, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'But before we do that.
+
+      Do you have any food on you?
+
+      &p3I
+      am really hungry.'
+  - speaker: {fileID: 11400000, guid: 21e4f9bb85bf3d44ba4487bc9d247d0a, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: I do not have any food.
+  - speaker: {fileID: 11400000, guid: 9f589b09030d3c843b41c13e7c976fee, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'Well go find some then.
+
+      Come back after that.'
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []

@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: John
   m_EditorClassIdentifier: 
   characterName: John
-  description: Mysterious nimble fighter who takes on the role of the party's damage
-    dealer and main character. He has almost no utility. He is able to do more complex
-    interactions with enemies.
   characterPortraits:
   - {fileID: -1019086157, guid: 31f441948ddc9bb43859ca821ae15613, type: 3}
   - {fileID: 2008078494, guid: 31f441948ddc9bb43859ca821ae15613, type: 3}
@@ -26,3 +23,4 @@ MonoBehaviour:
   characterDialogueSound: sfx_ui_player_dialogue
   rootCommands: {fileID: 11400000, guid: 8e489fbbb4b95ef4d83f730efa8b06e5, type: 2}
   inventory: {fileID: 11400000, guid: a67daa26fe6078a4c88fcd934b60f224, type: 2}
+  isMainPlayerCharacter: 1

@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e100a2eca9f16144b89bbd4c2d941a96, type: 3}
+  m_Name: Story_BlockedSpawnSuccess
+  m_EditorClassIdentifier: 
+  dialogueName: Story Spawn Blocked Text
+  dialogue:
+  - speaker: {fileID: 11400000, guid: 1f3ab7ea342cb0644b26990907ffea4c, type: 2}
+    portrait: 0
+    speed: 20
+    lineBreakPause: 0.5
+    text: 'You try to push the capsule away.
+
+      Greg helps you and it starts
+      moving.
+
+      The path clears.'
+  onComplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: e95c572fb2d3bf245985168e4e9827a2, type: 2}
+        m_TargetAssemblyTypeName: dev.susybaka.TurnBasedGame.Events.RemoveObjectEvent,
+          Assembly-CSharp
+        m_MethodName: TriggerEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 9c94657a30616a544859ea291e474693, type: 2}
+        m_TargetAssemblyTypeName: dev.susybaka.TurnBasedGame.Events.PlaySoundEvent,
+          Assembly-CSharp
+        m_MethodName: TriggerEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

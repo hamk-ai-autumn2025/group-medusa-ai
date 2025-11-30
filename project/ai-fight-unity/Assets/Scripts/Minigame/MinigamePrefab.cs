@@ -18,6 +18,7 @@ namespace dev.susybaka.TurnBasedGame.Minigame
         [SerializeField] private bool destroyedOnContact = false;
         [SerializeField] private bool localSpace = true;
 
+        public UnityEvent<Action> onSpawn;
         public UnityEvent<Action> onInitialize;
 
         private Action onHit;
@@ -29,6 +30,19 @@ namespace dev.susybaka.TurnBasedGame.Minigame
         private bool dd = false;
         private Vector2 _movement = Vector2.zero;
         private Vector3 posi = Vector3.zero;
+
+#if UNITY_EDITOR
+        [NaughtyAttributes.Button("Initialize")]
+        public void InitializeEditor()
+        {
+            Initialize(() => Debug.Log("Hit!"));
+        }
+#endif
+
+        private void Awake()
+        {
+            onSpawn.Invoke(onHit);
+        }
 
         public void Initialize(Action onHit)
         {
@@ -121,7 +135,7 @@ namespace dev.susybaka.TurnBasedGame.Minigame
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        public void OnTriggerEnter2D(Collider2D collision)
         {
             if (!initialized || !active)
                 return;

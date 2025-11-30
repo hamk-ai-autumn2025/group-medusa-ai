@@ -11,6 +11,9 @@ namespace dev.susybaka.TurnBasedGame.Battle.Data
         public override IEnumerator Execute(ActionContext ctx)
         {
             ctx.actor?.ModifyActionPoints(amount);
+
+            // Update the action point bar UI after modifying action points
+            ctx.battle.battleWindow.ActionPointBar.UpdateBar();
             yield break;
         }
     }

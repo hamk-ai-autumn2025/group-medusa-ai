@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd9dcfba7e6a4b4a981a2e2195de293, type: 3}
+  m_Name: CheckMoodVeryAggressive
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  postTurn: 0
+  logicType: 1
+  aggressionLevel: 70
+  checkBelowAggressionThreshold: 0
+  fearLevel: 90
+  checkBelowFearThreshold: 0
+  respectLevel: -1
+  checkBelowRespectThreshold: 0
+  pityLevel: -1
+  checkBelowPityThreshold: 0

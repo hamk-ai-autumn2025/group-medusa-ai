@@ -19,12 +19,15 @@ MonoBehaviour:
   - stat_modifier
   - amount_5
   - type_defensive
+  - runs_on_apply
   type: 2
   isInfinite: 0
   allowRefresh: 0
   maxStacks: 1
   onApply:
   - {fileID: 11400000, guid: e4209dab425a6b147a9c1cfe3911825c, type: 2}
-  onRemove: []
-  onTick:
+  - {fileID: 11400000, guid: 30fb0483129353b448f62a974172b890, type: 2}
+  onRemove:
   - {fileID: 11400000, guid: 81f4606b3ef40274587ff921bcb8b8a6, type: 2}
+  - {fileID: 11400000, guid: 32d1369ad3f9a7f4692806944a42a221, type: 2}
+  onTick: []

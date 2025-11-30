@@ -47,7 +47,7 @@ namespace dev.susybaka.TurnBasedGame.Input
 
         private bool _confirmHoldInput;
         public bool ConfirmHoldInput => _confirmHoldInput;
-        
+
         private bool _nextInput;
         private bool _nextHoldInput;
         private bool _nextReleaseInput;
@@ -63,16 +63,25 @@ namespace dev.susybaka.TurnBasedGame.Input
         public bool PreviousInput => _previousInput;
         public bool PreviousHoldInput => _previousHoldInput;
         public bool PreviousReleaseInput => _previousReleaseInput;
+        private bool _debugSkipInput;
+        public bool DebugSkipInput => _debugSkipInput;
+        private bool _anyInput;
+        public bool AnyInput => _anyInput;
 
         private PlayerInput playerInput;
 
         private InputAction movementAction;
         private InputAction jumpAction;
+        private InputAction jumpMenuAction;
         private InputAction pauseAction;
         private InputAction interactAction;
         private InputAction sprintAction;
         private InputAction backAction;
         private InputAction confirmAction;
+        private InputAction debugSkipActionOw;
+        private InputAction debugSkipActionMenu;
+        private InputAction anyInputOw;
+        private InputAction anyInputMenu;
 
         private bool initialized = false;
         private const float defaultDeadzone = 0.2f;
@@ -103,14 +112,19 @@ namespace dev.susybaka.TurnBasedGame.Input
             sprintAction = playerInput.actions["Sprint"];
             backAction = playerInput.actions["Cancel"];
             confirmAction = playerInput.actions["Submit"];
+            debugSkipActionOw = playerInput.actions["DebugSkipOw"];
+            debugSkipActionMenu = playerInput.actions["DebugSkipMenu"];
+            jumpMenuAction = playerInput.actions["JumpMenu"];
+            anyInputMenu = playerInput.actions["AnyInputMenu"];
+            anyInputOw = playerInput.actions["AnyInput"];
         }
 
         private void UpdateInputs()
         {
             _movementInput = movementAction.ReadValue<Vector2>();
-            _jumpInput = jumpAction.WasPressedThisFrame();
-            _jumpHoldInput = jumpAction.IsPressed();
-            _jumpReleaseInput = jumpAction.WasReleasedThisFrame();
+            _jumpInput = jumpAction.WasPressedThisFrame() || jumpMenuAction.WasPressedThisFrame();
+            _jumpHoldInput = jumpAction.IsPressed() || jumpMenuAction.IsPressed();
+            _jumpReleaseInput = jumpAction.WasReleasedThisFrame() || jumpMenuAction.WasReleasedThisFrame();
             _pauseInput = pauseAction.WasPressedThisFrame();
             _interactInput = interactAction.WasPressedThisFrame();
             _interactHoldInput = interactAction.IsPressed();
@@ -120,6 +134,8 @@ namespace dev.susybaka.TurnBasedGame.Input
             _backHoldInput = backAction.IsPressed();
             _confirmInput = confirmAction.WasPressedThisFrame();
             _confirmHoldInput = confirmAction.IsPressed();
+            _debugSkipInput = debugSkipActionOw.WasPressedThisFrame() || debugSkipActionMenu.WasPressedThisFrame();
+            _anyInput = anyInputOw.WasPressedThisFrame() || anyInputMenu.WasPressedThisFrame();
             DeriveInputsFromVector2(-1 * MovementInput, ref _nextInput, ref _nextHoldInput, ref _nextReleaseInput, ref storedNextInput);
             DeriveInputsFromVector2(MovementInput, ref _previousInput, ref _previousHoldInput, ref _previousReleaseInput, ref storedPreviousInput);
         }

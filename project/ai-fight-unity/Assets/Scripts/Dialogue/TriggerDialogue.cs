@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using dev.susybaka.TurnBasedGame.Dialogue.Data;
 using UnityEngine;
+using UnityEngine.Events;
+using dev.susybaka.TurnBasedGame.Characters;
+using dev.susybaka.TurnBasedGame.Dialogue.Data;
 
 namespace dev.susybaka.TurnBasedGame.Dialogue
 {
@@ -10,9 +12,29 @@ namespace dev.susybaka.TurnBasedGame.Dialogue
         private DialogueHandler dialogueHandler;
 
         public DialogueData data;
+        public bool singleUse = false;
+        public UnityEvent<Character> onComplete;
+
+        private bool done = false;
+
+        private void Awake()
+        {
+            done = false;
+        }
 
         public void Trigger()
         {
+            Trigger(null);
+        }
+
+        public void Trigger(Character character)
+        {
+            if (done)
+                return;
+
+            if (singleUse)
+                done = true;
+
             if (dialogueHandler == null)
             {
                 if (GameManager.DialogueHandlerAvailable)
@@ -21,7 +43,7 @@ namespace dev.susybaka.TurnBasedGame.Dialogue
 
             if (dialogueHandler != null)
             {
-                dialogueHandler.StartDialogue(data);
+                dialogueHandler.StartDialogue(data, new DialogueContext(null, null, null, null), () => { if (character != null) { onComplete.Invoke(character); } });
             }
         }
     }

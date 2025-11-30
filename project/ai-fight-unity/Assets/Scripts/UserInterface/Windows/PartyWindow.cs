@@ -160,6 +160,8 @@ namespace dev.susybaka.TurnBasedGame.UI
         {
             disabled.Clear();
             nav.ClearSkipped();
+            nav.ClearDisabled();
+            nav.Reset();
             // Remove badges, re-enable entries for next round
             if (members == null || members.Count < 1)
                 return;
@@ -170,7 +172,15 @@ namespace dev.susybaka.TurnBasedGame.UI
                 {
                     PartyMemberEntry pm = members[i];
 
-                    pm.name = pool[i].data.characterName;
+                    if (pool[i].health <= 0)
+                    {
+                        pm.name = $"<color=#2F2F2F>{pool[i].data.characterName}</color>";
+                        nav.AddDisabled(i);
+                    }
+                    else
+                    {
+                        pm.name = pool[i].data.characterName;
+                    }
                     pm.nameLabel.text = pm.name;
 
                     members[i] = pm;
@@ -194,7 +204,15 @@ namespace dev.susybaka.TurnBasedGame.UI
                 {
                     PartyMemberEntry pm = members[i];
 
-                    pm.name = pool[i].data.characterName;
+                    if (pool[i].health <= 0)
+                    {
+                        pm.name = $"<color=#2F2F2F>{pool[i].data.characterName}</color>";
+                        nav.AddDisabled(i);
+                    }
+                    else
+                    {
+                        pm.name = pool[i].data.characterName;
+                    }
                     pm.nameLabel.text = pm.name;
 
                     members[i] = pm;
@@ -222,10 +240,20 @@ namespace dev.susybaka.TurnBasedGame.UI
                     }*/
 
                     var name = members[i].name;
-                    if (selected > -1)
-                        members[i].nameLabel.text = (i == selected) ? $"<color=yellow>* {name}</color>" : name;
+                    if (isActive)
+                    {
+                        if (pool[i].health > 0)
+                            nav.RemoveDisabled(i);
+
+                        if (selected > -1)
+                            members[i].nameLabel.text = (i == selected) ? $"<color=yellow>* {name}</color>" : name;
+                        else
+                            members[i].nameLabel.text = name;
+                    }
                     else
+                    {                         
                         members[i].nameLabel.text = name;
+                    }
                     members[i].healthBar.value = pool[i].health;
                     members[i].healthBar.maxValue = pool[i].maxHealth;
                     members[i].healthLabel.text = pool[i].isAlive ? $"{pool[i].health} / {pool[i].maxHealth}" : $"<color=red>{pool[i].health} / {pool[i].maxHealth}</color>";

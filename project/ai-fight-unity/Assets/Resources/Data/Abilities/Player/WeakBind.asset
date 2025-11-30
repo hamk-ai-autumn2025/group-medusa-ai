@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: WeakBind
   m_EditorClassIdentifier: 
   displayName: Weak Bind
-  description: Inflict an opponent with Slow for 2 turns.
+  description: Inflict target with <color=purple>Heavy</color> for <color=green>2</color>
+    turns. <color=purple>Heavy</color> slows down target.
   tags: []
   requiresTarget: 1
   targetGroup: 3
+  attackSpeed: 4
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
   consumesMana: 0
   consumedMana: 0
   restoresMana: 0
@@ -27,8 +32,14 @@ MonoBehaviour:
   restoredActionPoints: 0
   dealsDamage: 0
   amountDamage: 0
+  isDefensive: 0
+  isSpell: 1
+  isHeal: 0
+  isAttack: 1
+  opensActMenu: 0
   conditions:
   - {fileID: 11400000, guid: f40bcd7a68667fe4285c718357618669, type: 2}
   effects:
-  - {fileID: 11400000, guid: 5cd49cffdb9d6964bbca383c62974363, type: 2}
+  - {fileID: 11400000, guid: 52a8929cd6a7ffb4ea43671b41e813d4, type: 2}
   minigame: {fileID: 0}
+  dialogueOnUse: {fileID: 0}

@@ -11,6 +11,7 @@ namespace dev.susybaka.TurnBasedGame.UI
         public int Count { get; private set; } = 0;
         public bool Loop { get; set; } = true;
         public HashSet<int> SkippedIndicies { get; private set; } = new HashSet<int>();
+        public HashSet<int> DisabledIndicies { get; private set; } = new HashSet<int>();
 
         public event Action<int> OnIndexChanged;
 
@@ -27,9 +28,19 @@ namespace dev.susybaka.TurnBasedGame.UI
             SkippedIndicies = new HashSet<int>(indicies);
         }
 
+        public void SetDisabled(IEnumerable<int> indicies)
+        {
+            DisabledIndicies = new HashSet<int>(indicies);
+        }
+
         public void ClearSkipped()
         {
             SkippedIndicies.Clear();
+        }
+
+        public void ClearDisabled()
+        {
+            DisabledIndicies.Clear();
         }
 
         public void AddSkipped(int index)
@@ -40,12 +51,33 @@ namespace dev.susybaka.TurnBasedGame.UI
             SkippedIndicies.Add(index);
         }
 
+        public void AddDisabled(int index)
+        {
+            if (DisabledIndicies.Contains(index))
+                return;
+
+            DisabledIndicies.Add(index);
+        }
+
         public void RemoveSkipped(int index)
         {
             if (!SkippedIndicies.Contains(index))
                 return;
 
             SkippedIndicies.Remove(index);
+        }
+
+        public void RemoveDisabled(int index)
+        {
+            if (!DisabledIndicies.Contains(index))
+                return;
+
+            DisabledIndicies.Remove(index);
+        }
+
+        public bool IsDisabled(int index)
+        {
+            return DisabledIndicies.Contains(index);
         }
 
         public void Reset()

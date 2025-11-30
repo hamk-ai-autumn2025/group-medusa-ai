@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36dc94234817cd7439e7853b5dbc9da2, type: 3}
   m_Name: DealDamageWeakCurse
   m_EditorClassIdentifier: 
+  preTurn: 0
   amount: -10
 --- !u!114 &11400000
 MonoBehaviour:
@@ -26,11 +27,15 @@ MonoBehaviour:
   m_Name: WeakCurse
   m_EditorClassIdentifier: 
   displayName: Weak Curse
-  description: Deal 10 damage and inflict an opponent with Defense Down for 3 turns.
-    Costs 50 <color=yellow>AP</color>.
+  description: Deal <color=red>10</color> damage and inflict an opponent with <color=purple>Defense
+    Down</color> for <color=green>3</color> turns. Costs 50 <color=yellow>AP</color>.
   tags: []
   requiresTarget: 1
   targetGroup: 3
+  attackSpeed: 5
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
   consumesMana: 0
   consumedMana: 0
   restoresMana: 0
@@ -44,8 +49,11 @@ MonoBehaviour:
   isDefensive: 0
   isSpell: 1
   isHeal: 0
+  isAttack: 1
+  opensActMenu: 0
   conditions:
   - {fileID: 11400000, guid: f40bcd7a68667fe4285c718357618669, type: 2}
+  - {fileID: 4400481224311609530}
   effects:
   - {fileID: 3827229854039497620}
   - {fileID: -8989806316812419862}
@@ -64,4 +72,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a898db53a504a4090c6ddc980deaf0, type: 3}
   m_Name: ConsumeActionPointsWeakCurse
   m_EditorClassIdentifier: 
+  preTurn: 1
   amount: -50
+--- !u!114 &4400481224311609530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a806d65261c494bac44f07e43a93b7, type: 3}
+  m_Name: HasActionPointsWeakCurse
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  postTurn: 0
+  actionPointCost: -50

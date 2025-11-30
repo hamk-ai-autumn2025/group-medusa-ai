@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4943001920061379867}
   - component: {fileID: 2924491739174798125}
   - component: {fileID: 8255510998541486343}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TheCloudLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,9 +75,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movement: {x: -1, y: 0, z: -1, w: 0}
+  delay: 0
   lifetime: 3
   invincibilityTime: 0
   destroyedOnContact: 0
+  localSpace: 1
+  onSpawn:
+    m_PersistentCalls:
+      m_Calls: []
   onInitialize:
     m_PersistentCalls:
       m_Calls:
@@ -121,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6628727725957951414}
   - component: {fileID: 2337162695907280403}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Sprite0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

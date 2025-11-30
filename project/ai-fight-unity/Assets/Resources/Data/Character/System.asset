@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: System
   characterPortraits:
-  - {fileID: 21300000, guid: f1114fa41cd1a1d40b3ef2c1a1f9b088, type: 3}
-  - {fileID: 21300000, guid: f1114fa41cd1a1d40b3ef2c1a1f9b088, type: 3}
-  - {fileID: 21300000, guid: f1114fa41cd1a1d40b3ef2c1a1f9b088, type: 3}
-  - {fileID: 21300000, guid: f1114fa41cd1a1d40b3ef2c1a1f9b088, type: 3}
-  - {fileID: 21300000, guid: f1114fa41cd1a1d40b3ef2c1a1f9b088, type: 3}
-  - {fileID: 21300000, guid: f1114fa41cd1a1d40b3ef2c1a1f9b088, type: 3}
+  - {fileID: 21300000, guid: f3c8999cd8fdf4148847e614de40e624, type: 3}
+  - {fileID: 21300000, guid: f3c8999cd8fdf4148847e614de40e624, type: 3}
+  - {fileID: 21300000, guid: f3c8999cd8fdf4148847e614de40e624, type: 3}
+  - {fileID: 21300000, guid: f3c8999cd8fdf4148847e614de40e624, type: 3}
+  - {fileID: 21300000, guid: f3c8999cd8fdf4148847e614de40e624, type: 3}
+  - {fileID: 21300000, guid: f3c8999cd8fdf4148847e614de40e624, type: 3}
   characterDialogueSound: sfx_ui_system_dialogue
+  rootCommands: {fileID: 0}
+  inventory: {fileID: 0}
+  isMainPlayerCharacter: 0

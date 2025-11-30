@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e6183bce3666b47b11624266633ba1, type: 3}
+  m_Name: BitCrush
+  m_EditorClassIdentifier: 
+  startDelay: 2
+  finishDelay: 2
+  isAddMinigame: 1
+  pickRandomEvent: 1
+  randomizeEventOrder: 0
+  randomizeOrderBetweenLoops: 0
+  useGravity: 0
+  events:
+  - name: Spawn BitBomb Above Left
+    prefabs:
+    - name: BitBomb
+      prefab: {fileID: 4608246941036013009, guid: d534f8c7563a9bd409f602fc207e7dc0, type: 3}
+      spawnLocation: {x: -0.7, y: 3.7}
+      rotation: 0
+    duration: 1
+    repeatCount: 0
+  - name: Spawn BitBomb Above Right
+    prefabs:
+    - name: BitBomb
+      prefab: {fileID: 4608246941036013009, guid: d534f8c7563a9bd409f602fc207e7dc0, type: 3}
+      spawnLocation: {x: 0.7, y: 3.7}
+      rotation: 0
+    duration: 1
+    repeatCount: 0
+  - name: Spawn BitBomb Left Top
+    prefabs:
+    - name: BitBomb
+      prefab: {fileID: 4608246941036013009, guid: d534f8c7563a9bd409f602fc207e7dc0, type: 3}
+      spawnLocation: {x: -2.3, y: 2.2}
+      rotation: 0
+    duration: 1
+    repeatCount: 0
+  - name: Spawn BitBomb Left Below
+    prefabs:
+    - name: BitBomb
+      prefab: {fileID: 4608246941036013009, guid: d534f8c7563a9bd409f602fc207e7dc0, type: 3}
+      spawnLocation: {x: -2.3, y: 0.5}
+      rotation: 0
+    duration: 1
+    repeatCount: 0
+  - name: Spawn BitBomb Right Below
+    prefabs:
+    - name: BitBomb
+      prefab: {fileID: 4608246941036013009, guid: d534f8c7563a9bd409f602fc207e7dc0, type: 3}
+      spawnLocation: {x: 2.3, y: 0.5}
+      rotation: 0
+    duration: 1
+    repeatCount: 0
+  - name: Spawn BitBomb Right Top
+    prefabs:
+    - name: BitBomb
+      prefab: {fileID: 4608246941036013009, guid: d534f8c7563a9bd409f602fc207e7dc0, type: 3}
+      spawnLocation: {x: 2.3, y: 2.2}
+      rotation: 0
+    duration: 1
+    repeatCount: 0

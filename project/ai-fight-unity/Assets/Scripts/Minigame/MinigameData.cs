@@ -9,6 +9,11 @@ namespace dev.susybaka.TurnBasedGame.Minigame.Data
     {
         public float startDelay = 2f;
         public float finishDelay = 2f;
+        public bool isAddMinigame = false;
+        public bool pickRandomEvent = false;
+        public bool randomizeEventOrder = false;
+        public bool randomizeOrderBetweenLoops = false;
+        public bool useGravity = false;
         public MinigameEvent[] events;
 
 #if UNITY_EDITOR
@@ -42,6 +47,7 @@ namespace dev.susybaka.TurnBasedGame.Minigame.Data
         public string name;
         public MinigamePrefabSpawn[] prefabs;
         public float duration;
+        public int repeatCount;
     }
 
     [System.Serializable]

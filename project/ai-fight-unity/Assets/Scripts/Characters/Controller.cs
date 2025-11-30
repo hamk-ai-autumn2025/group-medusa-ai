@@ -38,7 +38,7 @@ namespace dev.susybaka.TurnBasedGame.Characters
 
             if (flipSprite)
             {
-                if ((m_rigidbody.velocity.y < 0f || m_rigidbody.velocity.y > 0f))
+                if ((m_rigidbody.velocity.y < -0.01f || m_rigidbody.velocity.y > 0.01f))
                 {
                     m_renderer.flipX = false;
                     spriteFlipped = false;

@@ -12,19 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f3d56961031a447a50d24bfa8c5b91, type: 3}
   m_Name: DefenseUp1
   m_EditorClassIdentifier: 
-  displayName: Defense Up +1
+  displayName: Defense Up+1
   description: Your defense is increased by 10 points.
   tags:
   - buff
   - stat_modifier
   - amount_10
   - type_defensive
+  - runs_on_apply
   type: 1
   isInfinite: 0
   allowRefresh: 0
   maxStacks: 1
   onApply:
   - {fileID: 11400000, guid: c5a8fb309cd065c428d530e52f04238e, type: 2}
-  onRemove: []
-  onTick:
+  - {fileID: 11400000, guid: e5b9d115833e32a4886829ae86605b06, type: 2}
+  onRemove:
   - {fileID: 11400000, guid: 5bb2ccdf30c6923418e9a9e0b75c4b03, type: 2}
+  - {fileID: 11400000, guid: ff78769fe6b08934797732478f6f767e, type: 2}
+  onTick: []

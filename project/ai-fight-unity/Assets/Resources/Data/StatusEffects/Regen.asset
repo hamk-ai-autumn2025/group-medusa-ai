@@ -19,12 +19,15 @@ MonoBehaviour:
   - resource_generation
   - amount_10
   - type_heal
+  - runs_on_every_turn
   type: 1
   isInfinite: 0
   allowRefresh: 0
   maxStacks: 1
   onApply:
   - {fileID: 11400000, guid: d0d851881a6ea83439d5d941314a63f7, type: 2}
-  onRemove: []
+  - {fileID: 11400000, guid: 7f95777bc78651b44a73d89ad3477a2d, type: 2}
+  onRemove:
+  - {fileID: 11400000, guid: a66b14501f9ce8d4a8448921e3c39f28, type: 2}
   onTick:
   - {fileID: 11400000, guid: aa88a8e70d1a64944a6d36b8e13ae474, type: 2}

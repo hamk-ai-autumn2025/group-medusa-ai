@@ -18,7 +18,7 @@ MonoBehaviour:
     portrait: 0
     speed: 20
     lineBreakPause: 0
-    text: Brok challenges you into a fight!
+    text: Brok stands in your way!
   onComplete:
     m_PersistentCalls:
       m_Calls:

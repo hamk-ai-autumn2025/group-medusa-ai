@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using dev.susybaka.Shared.UI;
+using UnityEngine;
 using dev.susybaka.TurnBasedGame.Battle;
 using dev.susybaka.TurnBasedGame.Battle.Data;
 using dev.susybaka.TurnBasedGame.Characters;
 using dev.susybaka.TurnBasedGame.Interfaces;
-using UnityEngine;
+using dev.susybaka.Shared.Attributes;
+using dev.susybaka.Shared.UI;
+using dev.susybaka.Shared.Audio;
 
 namespace dev.susybaka.TurnBasedGame.UI
 {
@@ -14,6 +16,7 @@ namespace dev.susybaka.TurnBasedGame.UI
         public enum MenuMode { Nodes, Abilities }
 
         [SerializeField] private ActionWindow subWindow;
+        [SerializeField, SoundName] private string actionUnavailableSound = "<None>";
 
         private readonly ListNavigator nav = new ListNavigator();
         private readonly List<CommandNodeData> nodes = new List<CommandNodeData>();
@@ -79,6 +82,16 @@ namespace dev.susybaka.TurnBasedGame.UI
             SelectLine();
         }
 
+        public bool CheckConditionsForAbility(Character actor, AbilityData ability, IList<Character> targets)
+        {
+            List<Character> targetsList = new List<Character>(targets);
+
+            if (targetsList == null || targetsList.Count < 1)
+                targetsList = new List<Character>();
+
+            return abilityRunner.Conditions(new ActionContext(gameManager, gameManager.BattleHandler, actor, targetsList, ability));
+        }
+
         public void OpenForNodesPlanning(Character actor, IEnumerable<CommandNodeData> nodes)
         {
             planningMode = true;
@@ -139,12 +152,24 @@ namespace dev.susybaka.TurnBasedGame.UI
         private void RebuildUI()
         {
             scrollBox.lines.Clear();
+            nav.ClearDisabled();
 
             if (mode == MenuMode.Abilities)
             {
+                int i = 0;
+
                 foreach (AbilityData abilityData in abilities)
                 {
-                    scrollBox.lines.Add(currentNodeProvider != null ? currentNodeProvider.GetLabel(actor, abilityData) : abilityData.displayName);
+                    if (CheckConditionsForAbility(actor, abilityData, new List<Character>()))
+                    {
+                        scrollBox.lines.Add(currentNodeProvider != null ? currentNodeProvider.GetLabel(actor, abilityData) : abilityData.displayName);
+                    }
+                    else
+                    {
+                        scrollBox.lines.Add(string.Format("<color=#2F2F2F>{0}</color>", currentNodeProvider != null ? currentNodeProvider.GetLabel(actor, abilityData) : abilityData.displayName));
+                        nav.AddDisabled(i);
+                    }
+                    i++;
                 }
             }
             else
@@ -178,7 +203,14 @@ namespace dev.susybaka.TurnBasedGame.UI
                     SelectLine();
                     break;
                 case HudNavCommand.Submit:
-                    ActivateCurrent();
+                    if (!nav.IsDisabled(nav.Index))
+                    {
+                        ActivateCurrent();
+                    }
+                    else if (AudioManager.Instance != null && !string.IsNullOrEmpty(actionUnavailableSound))
+                    {
+                        AudioManager.Instance.Play(actionUnavailableSound);
+                    }
                     break;
                 case HudNavCommand.Back:
                     navHandler.PopWindow();
@@ -268,7 +300,7 @@ namespace dev.susybaka.TurnBasedGame.UI
 
         private IEnumerator IE_ExecuteThenReturn(AbilityData ability, Character actor, IList<Character> targets)
         {
-            yield return abilityRunner.Run(ability, actor, targets);
+            yield return abilityRunner.Run(new ActionContext(gameManager, gameManager.BattleHandler, actor, targets, ability));
             navHandler?.ReturnToRoot();
         }
 

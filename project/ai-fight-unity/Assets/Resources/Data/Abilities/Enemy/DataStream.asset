@@ -13,16 +13,21 @@ MonoBehaviour:
   m_Name: DataStream
   m_EditorClassIdentifier: 
   displayName: Data Stream
-  description: Spell that summons a fast rotating beam of projectiles that deal 40
+  description: Spell that summons a fast rotating beam of projectiles that deal <color=red>40</color>
     damage on succesful hit.
   tags:
   - magic
   - target_single
-  - dodge_chance_low
+  - dodge_chance_medium
   - speed_fast
   - minigame_type_bullethell
+  - cost_none
   requiresTarget: 1
   targetGroup: 3
+  attackSpeed: 3
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
   consumesMana: 0
   consumedMana: 0
   restoresMana: 0
@@ -36,12 +41,14 @@ MonoBehaviour:
   isDefensive: 0
   isSpell: 1
   isHeal: 0
+  isAttack: 0
+  opensActMenu: 0
   conditions:
   - {fileID: 11400000, guid: f40bcd7a68667fe4285c718357618669, type: 2}
   effects:
   - {fileID: 2866040469378925933}
   minigame: {fileID: 11400000, guid: 6b203652cd6cabd4f9b9a8eab1b65bef, type: 2}
-  dialogueOnUse: {fileID: 11400000, guid: 90a5fc97bc985ea4da1eb35df0340b28, type: 2}
+  dialogueOnUse: {fileID: 11400000, guid: 24b868846e39c4442915befa5b856b68, type: 2}
 --- !u!114 &2866040469378925933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,4 +61,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36dc94234817cd7439e7853b5dbc9da2, type: 3}
   m_Name: DealDamageDataBeam
   m_EditorClassIdentifier: 
+  preTurn: 0
   amount: -40

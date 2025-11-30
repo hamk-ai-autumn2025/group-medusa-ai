@@ -103,7 +103,8 @@ namespace dev.susybaka.TurnBasedGame.UI
                     nav.Prev();
                     break;
                 case HudNavCommand.Submit:
-                    Execute(commands[nav.Index]);
+                    if (!nav.IsDisabled(nav.Index))
+                        Execute(commands[nav.Index]);
                     break;
                 case HudNavCommand.Back:
                     Back();

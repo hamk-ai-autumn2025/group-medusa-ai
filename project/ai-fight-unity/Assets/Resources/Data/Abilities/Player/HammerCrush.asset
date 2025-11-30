@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8847791102277775102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a806d65261c494bac44f07e43a93b7, type: 3}
+  m_Name: HasActionPointsHammerCrush
+  m_EditorClassIdentifier: 
+  preTurn: 1
+  postTurn: 0
+  actionPointCost: -25
 --- !u!114 &-8003006647363495680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12,6 +27,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36dc94234817cd7439e7853b5dbc9da2, type: 3}
   m_Name: DealDamageHammerCrush
   m_EditorClassIdentifier: 
+  preTurn: 0
   amount: -35
 --- !u!114 &-6872163602187422734
 MonoBehaviour:
@@ -25,6 +41,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a898db53a504a4090c6ddc980deaf0, type: 3}
   m_Name: ConsumeActionPointsHammerCrush
   m_EditorClassIdentifier: 
+  preTurn: 1
   amount: -25
 --- !u!114 &11400000
 MonoBehaviour:
@@ -39,11 +56,15 @@ MonoBehaviour:
   m_Name: HammerCrush
   m_EditorClassIdentifier: 
   displayName: Hammer Crush
-  description: Attack an opponent with your hammer dealing 35 blunt damage. Costs
-    25 <color=yellow>AP</color>.
+  description: Attack an opponent with your hammer dealing <color=red>35</color>
+    blunt damage. Costs 25 <color=yellow>AP</color>.
   tags: []
   requiresTarget: 1
   targetGroup: 3
+  attackSpeed: 2
+  minimumDamageModifier: 0.5
+  critDamageModifier: 1.5
+  minimumAccuracyModifier: 0.8
   consumesMana: 0
   consumedMana: 0
   restoresMana: 0
@@ -57,7 +78,10 @@ MonoBehaviour:
   isDefensive: 0
   isSpell: 0
   isHeal: 0
-  conditions: []
+  isAttack: 1
+  opensActMenu: 0
+  conditions:
+  - {fileID: -8847791102277775102}
   effects:
   - {fileID: -6872163602187422734}
   - {fileID: -8003006647363495680}

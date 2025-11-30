@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6f3d56961031a447a50d24bfa8c5b91, type: 3}
+  m_Name: Guard
+  m_EditorClassIdentifier: 
+  displayName: Guard
+  description: Your defense is increased by 10 points.
+  tags:
+  - buff
+  - stat_modifier
+  - amount_10
+  - type_defensive
+  - runs_on_apply
+  type: 1
+  isInfinite: 0
+  allowRefresh: 0
+  maxStacks: 1
+  onApply:
+  - {fileID: 11400000, guid: 31b47b323bc3d9845aa10d5adc18e17b, type: 2}
+  onRemove:
+  - {fileID: 11400000, guid: b47dc401453140c498d81fcded725afd, type: 2}
+  onTick: []

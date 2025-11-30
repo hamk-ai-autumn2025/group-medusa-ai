@@ -17,6 +17,9 @@ namespace dev.susybaka.TurnBasedGame.Characters
         public string Id => data != null ? data.name : string.Empty;
         private Party party;
         public Party Party => party;
+        protected Transform characterTransform;
+        public Transform CharacterTransform => characterTransform;
+        protected Animator animator;
 
         [Header("Character")]
         [Min(1)] public int level = 1;
@@ -33,18 +36,23 @@ namespace dev.susybaka.TurnBasedGame.Characters
         public bool isFighting = false;
         protected bool wasFighting = false;
         public Flag isSilenced = new Flag("isSilenced", new List<Flag.Value> { new Flag.Value("base", false) }, FlagAggregateLogic.AllTrue);
+        public Flag allowHealing = new Flag("allowHealing", new List<Flag.Value> { new Flag.Value("base", true) }, FlagAggregateLogic.AllTrue);
         public AbilityData[] KnownAbilities;
         public AbilityData[] KnownSpells;
         public InventoryData InventoryData => data.inventory;
         public Inventory Inventory => InventoryHandler.Get(InventoryData);
         [SoundName] public string damageSound = "<None>";
+        [SoundName] public string deathSound = "<None>";
+        public Transform visualEffectParent;
 
-        private SpriteRenderer[] renderers;
+        protected SpriteRenderer[] renderers;
         private Coroutine ieSpriteHitEffect;
         private List<StatusEffect> statusEffects = new List<StatusEffect>();
+        private Dictionary<string, GameObject> activeVisualEffects = new Dictionary<string, GameObject>();
 
         private List<KnowledgeBank> knowledgeBanks = new List<KnowledgeBank>();
         public List<KnowledgeBank> KnowledgeBanks => knowledgeBanks;
+        private bool hasDied = false;
 
 #if UNITY_EDITOR
         [NaughtyAttributes.Button("Log Knowledge Banks")]
@@ -78,6 +86,10 @@ namespace dev.susybaka.TurnBasedGame.Characters
             isAlive = true;
             renderers = GetComponentsInChildren<SpriteRenderer>(true);
             ieSpriteHitEffect = null;
+            characterTransform = this.transform;
+            animator = characterTransform.GetComponentInChildren<Animator>(true);
+
+            //Debug.Log("Character Awake: " + Id);
         }
 
         public virtual void Initialize(Party party = null)
@@ -104,14 +116,33 @@ namespace dev.susybaka.TurnBasedGame.Characters
                 else
                     damage = -1;
             }
+            else if (damage > 0) // If receiving healing (damage is positive), prevent healing if not allowed
+            {
+                if (!allowHealing.value)
+                    return;
+            }
 
             health += damage;
 
             isAlive = health > 0;
             
+            if (animator != null)
+            {
+                animator.SetBool("isAlive", isAlive);
+            }
+
             if (health > maxHealth)
             {
                 health = maxHealth;
+            }
+
+            if (!isAlive)
+            {
+                DeathEffect();
+            }
+            else
+            {
+                hasDied = false;
             }
         }
 
@@ -286,20 +317,95 @@ namespace dev.susybaka.TurnBasedGame.Characters
         // Visual and audio effects
         public virtual void DamageEffect(int value)
         {
-            if (AudioManager.Instance != null)
-                AudioManager.Instance.Play(damageSound);
-            
-            if (renderers != null && renderers.Length > 0 && ieSpriteHitEffect == null)
-                ieSpriteHitEffect = StartCoroutine(IE_SpriteHitEffect());
+            if (characterTransform == null)
+            {
+                characterTransform = this.transform;
+            }
 
-            GameManager.Instance.BattleHandler.battleWindow.PopupWindow.SpawnTextPopup(this.transform, Vector2.zero, $"<color=red>{Mathf.Abs(value)}</color>");
-            GameManager.Instance.BattleHandler.battleWindow.PopupWindow.SpawnSliderPopup(this.transform, Vector2.zero, health, maxHealth);
+            if (value != 0)
+            {
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.Play(damageSound);
+
+                if (renderers != null && renderers.Length > 0 && ieSpriteHitEffect == null)
+                    ieSpriteHitEffect = StartCoroutine(IE_SpriteHitEffect());
+
+                GameManager.Instance.BattleHandler.battleWindow.PopupWindow.SpawnTextPopup(characterTransform, Vector2.zero, $"<color=red>{Mathf.Abs(value)}</color>");
+                GameManager.Instance.BattleHandler.battleWindow.PopupWindow.SpawnSliderPopup(characterTransform, Vector2.zero, health, maxHealth);
+
+                // Trigger hit animation
+                if (animator != null)
+                {
+                    animator.SetTrigger("hit");
+                }
+            }
+            else
+            {
+                // For now we just show a "MISS" popup
+                // Additional miss effects can be added here later
+                GameManager.Instance.BattleHandler.battleWindow.PopupWindow.SpawnTextPopup(characterTransform, Vector2.zero, $"<color=white>MISS</color>");
+            }
         }
 
         public virtual void HealEffect(int value)
         {
-            GameManager.Instance.BattleHandler.battleWindow.PopupWindow.SpawnTextPopup(this.transform, Vector2.zero, $"<color=green>{value}</color>");
-            GameManager.Instance.BattleHandler.battleWindow.PopupWindow.SpawnSliderPopup(this.transform, Vector2.zero, health, maxHealth);
+            if (characterTransform == null)
+            {
+                characterTransform = this.transform;
+            }
+
+            if (value != 0)
+            {
+                GameManager.Instance.BattleHandler.battleWindow.PopupWindow.SpawnTextPopup(characterTransform, Vector2.zero, $"<color=green>{value}</color>");
+                GameManager.Instance.BattleHandler.battleWindow.PopupWindow.SpawnSliderPopup(characterTransform, Vector2.zero, health, maxHealth);
+            }
+            else
+            {
+                // For now we just show a "MISS" popup
+                // Additional miss effects can be added here later
+                GameManager.Instance.BattleHandler.battleWindow.PopupWindow.SpawnTextPopup(characterTransform, Vector2.zero, $"<color=white>MISS</color>");
+            }
+        }
+
+        public virtual void DeathEffect()
+        {
+            if (characterTransform == null)
+            {
+                characterTransform = this.transform;
+            }
+
+            if (hasDied)
+                return;
+
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.Play(deathSound);
+
+            hasDied = true;
+        }
+
+        public virtual void SpawnVisualEffect(GameObject effectPrefab)
+        {
+            if (effectPrefab == null || visualEffectParent == null)
+                return;
+
+            if (!activeVisualEffects.ContainsKey(effectPrefab.name))
+            {
+                GameObject spawned = Instantiate(effectPrefab, visualEffectParent);
+                activeVisualEffects.Add(effectPrefab.name, spawned);
+            }
+        }
+
+        public virtual void RemoveVisualEffect(GameObject effectPrefab)
+        {
+            if (effectPrefab == null || visualEffectParent == null)
+                return;
+
+            if (activeVisualEffects.ContainsKey(effectPrefab.name))
+            {
+                GameObject toRemove = activeVisualEffects[effectPrefab.name];
+                activeVisualEffects.Remove(effectPrefab.name);
+                Destroy(toRemove);
+            }
         }
 
         protected IEnumerator IE_SpriteHitEffect()
@@ -307,11 +413,13 @@ namespace dev.susybaka.TurnBasedGame.Characters
             for (int i = 0; i < renderers.Length; i++)
             {
                 renderers[i].material.SetFloat("_HitEffectBlend", 1f);
+                renderers[i].material.SetFloat("_ShakeAmount", 1f);
             }
             yield return new WaitForSeconds(0.5f);
             for (int i = 0; i < renderers.Length; i++)
             {
                 renderers[i].material.SetFloat("_HitEffectBlend", 0f);
+                renderers[i].material.SetFloat("_ShakeAmount", 0f);
             }
             ieSpriteHitEffect = null;
         }

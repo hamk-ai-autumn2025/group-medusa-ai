@@ -9,10 +9,19 @@ namespace dev.susybaka.TurnBasedGame.Battle.Data
 
         public override bool Evaluate(ActionContext ctx, out string reason)
         {
-            if (ctx.actor.mana >= manaCost)
-            { reason = null; return true; }
+            if (ctx.actor.mana >= Mathf.Abs(manaCost))
+            { 
+                reason = null; 
+                return true; 
+            }
             reason = "Not enough Mana";
             return false;
+        }
+
+        public void Reset()
+        {
+            preTurn = true;
+            manaCost = 0;
         }
     }
 }

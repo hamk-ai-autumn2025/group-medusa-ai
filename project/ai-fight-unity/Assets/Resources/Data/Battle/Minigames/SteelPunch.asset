@@ -14,18 +14,103 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startDelay: 2
   finishDelay: 2
+  pickRandomEvent: 0
   events:
   - name: SpawnSteelPunchRight
     prefabs:
-    - name: SteelFistLeft
-      prefab: {fileID: 8603360073234074885, guid: 3795cf801845d1241bf4a68c87e2c7bf, type: 3}
-      spawnLocation: {x: 3, y: 2.75}
+    - name: SteelFistLeftFast
+      prefab: {fileID: 5367536041308265772, guid: 229d0a3edf899d64fa1343f517758684, type: 3}
+      spawnLocation: {x: 3, y: 1.6}
       rotation: 0
-    duration: 3
+    duration: 1
+  - name: SpawnSteelPunchLeft1
+    prefabs:
+    - name: SteelFistRightFast
+      prefab: {fileID: 5106121771075584789, guid: d6675734259fc04478c0b1113eb467e5, type: 3}
+      spawnLocation: {x: -3, y: 0.45}
+      rotation: 0
+    duration: 0
+  - name: SpawnSteelPunchLeft2
+    prefabs:
+    - name: SteelFistRightFast
+      prefab: {fileID: 5106121771075584789, guid: d6675734259fc04478c0b1113eb467e5, type: 3}
+      spawnLocation: {x: -3, y: 2.6}
+      rotation: 0
+    duration: 1
+  - name: SpawnSteelPunchTopMiddle
+    prefabs:
+    - name: SteelFistLeftFast
+      prefab: {fileID: 5367536041308265772, guid: 229d0a3edf899d64fa1343f517758684, type: 3}
+      spawnLocation: {x: 0, y: 4.4}
+      rotation: 90
+    duration: 0
+  - name: SpawnSteelPunchRight
+    prefabs:
+    - name: SteelFistLeftFast
+      prefab: {fileID: 5367536041308265772, guid: 229d0a3edf899d64fa1343f517758684, type: 3}
+      spawnLocation: {x: 3, y: 2.6}
+      rotation: 0
+    duration: 1
+  - name: SpawnSteelPunchTopMiddle
+    prefabs:
+    - name: SteelFistLeftFast
+      prefab: {fileID: 5367536041308265772, guid: 229d0a3edf899d64fa1343f517758684, type: 3}
+      spawnLocation: {x: 0, y: 4.4}
+      rotation: 90
+    duration: 0
   - name: SpawnSteelPunchLeft
     prefabs:
-    - name: SteelFistRight
-      prefab: {fileID: 2803675019831633357, guid: 4f620f84935b7da44b764689a7dd2490, type: 3}
+    - name: SteelFistRightFast
+      prefab: {fileID: 5106121771075584789, guid: d6675734259fc04478c0b1113eb467e5, type: 3}
       spawnLocation: {x: -3, y: 0.4}
       rotation: 0
-    duration: 3
+    duration: 0
+  - name: SpawnSteelPunchRight
+    prefabs:
+    - name: SteelFistLeftFast
+      prefab: {fileID: 5367536041308265772, guid: 229d0a3edf899d64fa1343f517758684, type: 3}
+      spawnLocation: {x: 3, y: 2.6}
+      rotation: 0
+    duration: 1
+  - name: SpawnSteelPunchRight
+    prefabs:
+    - name: SteelFistRightFast
+      prefab: {fileID: 5106121771075584789, guid: d6675734259fc04478c0b1113eb467e5, type: 3}
+      spawnLocation: {x: -3, y: 1.4}
+      rotation: 0
+    duration: 0
+  - name: SpawnSteelPunchTopMiddle
+    prefabs:
+    - name: SteelFistLeftFast
+      prefab: {fileID: 5367536041308265772, guid: 229d0a3edf899d64fa1343f517758684, type: 3}
+      spawnLocation: {x: 0, y: 4.4}
+      rotation: 90
+    duration: 1
+  - name: SpawnSteelPunchRight
+    prefabs:
+    - name: SteelFistLeftFast
+      prefab: {fileID: 5367536041308265772, guid: 229d0a3edf899d64fa1343f517758684, type: 3}
+      spawnLocation: {x: 3, y: 1.4}
+      rotation: 0
+    duration: 0
+  - name: SpawnSteelPunchLeft
+    prefabs:
+    - name: SteelFistRightFast
+      prefab: {fileID: 5106121771075584789, guid: d6675734259fc04478c0b1113eb467e5, type: 3}
+      spawnLocation: {x: -3, y: 0.4}
+      rotation: 0
+    duration: 0
+  - name: SpawnSteelPunchTopLeft
+    prefabs:
+    - name: SteelFistLeftFast
+      prefab: {fileID: 5367536041308265772, guid: 229d0a3edf899d64fa1343f517758684, type: 3}
+      spawnLocation: {x: -1.1, y: 4.4}
+      rotation: 90
+    duration: 0
+  - name: SpawnSteelPunchTopRight
+    prefabs:
+    - name: SteelFistRightFast
+      prefab: {fileID: 5106121771075584789, guid: d6675734259fc04478c0b1113eb467e5, type: 3}
+      spawnLocation: {x: 1.1, y: 4.4}
+      rotation: -90
+    duration: 1
